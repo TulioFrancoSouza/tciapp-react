@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ReportSection = () => {
+  const [timeTravelTo, setTimeTravelTo] = useState(0);
+  const [timeTravelFrom, setTimeTravelFrom] = useState(0);
+  const [timeArrival, setTimeArrival] = useState(0);
+
+  console.log(timeArrival)
+
   return (
     <div>
       <div className="flex justify-start flex-wrap text-left ml-14 mr-14 my-2 py-4">
@@ -21,14 +27,15 @@ const ReportSection = () => {
         <div className="mr-4">
           <h2 className="font-bold">Travel to (min):</h2>
           <input
-            className="mb-2  border p-2 rounded-lg border-zinc-700"
-            type="text"
-            size="10"
+            onChange={(event) => setTimeTravelTo(event.target.value)}
+            className="mb-2 w-[100px] border p-2 rounded-lg border-zinc-700"
+            type="number"
           />
         </div>
         <div className="mr-4">
           <h2 className="font-bold">Arrival:</h2>
           <input
+            onChange={(value) => setTimeArrival(value)}
             className="mb-2  border p-2 rounded-lg border-zinc-700"
             type="time"
           />
@@ -44,15 +51,15 @@ const ReportSection = () => {
         <div className="mr-4">
           <h2 className="font-bold">Travel from (min):</h2>
           <input
-            className="mb-2  border p-2 rounded-lg border-zinc-700"
-            type="text"
-            size="10"
+            onChange={(event) => {setTimeTravelFrom(event.target.value)}}
+            className="mb-2 w-[100px] border p-2 rounded-lg border-zinc-700"
+            type="number"
           />
         </div>
         <div className="mr-4">
           <h2 className="font-bold">Total Time(min):</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            120
+            {Number(timeTravelTo) + Number(timeTravelFrom)}
           </div>
         </div>
         <div className="mr-4">
