@@ -2,8 +2,8 @@ import React from "react"
 import Logo from "../assets/TCI-name-logo.jpg"
 import ProfilePic from "../assets/Profile-pic.jpg"
 import { Link, useLocation } from "react-router-dom"
-import Search from "./Search"
-import Filter from "./Filter"
+import Search from "./summary/Search"
+import Filter from "./summary/Filter"
 
 const Header = () => {
 
@@ -11,15 +11,15 @@ const Header = () => {
 
   return (
     <div>
-      <div className="flex justify-between align-center mt-8 ml-14 mr-14 ">
+      <div className="em:block em:ml-5 em:mr-5	flex justify-between align-center mt-8 ml-14 mr-14 ">
         <Link to="/account">
-          <div className="flex justify-evenly align-center">
+          <div className="em:justify-start flex justify-evenly align-center">
             <img
               className="object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
               src={ProfilePic}
               alt="Techni-Connection"
             ></img>
-            <h1 className="tex-black font-extrabold">
+            <h1 className="em:text-sm tex-black font-extrabold">
               Hello, <br></br>
               <span className="text-sm"> Slav</span>.
             </h1>
@@ -31,7 +31,7 @@ const Header = () => {
 
         <div>
           <img
-            className="object-scale-down h-12 w-24"
+            className="em:hidden sm:object-sclae-down sm:h-6 sm:w-12 object-scale-down h-12 w-24"
             src={Logo}
             alt="Techni-Connection"
           ></img>

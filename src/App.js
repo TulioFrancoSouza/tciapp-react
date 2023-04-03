@@ -1,10 +1,10 @@
 import React from "react";
-import Signin from "./components/Signin";
-import Signup from "./components/Signup";
-import Account from "./components/Account";
-import Summary from "./components/Summary";
-import Terms from "./components/Terms";
-import TicketInfo from "./components/TicketInfo";
+import Signin from "./components/home/Signin";
+import Signup from "./components/home/Signup";
+import Account from "./pages/Account";
+import Summary from "./pages/Summary";
+import Terms from "./pages/Terms";
+import TicketInfo from "./pages/TicketInfo";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
