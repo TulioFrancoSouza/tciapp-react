@@ -12,16 +12,17 @@ const Header = () => {
   return (
     <div>
       <div className="em:block em:ml-5 em:mr-5	flex justify-between align-center mt-8 ml-14 mr-14 ">
-        <Link to="/account">
+        
+        <Link to={location.pathname === "/summary" ? "/account" : "#" }>
           <div className="em:justify-start flex justify-evenly align-center">
             <img
-              className="object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
+              className="em:mt-0 object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
               src={ProfilePic}
               alt="Techni-Connection"
             ></img>
             <h1 className="em:text-sm tex-black font-extrabold">
               Hello, <br></br>
-              <span className="text-sm"> Slav</span>.
+              <span className="text-sm">Slav Morov</span>.
             </h1>
           </div>
         </Link>
@@ -31,14 +32,14 @@ const Header = () => {
 
         <div>
           <img
-            className="em:hidden sm:object-sclae-down sm:h-6 sm:w-12 object-scale-down h-12 w-24"
+            className="em:hidden sm:object-sclae-down object-scale-down h-12 w-24"
             src={Logo}
             alt="Techni-Connection"
           ></img>
         </div>
       </div>
       <div>
-        <hr class="my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr class="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
     </div>
   );

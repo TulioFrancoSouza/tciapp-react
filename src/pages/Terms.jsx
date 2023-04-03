@@ -8,16 +8,16 @@ const Agreement = () => {
       <Header />
       <div>
         <Link to="/ticketinfo">
-          <button className="ml-14 mt-8 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
+          <button className="em:ml-5 em:mt-0 ml-14 mt-8 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
             Back
           </button>
         </Link>
       </div>
 
-      <div className="ml-14 mr-14 mt-4">
-        <h1 className="text-3xl text-center font-bold">Terms and Conditions</h1>
-        <h2 className="mt-8 text-2xl">Techini-Connection</h2>
-        <p className="bg-white p-4 text-justify">
+      <div className="em:ml-5 em:mr-5 ml-14 mr-14 mt-4">
+        <h1 className="em:text-lg text-3xl text-center font-bold">Terms and Conditions</h1>
+        <h2 className="em:text-sm em:mt-3 mt-8 text-2xl">Techini-Connection</h2>
+        <p className="em:p-0 em:mt-3 bg-white  p-4 text-justify">
           These Terms of Service along with any other terms and policies
           referenced herein, and are incorporated herein by reference and form
           an integral part hereof, as amended from time to time (these “Terms”)
@@ -56,8 +56,8 @@ const Agreement = () => {
           SERVICE OR THE SITES OR monday.com MOBILE APPLICATION.
         </p>
 
-        <h2 className="mt-8 text-2xl">1. Our service</h2>
-        <p className="bg-white p-4 text-justify">
+        <h2 className="em:mt-3 em:text-lg mt-8 text-2xl">1. Our service</h2>
+        <p className="em:p-0 em:mt-3 bg-white  p-4 text-justify">
           The monday.com platform is a cloud-based visual work management tool
           that transforms the way teams work together, with the aim to build a
           culture of transparency, ownership and accountability, inclusive of
@@ -68,10 +68,10 @@ const Agreement = () => {
           reference and form an integral part hereof.
         </p>
 
-        <h2 className="mt-8 text-2xl">
+        <h2 className="em:mt-3 em:text-lg mt-8 text-2xl">
           2. Modification or Discontinuation of the Service.
         </h2>
-        <p className="bg-white p-4 text-justify">
+        <p className="em:p-0 em:mt-3 bg-white  p-4 text-justify">
           We may add, modify or discontinue any feature, functionality or any
           other tool, within the Service and/or Sites, at our own discretion and
           without further notice, however, if we make any material adverse
