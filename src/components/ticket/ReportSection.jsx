@@ -21,7 +21,7 @@ const ReportSection = () => {
           <h2 className="font-bold">Realized at:</h2>
           <input
             className="mb-2  border p-2 rounded-lg border-zinc-700"
-            type="datetime-local"
+            type="date"
           />
         </div>
         <div className="mr-4">
