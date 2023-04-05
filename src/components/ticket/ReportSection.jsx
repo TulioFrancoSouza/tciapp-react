@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import ModalReport from "../modal/ModalReport";
 
 const ReportSection = () => {
   const [timeTravelTo, setTimeTravelTo] = useState(0);
   const [timeTravelFrom, setTimeTravelFrom] = useState(0);
   const [timeArrival, setTimeArrival] = useState(0);
+  const [showModalReport, setShowModalReport] = useState(false);
 
+  const handleShowModalReport = () => {setShowModalReport(true)}
+  const hideShowModalReport = () => {setShowModalReport(false)}
   console.log(timeArrival)
 
   return (
@@ -79,12 +83,13 @@ const ReportSection = () => {
           />
 
           <div className="em:w-full em:mt-5 em:mb-5 flex justify-center items-center mt-8 mb-8">
-            <button className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">
+            <button onClick={handleShowModalReport} className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">
               Send
             </button>
           </div>
         </div>
       </div>
+      {showModalReport && <ModalReport closeModalReport={hideShowModalReport} />}
     </div>
   );
 };

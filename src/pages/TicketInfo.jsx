@@ -3,13 +3,15 @@ import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import ReportSection from "../components/ticket/ReportSection";
 import TicketRejectSection from "../components/ticket/TicketRejectSection";
+import Modal from "../components/modal/Modal";
 
 const TickeInfo = () => {
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
+  const [showModal, setshowModal] = useState(false);
 
+  const hidenModal = () => setshowModal(false);
   const showReportSectionTrue = () => setshowReportSection(true);
-
   const showRejectSectionTrue = () => setshowRejectSection(true);
   function hidenRejectSection() {
     setshowRejectSection(false);
@@ -116,7 +118,9 @@ const TickeInfo = () => {
 
           <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
             <button
-              onClick={showReportSectionTrue}
+              onClick={() => {
+                setshowModal(true);
+              }}
               className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
             >
               Accept
@@ -134,6 +138,7 @@ const TickeInfo = () => {
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
       {showReportSection ? <ReportSection /> : null}
+      {showModal && <Modal showReport={showReportSectionTrue} hideModal={hidenModal}/>}
     </div>
   );
 };
