@@ -1,4 +1,4 @@
-import React from "react"
+import React  from "react"
 import Logo from "../assets/TCI-name-logo.jpg"
 import ProfilePic from "../assets/Profile-pic.jpg"
 import { Link, useLocation } from "react-router-dom"
@@ -8,7 +8,7 @@ import Filter from "./summary/Filter"
 const Header = () => {
 
   const location = useLocation();
-
+    
   return (
     <div>
       <div className="em:block em:ml-5 em:mr-5	flex justify-between align-center mt-8 ml-14 mr-14 ">
@@ -27,7 +27,7 @@ const Header = () => {
           </div>
         </Link>
 
-        {location.pathname === "/summary" ? <Search search={Search} /> : null}
+        {location.pathname === "/summary" ? <Search /> : null}
         {location.pathname === "/summary" ? <Filter /> : null}
 
         <div>

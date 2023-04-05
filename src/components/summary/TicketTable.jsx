@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcAbout } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { Tickets } from "../../tickets";
+import { SearchContext } from "../../context/SearchContext";
 
 const TicketTable = () => {
+  const { query } = useContext(SearchContext);
+
   return (
     <div className="flex justify-center w-full h-full p-3">
       <table className="em:text-xs table-auto w-full mr-4 ml-4">
@@ -19,7 +22,15 @@ const TicketTable = () => {
           </tr>
         </thead>
         <tbody>
-          {Tickets.map((ticket) => (
+          {Tickets.filter(
+            (item) =>
+              item.id.includes(query) ||
+              item.client.toLowerCase().includes(query.toLowerCase()) ||
+              item.title.toLowerCase().includes(query.toLowerCase()) ||
+              item.address.toLowerCase().includes(query.toLowerCase()) ||
+              item.assignto.toLowerCase().includes(query.toLowerCase()) ||
+              item.status.toLowerCase().includes(query.toLowerCase())
+          ).map((ticket) => (
             <tr className="border-t-2 border-b-2 border-gray-300 text-center">
               <td className="py-2">{ticket.id}</td>
               <td className="py-2">{ticket.client}</td>

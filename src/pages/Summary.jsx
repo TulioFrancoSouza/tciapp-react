@@ -3,10 +3,11 @@ import Header from "../components/Header";
 import TicketTable from "../components/summary/TicketTable";
 
 const Summary = () => {
+
   return (
     <div className="w-full h-full">
-      <Header />
-      <TicketTable/>
+        <Header />
+        <TicketTable />
     </div>
   );
 };
