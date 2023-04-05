@@ -6,6 +6,7 @@ import { SearchContext } from "../../context/SearchContext";
 
 const TicketTable = () => {
   const { query } = useContext(SearchContext);
+  console.log(query);
 
   return (
     <div className="flex justify-center w-full h-full p-3">
