@@ -4,19 +4,38 @@ import { Link } from "react-router-dom";
 import ReportSection from "../components/ticket/ReportSection";
 import TicketRejectSection from "../components/ticket/TicketRejectSection";
 import Modal from "../components/modal/Modal";
+import ModalAgreement from "../components/modal/ModalAgreement";
 
 const TickeInfo = () => {
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
+  const [showModalAgreement, setshowModalAgreement] = useState(false);
+  const [checkAgreement, setCheckAgreement] = useState(false);
+
+  const handleSetShowModalAgreement = () => setshowModalAgreement(true);
+  const handleSetHideModalAgreement = () => setshowModalAgreement(false);
+
+  const handlesetCheckAgreement = () => setCheckAgreement(true);
 
   const hidenModal = () => setshowModal(false);
+  const handleShowModal = () => setshowModal(true);
+
   const showReportSectionTrue = () => setshowReportSection(true);
+
   const showRejectSectionTrue = () => setshowRejectSection(true);
+
   function hidenRejectSection() {
     setshowRejectSection(false);
   }
 
+  function handleAcceptTicket() {
+    if (!checkAgreement) {
+      handleSetShowModalAgreement();
+    } else {
+      handleShowModal();
+    }
+  }
 
   return (
     <div>
@@ -98,7 +117,12 @@ const TickeInfo = () => {
 
         <div className="em:ml-5 em:mr-5 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 my-2 py-4">
           <div className="flex justify-center items-center">
-            <input className="mr-3" type="checkbox" value="agreed"/>
+            <input
+              onClick={handlesetCheckAgreement}
+              className="mr-3"
+              type="checkbox"
+              value="agreed"
+            />
             <span className="mr-2">I agree with the terms and conditions.</span>
             <Link to="/terms">
               <p className="underline">Read the agreement</p>
@@ -119,9 +143,7 @@ const TickeInfo = () => {
 
           <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
             <button
-              onClick={() => {
-                setshowModal(true);
-              }}
+              onClick={handleAcceptTicket}
               className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
             >
               Accept
@@ -139,7 +161,10 @@ const TickeInfo = () => {
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
       {showReportSection ? <ReportSection /> : null}
-      {showModal && <Modal showReport={showReportSectionTrue} hideModal={hidenModal}/>}
+      {showModal && (
+        <Modal showReport={showReportSectionTrue} hideModal={hidenModal} />
+      )}
+      {showModalAgreement ? <ModalAgreement hideModalAgreement={handleSetHideModalAgreement}/> : null}
     </div>
   );
 };
