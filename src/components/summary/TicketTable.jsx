@@ -41,7 +41,7 @@ const TicketTable = () => {
               <td className="py-2">{ticket.assignto}</td>
               <td className="py-2">{ticket.status}</td>
               <td className="py-2">
-                <Link to="/ticketinfo">
+                <Link to={`/ticketinfo/${ticket.id}`}>
                   <FcAbout />
                 </Link>
               </td>

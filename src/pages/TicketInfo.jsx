@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReportSection from "../components/ticket/ReportSection";
 import TicketRejectSection from "../components/ticket/TicketRejectSection";
 import Modal from "../components/modal/Modal";
 import ModalAgreement from "../components/modal/ModalAgreement";
+import { Tickets } from '../tickets'
 
 const TickeInfo = () => {
+
+  const ticketData = Tickets;
+  const { tId } = useParams();
+
+  const[ticketValue, setTicketValue] = useState('');
+  console.log(ticketValue)
+
+  useEffect(() => {
+    for (let i = 0; i < ticketData.length; i++) {
+      if(ticketData[i].id === tId){
+        setTicketValue(ticketData[i]);
+        continue;
+      }
+    }
+  },[ticketData, tId]);
+  
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
@@ -18,7 +35,7 @@ const TickeInfo = () => {
 
   const handlesetCheckAgreement = () => setCheckAgreement(true);
 
-  const hidenModal = () => setshowModal(false);
+  const handleHideModal = () => setshowModal(false);
   const handleShowModal = () => setshowModal(true);
 
   const showReportSectionTrue = () => setshowReportSection(true);
@@ -52,37 +69,37 @@ const TickeInfo = () => {
           <div className="mr-4">
             <h2 className="font-bold">Ticket:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              14898
+              {ticketValue.id}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Client:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              1477 - Cineplex Dorval
+              {ticketValue.client}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Title:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              PC not working
+              {ticketValue.title}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Contact:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              John Smith
+              {ticketValue.contact}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Phone:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              514-355-9288
+              {ticketValue.phone}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Address:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              1455 Saint Catherine Street, Montreal, H3R.
+              {ticketValue.address}
             </div>
           </div>
         </div>
@@ -91,19 +108,19 @@ const TickeInfo = () => {
           <div className="mr-4">
             <h2 className="font-bold">Created at:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              08:00 a.m 03-14-2023
+              {ticketValue.createdAt}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">Type:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              Normal
+              {ticketValue.type}
             </div>
           </div>
           <div className="mr-4">
             <h2 className="font-bold">SLA:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              12 hours
+              {ticketValue.sla}
             </div>
           </div>
         </div>
@@ -111,12 +128,12 @@ const TickeInfo = () => {
         <div className="em:ml-5 em:mr-5 w-[1200] ml-14 mr-14 ">
           <h2 className="font-bold">Description:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            The kiosk pc is not working since a tech came last week.
+            {ticketValue.description}
           </div>
         </div>
 
         <div className="em:ml-5 em:mr-5 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 my-2 py-4">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-c enter">
             <input
               onClick={handlesetCheckAgreement}
               className="mr-3"
@@ -162,7 +179,7 @@ const TickeInfo = () => {
       ) : null}
       {showReportSection ? <ReportSection /> : null}
       {showModal && (
-        <Modal showReport={showReportSectionTrue} hideModal={hidenModal} />
+        <Modal showReport={showReportSectionTrue} hideModal={handleHideModal} />
       )}
       {showModalAgreement ? <ModalAgreement hideModalAgreement={handleSetHideModalAgreement}/> : null}
     </div>

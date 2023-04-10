@@ -37,7 +37,7 @@ function App() {
             />
 
             <Route
-              path="/ticketinfo"
+              path="/ticketinfo/:tId"
               element={
                 <ProtectedRoute>
                   <TicketInfo />
