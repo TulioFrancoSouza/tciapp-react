@@ -29,7 +29,7 @@ const Signin = () => {
       <div>
         <img className='object-scale-down object-center	h-48 w-96 items-center' src={Logo} alt='Techni-Connection'></img>
         <h1 className='text-blue-400 text-5xl font-bold px-3 py-2 text-center capitalize'>Sign in</h1>
-        <h2 className='text-blue-400 text-2x1 font-bold text-center mt-4'>Sign in and star manage your tickets!</h2>
+        <h2 className='text-blue-400 text-2x1 font-bold text-center mt-4'>Sign in and start manage your tickets!</h2>
         
       </div>
       <form className='mt-6' onSubmit={handleSubmit}>

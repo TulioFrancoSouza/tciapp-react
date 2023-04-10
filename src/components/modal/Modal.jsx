@@ -8,15 +8,16 @@ const ModalReport = ({ showReport, hideModal }) => {
           <button onClick={hideModal}>X</button>
         </div>
         <div>
-          <h2 className="flex justify-center items-center">
+          <h2 className="font-bold flex justify-center items-center">
             Do you want to accept this ticket?
           </h2>
         </div>
         <div className='mt-8 flex justify-around w-full'>
-          <button onClick={showReport} className="px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400">
+          <button onClick={showReport} className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400">
             Yes
           </button>
-          <button onclick={hideModal} className="px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400">No</button>
+          <button onclick={hideModal} className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400">
+            No</button>
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ const TickeInfo = () => {
     setshowRejectSection(false);
   }
 
+
   return (
     <div>
       <Header />
@@ -97,7 +98,7 @@ const TickeInfo = () => {
 
         <div className="em:ml-5 em:mr-5 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 my-2 py-4">
           <div className="flex justify-center items-center">
-            <input className="mr-3" type="checkbox" />
+            <input className="mr-3" type="checkbox" value="agreed"/>
             <span className="mr-2">I agree with the terms and conditions.</span>
             <Link to="/terms">
               <p className="underline">Read the agreement</p>
