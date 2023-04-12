@@ -3,12 +3,13 @@ import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 const Agreement = () => {
-  return (
+
+   return (
     <div>
       <Header />
       <div>
-        <Link to="/ticketinfo">
-          <button className="em:ml-5 em:mt-0 ml-14 mt-8 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
+        <Link to={`/ticketinfo`}>
+          <button className="em:ml-5 em:mt-0 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
             Back
           </button>
         </Link>

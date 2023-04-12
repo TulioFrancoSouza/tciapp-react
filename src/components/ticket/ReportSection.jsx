@@ -17,7 +17,7 @@ const ReportSection = () => {
         <div className="mr-4">
           <h2 className="font-bold">Responsible:</h2>
           <input
-            className="mb-2  border p-2 rounded-lg border-zinc-700"
+            className="mb-2 border p-2 rounded-lg border-zinc-700"
             type="text"
           />
         </div>

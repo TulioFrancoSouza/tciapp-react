@@ -5,10 +5,7 @@ const TicketRejectSection = (props) => {
     <div>
       <div className="em:ml-5 em:mr-5 w-[1200] ml-14 mr-14 ">
         <h2 className="font-bold">Reason:</h2>
-        <div className="mb-2 border p-2 rounded-lg border-zinc-700">
-          It is no possible attend this day. I suggest reschedule to the next
-          Monday.
-        </div>
+        <input type="text" className="w-full mb-2 border p-2 rounded-lg border-zinc-700"/>
 
         <div className="em:justify-center em:w-full em:mt-5 em:mb-5  flex justify-end items-center mt-8 mb-8">
           <button className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header";
 import { Link, useParams } from "react-router-dom";
+
+import Header from "../components/Header";
 import ReportSection from "../components/ticket/ReportSection";
 import TicketRejectSection from "../components/ticket/TicketRejectSection";
+
 import Modal from "../components/modal/Modal";
 import ModalAgreement from "../components/modal/ModalAgreement";
+import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule";
+
 import { Tickets } from '../tickets'
 
 const TickeInfo = () => {
@@ -13,7 +17,6 @@ const TickeInfo = () => {
   const { tId } = useParams();
 
   const[ticketValue, setTicketValue] = useState('');
-  console.log(ticketValue)
 
   useEffect(() => {
     for (let i = 0; i < ticketData.length; i++) {
@@ -29,9 +32,17 @@ const TickeInfo = () => {
   const [showModal, setshowModal] = useState(false);
   const [showModalAgreement, setshowModalAgreement] = useState(false);
   const [checkAgreement, setCheckAgreement] = useState(false);
+  const [tickeResponsible, setTicketResponsible] = useState('');
+  const [ticketSchedule, setTicketSchedule] = useState('');
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false)
+
+  console.log(tickeResponsible)
+  console.log(ticketSchedule)
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
   const handleSetHideModalAgreement = () => setshowModalAgreement(false);
+  
+  const handleSetHideModalTicketRespSchedule = () => setShowModalTicketRespSchedule(false);
 
   const handlesetCheckAgreement = () => setCheckAgreement(true);
 
@@ -49,6 +60,8 @@ const TickeInfo = () => {
   function handleAcceptTicket() {
     if (!checkAgreement) {
       handleSetShowModalAgreement();
+    } else if(tickeResponsible === '' || ticketSchedule === ''){
+      setShowModalTicketRespSchedule(true)
     } else {
       handleShowModal();
     }
@@ -148,11 +161,12 @@ const TickeInfo = () => {
 
           <div className="em:mt-5">
             <h3 className="font-bold">Responsible:</h3>
-            <input className="mb-2 border p-2 rounded-lg border-zinc-700" />
+            <input onChange={(event)=> setTicketResponsible(event.target.value)} className="mb-2 border p-2 rounded-lg border-zinc-700" />
           </div>
           <div>
             <h3 className="font-bold">Schedule:</h3>
             <input
+              onChange={(event)=> setTicketSchedule(event.target.value)}
               className="mb-2 border p-2 rounded-lg border-zinc-700"
               type="datetime-local"
             />
@@ -182,6 +196,7 @@ const TickeInfo = () => {
         <Modal showReport={showReportSectionTrue} hideModal={handleHideModal} />
       )}
       {showModalAgreement ? <ModalAgreement hideModalAgreement={handleSetHideModalAgreement}/> : null}
+      {showModalTicketRespSchedule ? <ModalTicketRespSchedule hideModalTicketRespSchedule={handleSetHideModalTicketRespSchedule}/> : null}
     </div>
   );
 };
