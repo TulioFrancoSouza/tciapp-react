@@ -4,45 +4,49 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import ReportSection from "../components/ticket/ReportSection";
 import TicketRejectSection from "../components/ticket/TicketRejectSection";
+import UpdateSection from "../components/ticket/UpdateSection";
 
 import Modal from "../components/modal/Modal";
 import ModalAgreement from "../components/modal/ModalAgreement";
 import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule";
 
-import { Tickets } from '../tickets'
+import { Tickets } from "../tickets";
 
 const TickeInfo = () => {
-
   const ticketData = Tickets;
   const { tId } = useParams();
 
-  const[ticketValue, setTicketValue] = useState('');
+  const [ticketValue, setTicketValue] = useState("");
 
   useEffect(() => {
     for (let i = 0; i < ticketData.length; i++) {
-      if(ticketData[i].id === tId){
+      if (ticketData[i].id === tId) {
         setTicketValue(ticketData[i]);
         continue;
       }
     }
-  },[ticketData, tId]);
-  
+  }, [ticketData, tId]);
+
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
   const [showModalAgreement, setshowModalAgreement] = useState(false);
   const [checkAgreement, setCheckAgreement] = useState(false);
-  const [tickeResponsible, setTicketResponsible] = useState('');
-  const [ticketSchedule, setTicketSchedule] = useState('');
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false)
+  const [ticketResponsible, setTicketResponsible] = useState("");
+  const [ticketSchedule, setTicketSchedule] = useState("");
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
+    useState(false);
 
-  console.log(tickeResponsible)
-  console.log(ticketSchedule)
+  const [showUpdateSection, setShowUpdateSection] = useState(false);
+
+  console.log(ticketResponsible);
+  console.log(ticketSchedule);
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
   const handleSetHideModalAgreement = () => setshowModalAgreement(false);
-  
-  const handleSetHideModalTicketRespSchedule = () => setShowModalTicketRespSchedule(false);
+
+  const handleSetHideModalTicketRespSchedule = () =>
+    setShowModalTicketRespSchedule(false);
 
   const handlesetCheckAgreement = () => setCheckAgreement(true);
 
@@ -60,8 +64,8 @@ const TickeInfo = () => {
   function handleAcceptTicket() {
     if (!checkAgreement) {
       handleSetShowModalAgreement();
-    } else if(tickeResponsible === '' || ticketSchedule === ''){
-      setShowModalTicketRespSchedule(true)
+    } else if (ticketResponsible === "" || ticketSchedule === "") {
+      setShowModalTicketRespSchedule(true);
     } else {
       handleShowModal();
     }
@@ -152,41 +156,64 @@ const TickeInfo = () => {
               className="mr-3"
               type="checkbox"
               value="agreed"
+              disabled={showReportSection === true ? true : false}
             />
             <span className="mr-2">I agree with the terms and conditions.</span>
             <Link to="/terms">
               <p className="underline">Read the agreement</p>
             </Link>
           </div>
-
           <div className="em:mt-5">
             <h3 className="font-bold">Responsible:</h3>
-            <input onChange={(event)=> setTicketResponsible(event.target.value)} className="mb-2 border p-2 rounded-lg border-zinc-700" />
+            <input
+              onChange={(event) => setTicketResponsible(event.target.value)}
+              className="mb-2 border p-2 rounded-lg border-zinc-700"
+            />
           </div>
           <div>
             <h3 className="font-bold">Schedule:</h3>
             <input
-              onChange={(event)=> setTicketSchedule(event.target.value)}
+              onChange={(event) => setTicketSchedule(event.target.value)}
               className="mb-2 border p-2 rounded-lg border-zinc-700"
               type="datetime-local"
             />
           </div>
 
           <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
-            <button
-              onClick={handleAcceptTicket}
-              className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
-            >
-              Accept
-            </button>
-            <button
-              onClick={showRejectSectionTrue}
-              className="min-w-[100px] drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-2 text-white"
-            >
-              Reject
-            </button>
+            {showReportSection === false ? (
+              <>
+                <button
+                  onClick={handleAcceptTicket}
+                  className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
+                >
+                  Accept
+                </button>
+                <button
+                  onClick={showRejectSectionTrue}
+                  className="min-w-[100px] drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-2 text-white"
+                >
+                  Reject
+                </button>
+              </>
+            ) : null}
+
+            {showReportSection === true ? (
+              <button
+                onClick={() => setShowUpdateSection(true)}
+                className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-2 text-white"
+              >
+                Update
+              </button>
+            ) : null}
           </div>
         </div>
+        {showUpdateSection ? (
+          <UpdateSection
+            handleHideUpdateSection={handleSetHideModalTicketRespSchedule}
+            handleTicketResp={setTicketResponsible}
+            handleTcketSched={setTicketSchedule}
+          />
+        ) : null}
       </div>
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
@@ -195,8 +222,14 @@ const TickeInfo = () => {
       {showModal && (
         <Modal showReport={showReportSectionTrue} hideModal={handleHideModal} />
       )}
-      {showModalAgreement ? <ModalAgreement hideModalAgreement={handleSetHideModalAgreement}/> : null}
-      {showModalTicketRespSchedule ? <ModalTicketRespSchedule hideModalTicketRespSchedule={handleSetHideModalTicketRespSchedule}/> : null}
+      {showModalAgreement ? (
+        <ModalAgreement hideModalAgreement={handleSetHideModalAgreement} />
+      ) : null}
+      {showModalTicketRespSchedule ? (
+        <ModalTicketRespSchedule
+          hideModalTicketRespSchedule={handleSetHideModalTicketRespSchedule}
+        />
+      ) : null}
     </div>
   );
 };

@@ -1,14 +1,16 @@
 import React from "react";
-import Signin from "./components/home/Signin";
-import Signup from "./components/home/Signup";
-import Account from "./pages/Account";
-import Summary from "./pages/Summary";
-import Terms from "./pages/Terms";
-import TicketInfo from "./pages/TicketInfo";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { SearchProvider } from "./context/SearchContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+
+import Signin from "./components/home/Signin";
+import Signup from "./components/home/Signup";
+
+import Account from "./pages/Account";
+import Summary from "./pages/Summary";
+import Terms from "./pages/Terms";
+import TicketInfo from "./pages/TicketInfo";
 
 function App() {
   return (

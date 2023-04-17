@@ -26,7 +26,7 @@ export const Tickets = [
         "sla": "12 horas",
         "description": "Printer is no working as it should. Need a tech to check.",
         "assignto": "-",
-        "status": "Pending"
+        "status": "Closed"
     },
 
     {
@@ -41,7 +41,7 @@ export const Tickets = [
         "sla": "12 horas",
         "description": "Server is disable. Need a tech to check what happened.",
         "assignto": "-",
-        "status": "Pending"
+        "status": "Review"
     },
 
     {
@@ -56,7 +56,7 @@ export const Tickets = [
         "sla": "12 horas",
         "description": "POS screen is black, not showing any information. It was normal three days ago.",
         "assignto": "-",
-        "status": "Pending"
+        "status": "Accepted"
     },
 
     {
@@ -71,6 +71,6 @@ export const Tickets = [
         "sla": "12 horas",
         "description": "Project to replace all switchs at Cineplex Vancouver. Need to schedule a tech to change the new one.",
         "assignto": "-",
-        "status": "Pending"
+        "status": "Accepted"
     },
 ]

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Agreement = () => {
 
-   return (
+  return (
     <div>
       <Header />
       <div>
@@ -16,7 +16,9 @@ const Agreement = () => {
       </div>
 
       <div className="em:ml-5 em:mr-5 ml-14 mr-14 mt-4">
-        <h1 className="em:text-lg text-3xl text-center font-bold">Terms and Conditions</h1>
+        <h1 className="em:text-lg text-3xl text-center font-bold">
+          Terms and Conditions
+        </h1>
         <h2 className="em:text-sm em:mt-3 mt-8 text-2xl">Techini-Connection</h2>
         <p className="em:p-0 em:mt-3 bg-white  p-4 text-justify">
           These Terms of Service along with any other terms and policies

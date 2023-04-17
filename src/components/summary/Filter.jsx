@@ -1,48 +1,114 @@
-import React from 'react'
-import { useContext } from "react";
+import React from "react";
+import { useContext, useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 
 const Filter = () => {
-
   const { setQuery } = useContext(SearchContext);
 
-  const handleSetQueryPending = () => {setQuery('Pending')}
-  const handleSetQueryAccepted = () => {setQuery('Accepted')}
-  const handleSetQueryReview = () => {setQuery('Review')}
-  const handleSetQueryClosed = () => {setQuery('Closed')}
+  const [statusPending, setStatusPending] = useState(false);
+  const [statusAccepted, setStatusAccepted] = useState(false);
+  const [statusReview, setStatusReview] = useState(false);
+  const [statusClosed, setStatusClosed] = useState(false);
+
+  function handleSetQueryPending() {
+    if (statusPending === true) {
+      setStatusPending(false);
+      setQuery("");
+    } else {
+      setStatusAccepted(false);
+      setStatusReview(false);
+      setStatusClosed(false);
+      setStatusPending(true);
+      setQuery("Pending");
+    }
+  }
+
+  function handleSetQueryAccepted() {
+    if (statusAccepted === true) {
+      setStatusAccepted(false);
+      setQuery("");
+    } else {
+      setStatusAccepted(true);
+      setStatusReview(false);
+      setStatusClosed(false);
+      setStatusPending(false);
+      setQuery("Accepted");
+    }
+  }
+
+  function handleSetQueryReview() {
+    if (statusReview === true) {
+      setStatusReview(false);
+      setQuery("");
+    } else {
+      setStatusAccepted(false);
+      setStatusReview(true);
+      setStatusClosed(false);
+      setStatusPending(false);
+      setQuery("Review");
+    }
+  }
+
+  function handleSetQueryClosed() {
+    if (statusClosed === true) {
+      setStatusClosed(false);
+      setQuery("");
+    } else {
+      setStatusAccepted(false);
+      setStatusReview(false);
+      setStatusClosed(true);
+      setStatusPending(false);
+      setQuery("Closed");
+    }
+  }
 
   return (
     <div className="flex items-center em:justify-center">
-        <button
-          onClick={handleSetQueryPending}
-          className="em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400"
-          type="button"
-        >
-          Pending
-        </button>
-        <button
+      <button
+        onClick={handleSetQueryPending}
+        className={
+          !statusPending
+            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
+        }
+        type="button"
+      >
+        Pending
+      </button>
+      <button
         onClick={handleSetQueryAccepted}
-          className="em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400"
-          type="button"
-        >
-          Accepeted
-        </button>
-        <button
-          onClick={handleSetQueryReview}
-          className="em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400"
-          type="button"
-        >
-          Review
-        </button>
-        <button
-          onClick={handleSetQueryClosed}
-          className="em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400"
-          type="button"
-        >
-          Closed
-        </button>
+        className={
+          !statusAccepted
+            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
+        }
+        type="button"
+      >
+        Accepted
+      </button>
+      <button
+        onClick={handleSetQueryReview}
+        className={
+          !statusReview
+            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
+        }
+        type="button"
+      >
+        Review
+      </button>
+      <button
+        onClick={handleSetQueryClosed}
+        className={
+          !statusClosed
+            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
+        }        type="button"
+      >
+        Closed
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

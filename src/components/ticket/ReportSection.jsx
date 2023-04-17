@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import ModalReport from "../modal/ModalReport";
 
 const ReportSection = () => {
+  
   const [timeTravelTo, setTimeTravelTo] = useState(0);
   const [timeTravelFrom, setTimeTravelFrom] = useState(0);
   const [timeArrival, setTimeArrival] = useState(0);
+  const [timeDeparture, setTimeDeparture] = useState(0);
   const [showModalReport, setShowModalReport] = useState(false);
+
+  console.log(timeArrival)
+  console.log(timeDeparture)
 
   const handleShowModalReport = () => {setShowModalReport(true)}
   const hideShowModalReport = () => {setShowModalReport(false)}
-  console.log(timeArrival)
 
   return (
     <div>
@@ -39,15 +43,15 @@ const ReportSection = () => {
         <div className="mr-4">
           <h2 className="font-bold">Arrival:</h2>
           <input
-            onChange={(value) => setTimeArrival(value)}
+            onChange={(event) => setTimeArrival(event)}
             className="mb-2  border p-2 rounded-lg border-zinc-700"
             type="time"
           />
         </div>
-
         <div className="mr-4">
           <h2 className="font-bold">Departure:</h2>
           <input
+            onChange={(event) => setTimeDeparture(event.target.value)}
             className="mb-2  max-w-[100px] border p-2 rounded-lg border-zinc-700"
             type="time"
           />
@@ -72,7 +76,6 @@ const ReportSection = () => {
             100
           </div>
         </div>
-
         <div className="em:max-w-[390px] max-w-[1200px]">
           <h2 className="font-bold">Report:</h2>
           <textarea
@@ -81,7 +84,6 @@ const ReportSection = () => {
             rows="10"
             Cols="164"
           />
-
           <div className="em:w-full em:mt-5 em:mb-5 flex justify-center items-center mt-8 mb-8">
             <button onClick={handleShowModalReport} className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">
               Send
