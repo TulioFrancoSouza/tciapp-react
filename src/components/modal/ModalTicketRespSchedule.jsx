@@ -9,7 +9,7 @@ const ModalTicketRespSchedule = ({ hideModalTicketRespSchedule }) => {
         </div>
         <div>
           <h2 className="flex justify-centser items-center">
-            Please, fill the responsible and schedule before accept the ticket.
+            Please, fill the technician and schedule before accept the ticket.
           </h2>
         </div>
         <div className='mt-8 flex justify-around w-full'>
