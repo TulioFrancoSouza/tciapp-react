@@ -24,42 +24,49 @@ const ReportSection = (props) => {
   const [showModalReport, setShowModalReport] = useState(false);
   const width = useWindowWidth();
 
-  function calcTimeRegWork(){
+  function calcTimeRegWork() {
     let arrTimeArrival = timeArrivalReg.split(":");
     let arrTimeDeparture = timeDepartureReg.split(":");
-    
-    let timeReg = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
 
-    return timeReg
+    let timeReg =
+      arrTimeDeparture[1] -
+      arrTimeArrival[1] +
+      (arrTimeDeparture[0] - arrTimeArrival[0]) * 60;
+
+    return timeReg;
   }
 
   calcTimeRegWork();
 
-  function calcTimeOverWork(){
+  function calcTimeOverWork() {
     let arrTimeArrival = timeArrivalOver.split(":");
     let arrTimeDeparture = timeDepartureOver.split(":");
-    
-    let timeOver = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
 
-    return timeOver
+    let timeOver =
+      arrTimeDeparture[1] -
+      arrTimeArrival[1] +
+      (arrTimeDeparture[0] - arrTimeArrival[0]) * 60;
+
+    return timeOver;
   }
 
   calcTimeOverWork();
-  console.log(calcTimeOverWork())
+  console.log(calcTimeOverWork());
 
-  function calcTimeAfterWork(){
+  function calcTimeAfterWork() {
     let arrTimeArrival = timeArrivalAfter.split(":");
     let arrTimeDeparture = timeDepartureAfter.split(":");
-    
-    let timeAfter = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
 
-    return timeAfter
+    let timeAfter =
+      arrTimeDeparture[1] -
+      arrTimeArrival[1] +
+      (arrTimeDeparture[0] - arrTimeArrival[0]) * 60;
+
+    return timeAfter;
   }
 
   calcTimeAfterWork();
-  console.log(calcTimeAfterWork())
-
-
+  console.log(calcTimeAfterWork());
 
   const handleShowModalReport = () => {
     setShowModalReport(true);
@@ -244,7 +251,9 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Departure:</h2>
                 <input
-                  onChange={(event) => setTimeDepartureAfter(event.target.value)}
+                  onChange={(event) =>
+                    setTimeDepartureAfter(event.target.value)
+                  }
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                 />

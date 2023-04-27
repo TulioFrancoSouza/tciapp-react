@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: "techni-connection",
   storageBucket: "techni-connection.appspot.com",
   messagingSenderId: "99171557602",
-  appId: "1:99171557602:web:7378e58fdef3cbf1dd7ebb"
+  appId: "1:99171557602:web:7378e58fdef3cbf1dd7ebb",
 };
 
 const app = initializeApp(firebaseConfig);

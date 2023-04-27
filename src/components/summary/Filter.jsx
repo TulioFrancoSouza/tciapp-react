@@ -103,7 +103,8 @@ const Filter = () => {
           !statusClosed
             ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
-        }        type="button"
+        }
+        type="button"
       >
         Closed
       </button>

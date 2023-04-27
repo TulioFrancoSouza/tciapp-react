@@ -73,16 +73,16 @@ const TickeInfo = () => {
       <Header />
       <div>
         <Link to="/summary">
-          <button className="em:ml-5 em:mr-5 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
+          <button className="em:ml-8 em:mr-8 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
             Back
           </button>
         </Link>
       </div>
       <div className="mt-5 text-sm">
-        <h2 className="em:ml-5 mr-14 ml-14 font-bold text-xl text-blue-600">
+        <h2 className="em:ml-8 mr-14 ml-14 font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="em:ml-5 em:mr-5 flex em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
+        <div className="em:ml-8 em:mr-8 flex em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
           <div className="mr-4">
             <h2 className="font-bold">Ticket:</h2>
             <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
@@ -141,14 +141,14 @@ const TickeInfo = () => {
           </div>
         </div>
 
-        <div className="em:ml-5 em:mr-5 w-[1200] ml-14 mr-14 ">
+        <div className="em:ml-8 em:mr-8 w-[1200] ml-14 mr-14 ">
           <h2 className="font-bold">Description:</h2>
           <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
 
-        <div className="em:ml-5 em:mr-5 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 py-2">
+        <div className="em:ml-8 em:mr-8 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 py-2">
           <div className="em:block flex justify-start">
             <div className="em:mt-0 mr-5">
               <h3 className="font-bold">Technician:</h3>
