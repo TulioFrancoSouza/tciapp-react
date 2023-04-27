@@ -3,18 +3,63 @@ import { useWindowWidth } from "@react-hook/window-size";
 import ModalReport from "../modal/ModalReport";
 
 const ReportSection = (props) => {
-  const [timeTravelTo, setTimeTravelTo] = useState(0);
-  const [timeTravelFrom, setTimeTravelFrom] = useState(0);
-  const [timeArrival, setTimeArrival] = useState(0);
-  const [timeDeparture, setTimeDeparture] = useState(0);
+  const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
+  const [timeRegTravelFrom, setTimeRegTravelFrom] = useState(0);
+
+  const [timeOverTravelTo, setTimeOverTravelTo] = useState(0);
+  const [timeOverTravelFrom, setTimeOverTravelFrom] = useState(0);
+
+  const [timeAfterTravelTo, setTimeAfterTravelTo] = useState(0);
+  const [timeAfterTravelFrom, setTimeAfterTravelFrom] = useState(0);
+
+  const [timeArrivalReg, setTimeArrivalReg] = useState("00:00");
+  const [timeDepartureReg, setTimeDepartureReg] = useState("00:00");
+
+  const [timeArrivalOver, setTimeArrivalOver] = useState("00:00");
+  const [timeDepartureOver, setTimeDepartureOver] = useState("00:00");
+
+  const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
+  const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
+
   const [showModalReport, setShowModalReport] = useState(false);
-
   const width = useWindowWidth();
-  console.log(width);
+
+  function calcTimeRegWork(){
+    let arrTimeArrival = timeArrivalReg.split(":");
+    let arrTimeDeparture = timeDepartureReg.split(":");
+    
+    let timeReg = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
+
+    return timeReg
+  }
+
+  calcTimeRegWork();
+
+  function calcTimeOverWork(){
+    let arrTimeArrival = timeArrivalOver.split(":");
+    let arrTimeDeparture = timeDepartureOver.split(":");
+    
+    let timeOver = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
+
+    return timeOver
+  }
+
+  calcTimeOverWork();
+  console.log(calcTimeOverWork())
+
+  function calcTimeAfterWork(){
+    let arrTimeArrival = timeArrivalAfter.split(":");
+    let arrTimeDeparture = timeDepartureAfter.split(":");
+    
+    let timeAfter = arrTimeDeparture[1] - arrTimeArrival[1] + ((arrTimeDeparture[0] - arrTimeArrival[0]) * 60)
+
+    return timeAfter
+  }
+
+  calcTimeAfterWork();
+  console.log(calcTimeAfterWork())
 
 
-  console.log(timeArrival);
-  console.log(timeDeparture);
 
   const handleShowModalReport = () => {
     setShowModalReport(true);
@@ -34,14 +79,7 @@ const ReportSection = (props) => {
           <input
             className="mb-2 border p-1 rounded-lg border-zinc-700"
             type="text"
-            size={width > 390 ? "100" : "50"} 
-          />
-        </div>
-        <div className="mr-4">
-          <h2 className="font-bold">Bought at:</h2>
-          <input
-            className="mb-1 border p-1 rounded-lg border-zinc-700"
-            type="date"
+            size={width > 390 ? "145" : "50"}
           />
         </div>
 
@@ -52,6 +90,16 @@ const ReportSection = (props) => {
             type="text"
           />
         </div>
+        {width > 390 ? (
+          <div className="em:w-full em:mt-3 em:mb-5 flex justify-center items-center mt-3 mb-3">
+            <button
+              onClick={handleShowModalReport}
+              className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
+            >
+              Send
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <div className="flex em:block em:ml-5 em:mr-1 items-start ml-14 mr-14 mb-10 text-sm">
@@ -64,7 +112,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Travel to (min):</h2>
                 <input
-                  onChange={(event) => setTimeTravelTo(event.target.value)}
+                  onChange={(event) => setTimeRegTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
                 />
@@ -72,24 +120,27 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Arrival:</h2>
                 <input
-                  onChange={(event) => setTimeArrival(event)}
+                  onChange={(event) => setTimeArrivalReg(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  min="08:00"
                 />
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Departure:</h2>
                 <input
-                  onChange={(event) => setTimeDeparture(event.target.value)}
+                  onChange={(event) => setTimeDepartureReg(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  max="17:00"
+                  required
                 />
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Travel from (min):</h2>
                 <input
                   onChange={(event) => {
-                    setTimeTravelFrom(event.target.value);
+                    setTimeRegTravelFrom(event.target.value);
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
@@ -99,13 +150,13 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Total Time(min):</h2>
                 <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                  {Number(timeTravelTo) + Number(timeTravelFrom)}
+                  {Number(timeRegTravelTo) + Number(timeRegTravelFrom)}
                 </div>
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Work Time(min):</h2>
                 <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                  100
+                  {calcTimeRegWork()}
                 </div>
               </div>
             </div>
@@ -121,7 +172,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Travel to (min):</h2>
                 <input
-                  onChange={(event) => setTimeTravelTo(event.target.value)}
+                  onChange={(event) => setTimeOverTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
                 />
@@ -129,7 +180,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Arrival:</h2>
                 <input
-                  onChange={(event) => setTimeArrival(event)}
+                  onChange={(event) => setTimeArrivalOver(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                 />
@@ -137,7 +188,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Departure:</h2>
                 <input
-                  onChange={(event) => setTimeDeparture(event.target.value)}
+                  onChange={(event) => setTimeDepartureOver(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                 />
@@ -146,7 +197,7 @@ const ReportSection = (props) => {
                 <h2 className="font-bold text-xs">Travel from (min):</h2>
                 <input
                   onChange={(event) => {
-                    setTimeTravelFrom(event.target.value);
+                    setTimeOverTravelFrom(event.target.value);
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
@@ -155,13 +206,13 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Total Time(min):</h2>
                 <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                  {Number(timeTravelTo) + Number(timeTravelFrom)}
+                  {Number(timeOverTravelTo) + Number(timeOverTravelFrom)}
                 </div>
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Work Time(min):</h2>
                 <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                  100
+                  {calcTimeOverWork()}
                 </div>
               </div>
             </div>
@@ -177,7 +228,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Travel to (min):</h2>
                 <input
-                  onChange={(event) => setTimeTravelTo(event.target.value)}
+                  onChange={(event) => setTimeAfterTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
                 />
@@ -185,7 +236,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Arrival:</h2>
                 <input
-                  onChange={(event) => setTimeArrival(event)}
+                  onChange={(event) => setTimeArrivalAfter(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                 />
@@ -193,7 +244,7 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Departure:</h2>
                 <input
-                  onChange={(event) => setTimeDeparture(event.target.value)}
+                  onChange={(event) => setTimeDepartureAfter(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                 />
@@ -202,7 +253,7 @@ const ReportSection = (props) => {
                 <h2 className="font-bold text-xs">Travel from (min):</h2>
                 <input
                   onChange={(event) => {
-                    setTimeTravelFrom(event.target.value);
+                    setTimeAfterTravelFrom(event.target.value);
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
@@ -211,13 +262,13 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Total Time(min):</h2>
                 <div className="mb-1 bg-gray-200 w-[100px] border p-1 rounded-lg border-zinc-700">
-                  {Number(timeTravelTo) + Number(timeTravelFrom)}
+                  {Number(timeAfterTravelTo) + Number(timeAfterTravelFrom)}
                 </div>
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Work Time(min):</h2>
                 <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                  100
+                  {calcTimeAfterWork()}
                 </div>
               </div>
             </div>
@@ -232,6 +283,8 @@ const ReportSection = (props) => {
             rows="12"
             Cols={width > 390 ? "100" : "49"}
           />
+        </div>
+        {width <= 450 ? (
           <div className="em:w-full em:mt-3 em:mb-5 flex justify-center items-center mt-3 mb-3">
             <button
               onClick={handleShowModalReport}
@@ -240,7 +293,7 @@ const ReportSection = (props) => {
               Send
             </button>
           </div>
-        </div>
+        ) : null}
       </div>
 
       {showModalReport && (

@@ -8,8 +8,8 @@ const TicketTable = () => {
   const { query } = useContext(SearchContext);
 
   return (
-    <div className="flex justify-center w-full h-full p-3">
-      <table className="em:text-xs table-auto w-full mr-4 ml-4">
+    <div className="flex justify-center items-center text-sm w-full h-full">
+      <table className="em:ml-5 em:mr-5 em:text-xs table-auto w-full mr-14 ml-14">
         <thead>
           <tr className="border-t-2 border-b border-gray-300 text-center">
             <th className="py-2">Ticket</th>
