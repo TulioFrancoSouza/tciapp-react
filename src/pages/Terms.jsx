@@ -1,18 +1,21 @@
 import React from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Agreement = () => {
+  
+  const navigate = useNavigate();
 
   return (
     <div>
       <Header />
       <div>
-        <Link to={`/ticketinfo`}>
-          <button className="em:ml-5 em:mt-0 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
-            Back
-          </button>
-        </Link>
+        <button
+          onClick={() => navigate(-1)}
+          className="em:ml-5 em:mt-0 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white"
+        >
+          Back
+        </button>
       </div>
 
       <div className="em:ml-5 em:mr-5 ml-14 mr-14 mt-4">
