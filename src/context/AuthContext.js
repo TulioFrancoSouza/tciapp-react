@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { UserService } from "../service/user/UserService";
 
 const UserContext = createContext();
 
@@ -25,8 +26,11 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      localStorage.setItem('token', currentUser.accessToken)
+      const user = await UserService.user(currentUser.accessToken);
+      console.log(user[0]['email']);
+
       setUser(currentUser);
     });
     return () => {

@@ -5,10 +5,25 @@ import { Link, useLocation } from "react-router-dom";
 import Search from "./summary/Search";
 import Filter from "./summary/Filter";
 import { useWindowWidth } from "@react-hook/window-size";
+import { useEffect, useState } from "react";
+import { UserService } from "../service/user/UserService";
+
 
 const Header = () => {
   const width = useWindowWidth();
   const location = useLocation();
+  const [ user,setUser ] = useState([]);
+
+  useEffect(() =>{
+
+    async function fetchData() {
+      const token = localStorage.getItem('token');
+      const user = await UserService.user(token);
+      // console.log(user[0]['name']);
+       setUser(user[0]);
+    }
+    fetchData();
+  }, [])
 
   return (
     <div>
@@ -23,7 +38,7 @@ const Header = () => {
               ></img>
               <h1 className="em:text-sm tex-black font-extrabold">
                 Hello, <br></br>
-                <span className="text-sm">Slav Morov</span>.
+                <span className="text-sm"> {user.name}</span>.
               </h1>
             </div>
             {width < 400 ? (

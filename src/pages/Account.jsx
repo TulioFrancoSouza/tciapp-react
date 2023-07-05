@@ -2,10 +2,14 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import Header from "../components/Header";
+import { UserService } from "../service/user/UserService";
+import { useEffect, useState } from "react";
 
 const Account = () => {
   const { logout } = UserAuth();
   const navigate = useNavigate();
+  const [ user,setUser ] = useState([]);
+  
 
   const handleLogout = async () => {
     try {
@@ -16,6 +20,17 @@ const Account = () => {
       console.log(e.message);
     }
   };
+
+  useEffect(() =>{
+
+    async function fetchData() {
+      const token = localStorage.getItem('token');
+      const user = await UserService.user(token);
+      // console.log(user[0]['name']);
+       setUser(user[0]);
+    }
+    fetchData();
+  }, [])
 
   return (
     <div>
@@ -37,32 +52,32 @@ const Account = () => {
         <div className="mr-4">
           <h2 className="font-bold">Name:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            Slav Morov
+            {user.name}
           </div>
-        </div>
+        </div>  
         <div className="mr-4">
           <h2 className="font-bold">Company:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            Techni-Connection
+           {user.companyClientId}
           </div>
         </div>
         <div className="mr-4">
           <h2 className="font-bold">Email:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            slav@techniconnection.com
+           {user.email}
           </div>
         </div>
 
         <div className="mr-4">
           <h2 className="font-bold">Phone:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            514-355-9288
+          {user.phone}
           </div>
         </div>
         <div className="mr-4">
           <h2 className="font-bold">Address:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            1455 Saint Catherine Street, Montreal, H3R.
+          {user.address}
           </div>
         </div>
       </div>
