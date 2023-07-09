@@ -58,7 +58,7 @@ const Account = () => {
         <div className="mr-4">
           <h2 className="font-bold">Company:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-           {user.companyClientId}
+           {user.company}
           </div>
         </div>
         <div className="mr-4">

@@ -10,6 +10,8 @@ import ModalAgreement from "../components/modal/ModalAgreement";
 import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule";
 
 import { Tickets } from "../tickets";
+import { TicketService } from "../service/ticket/TicketService"
+
 
 const TickeInfo = () => {
   const ticketData = Tickets;
@@ -18,13 +20,21 @@ const TickeInfo = () => {
   const [ticketValue, setTicketValue] = useState("");
 
   useEffect(() => {
-    for (let i = 0; i < ticketData.length; i++) {
-      if (ticketData[i].id === tId) {
-        setTicketValue(ticketData[i]);
-        continue;
+    async function fetchData() {
+      const token = localStorage.getItem('token');
+      const ticket = await TicketService.ticket(token);
+      
+      for (let i = 0; i < ticket.length; i++) {
+        if (ticket[i].id === tId) {
+          setTicketValue(ticket[i]);
+          continue;
+        }
       }
     }
-  }, [ticketData, tId]);
+    fetchData();
+  }, [ticketData, tId])
+     
+  
 
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);

@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React, { useEffect,useContext,useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { Tickets } from "../../tickets";
 import { SearchContext } from "../../context/SearchContext";
+import { TicketService } from "../../service/ticket/TicketService"
 
 const TicketTable = () => {
   const { query } = useContext(SearchContext);
+  const [ data, setData ] = useState([]);
+
+  useEffect(() =>{
+
+    async function fetchData() {
+      const token = localStorage.getItem('token');
+      const ticket = await TicketService.ticket(token);
+      setData(ticket);
+    }
+    fetchData();
+  }, [])
 
   return (
     <div className="flex justify-center items-center text-sm w-full h-full">
@@ -22,7 +34,7 @@ const TicketTable = () => {
           </tr>
         </thead>
         <tbody>
-          {Tickets.filter(
+          {data.filter(
             (item) =>
               item.id.includes(query) ||
               item.client.toLowerCase().includes(query.toLowerCase()) ||
