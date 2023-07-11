@@ -23,6 +23,8 @@ const ReportSection = (props) => {
   const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
   const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
 
+  const [enableInput,setEnableInput] = useState(false);
+
   const [report, setReport] = useState("");
   const [valueExp, setValueExp ] = useState("");
   const [extraExp, setExtraExp ] = useState("");
@@ -40,8 +42,29 @@ const ReportSection = (props) => {
         if (ticket[i].id === props.ticketId) {
           setReport(ticket[i].report);
           setExtraExp(ticket[i].extraExp)
-          setValueExp(ticket[i].valueExp);
+          setValueExp(ticket[i].value);
+
+          setTimeRegTravelTo(ticket[i].rtlTravelTo);
+          setTimeRegTravelFrom(ticket[i].rtlTravelFrom);
+          setTimeDepartureReg(ticket[i].rtlDeparture);
+          setTimeArrivalReg(ticket[i].rtlArrival);
+
+          setTimeOverTravelFrom(ticket[i].otlTravelFrom);
+          setTimeOverTravelTo(ticket[i].otlTravelTo);
+          setTimeDepartureOver(ticket[i].otlDeparture);
+          setTimeArrivalOver(ticket[i].otlArrival);
+
+          setTimeAfterTravelFrom(ticket[i].amtlTravelFrom);
+          setTimeAfterTravelTo(ticket[i].amtlTravelTo);
+          setTimeDepartureAfter(ticket[i].amtlDeparture);
+          setTimeArrivalAfter(ticket[i].amtlArrival);
          
+          if(ticket[i].status === "Review"){
+            setEnableInput(true);
+          }else{
+            setEnableInput(false);
+          }
+
           continue;
         }
       }
@@ -71,7 +94,7 @@ const ReportSection = (props) => {
       amtlArrival: timeArrivalAfter,
       amtlDeparture: timeDepartureAfter,
       amtlTravelFrom: timeAfterTravelFrom,
-      statusName: "Review"
+      status: "Review"
     };
     console.log(data);
     return TicketService.ticketPatch(localStorage.getItem('token'),props.ticketId,data);
@@ -79,8 +102,12 @@ const ReportSection = (props) => {
   }
 
   function calcTimeRegWork() {
-    let arrTimeArrival = timeArrivalReg.split(":");
-    let arrTimeDeparture = timeDepartureReg.split(":");
+    let arrTimeArrival = "00:00";
+    let arrTimeDeparture = "00:00";
+    if(timeArrivalReg != null && timeDepartureReg != null){
+      arrTimeArrival = timeArrivalReg.split(":");
+      arrTimeDeparture = timeDepartureReg.split(":");
+    }
 
     let timeReg =
       arrTimeDeparture[1] -
@@ -93,9 +120,13 @@ const ReportSection = (props) => {
   calcTimeRegWork();
 
   function calcTimeOverWork() {
-    let arrTimeArrival = timeArrivalOver.split(":");
-    let arrTimeDeparture = timeDepartureOver.split(":");
-
+    let arrTimeArrival = "00:00";
+    let arrTimeDeparture = "00:00";
+    if(timeArrivalOver != null && timeDepartureOver != null){
+      arrTimeArrival = timeArrivalOver.split(":");
+      arrTimeDeparture = timeDepartureOver.split(":");
+    }
+   
     let timeOver =
       arrTimeDeparture[1] -
       arrTimeArrival[1] +
@@ -109,8 +140,13 @@ const ReportSection = (props) => {
 
 
   function calcTimeAfterWork() {
-    let arrTimeArrival = timeArrivalAfter.split(":");
-    let arrTimeDeparture = timeDepartureAfter.split(":");
+    let arrTimeArrival = "00:00"
+    let arrTimeDeparture = "00:00"
+
+    if(timeArrivalAfter != null && timeDepartureAfter != null){
+      arrTimeArrival = timeArrivalAfter.split(":");
+      arrTimeDeparture = timeDepartureAfter.split(":");
+    }
 
     let timeAfter =
       arrTimeDeparture[1] -
@@ -157,6 +193,7 @@ const ReportSection = (props) => {
             type="text"
             size={width > 390 ? "145" : "50"}
             defaultValue={extraExp}
+            disabled={enableInput}
           />
         </div>
 
@@ -167,6 +204,7 @@ const ReportSection = (props) => {
             className="mb-1 border p-1 rounded-lg border-zinc-700"
             type="text"
             defaultValue={valueExp}
+            disabled={enableInput}
           />
         </div>
         {width > 390 ? (
@@ -194,15 +232,19 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeRegTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeRegTravelTo}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Arrival:</h2>
                 <input
-                  onChange={(event) => setTimeArrivalReg(event.target.value)}
+                  onChange={(event) => { setTimeArrivalReg(event.target.value) }}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
                   min="08:00"
+                  value={timeArrivalReg}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -213,6 +255,8 @@ const ReportSection = (props) => {
                   type="time"
                   max="17:00"
                   required
+                  value={timeDepartureReg}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -223,6 +267,8 @@ const ReportSection = (props) => {
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeAfterTravelFrom}
+                  disabled={enableInput}
                 />
               </div>
 
@@ -254,6 +300,8 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeOverTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeOverTravelTo}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -262,6 +310,8 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeArrivalOver(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  value={timeArrivalOver}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -270,6 +320,8 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeDepartureOver(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  value={timeDepartureOver}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -280,6 +332,8 @@ const ReportSection = (props) => {
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeOverTravelFrom}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -310,6 +364,8 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeAfterTravelTo(event.target.value)}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeAfterTravelTo}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -318,6 +374,8 @@ const ReportSection = (props) => {
                   onChange={(event) => setTimeArrivalAfter(event.target.value)}
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  value={timeArrivalAfter}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -328,6 +386,8 @@ const ReportSection = (props) => {
                   }
                   className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="time"
+                  value={timeDepartureAfter}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -338,6 +398,8 @@ const ReportSection = (props) => {
                   }}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
+                  value={timeAfterTravelFrom}
+                  disabled={enableInput}
                 />
               </div>
               <div className="mr-1">
@@ -365,6 +427,7 @@ const ReportSection = (props) => {
             rows="12"
             Cols={width > 390 ? "100" : "49"}
             defaultValue={report}
+            disabled={enableInput}
           />
         </div>
         {width <= 450 ? (

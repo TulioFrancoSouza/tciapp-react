@@ -11,13 +11,25 @@ import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule
 
 import { Tickets } from "../tickets";
 import { TicketService } from "../service/ticket/TicketService"
+import dateFormat  from "dateformat";
 
 
 const TickeInfo = () => {
   const ticketData = Tickets;
   const { tId } = useParams();
 
+  const [showRejectSection, setshowRejectSection] = useState(false);
+  const [showReportSection, setshowReportSection] = useState(false);
+  const [showModal, setshowModal] = useState(false);
+  const [showModalAgreement, setshowModalAgreement] = useState(false);
+  const [checkAgreement, setCheckAgreement] = useState(false);
+  const [ticketResponsible, setTicketResponsible] = useState("");
+  const [ticketSchedule, setTicketSchedule] = useState("");
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
+
   const [ticketValue, setTicketValue] = useState("");
+  const [status, setStatus] = useState("");
+  const [enableInput,setEnableInput] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,22 +39,29 @@ const TickeInfo = () => {
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === tId) {
           setTicketValue(ticket[i]);
+          setTicketResponsible(ticket[i].technician)
+          setTicketSchedule(ticket[i].schedule)
+          setStatus(ticket[i].status)
+
+          if(ticket[i].status === "Review"){
+            setCheckAgreement(true);
+            setEnableInput(true);
+            showReportSectionTrue(true);
+          }else{
+            setCheckAgreement(false);
+            setEnableInput(false);
+          }
+          
           continue;
         }
+      
       }
     }
     fetchData();
   }, [ticketData, tId])
      
   
-  const [showRejectSection, setshowRejectSection] = useState(false);
-  const [showReportSection, setshowReportSection] = useState(false);
-  const [showModal, setshowModal] = useState(false);
-  const [showModalAgreement, setshowModalAgreement] = useState(false);
-  const [checkAgreement, setCheckAgreement] = useState(false);
-  const [ticketResponsible, setTicketResponsible] = useState("");
-  const [ticketSchedule, setTicketSchedule] = useState("");
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
+
 
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
@@ -65,6 +84,7 @@ const TickeInfo = () => {
   }
 
   function handleAcceptTicket() {
+    
     if (!checkAgreement) {
       handleSetShowModalAgreement();
     } else if (ticketResponsible === "" || ticketSchedule === "") {
@@ -161,14 +181,20 @@ const TickeInfo = () => {
               <input
                 onChange={(event) => setTicketResponsible(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                defaultValue={ticketResponsible}
+                disabled={enableInput}
               />
             </div>
             <div>
               <h3 className="font-bold">Schedule:</h3>
               <input
-                onChange={(event) => setTicketSchedule(event.target.value)}
+                onChange={(event) => 
+                    setTicketSchedule(event.target.value)
+                }
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="datetime-local"
+                defaultValue={dateFormat(ticketValue.schedule,"yyyy-mm-dd HH:MM:ss")}
+                disabled={enableInput}
               />
             </div>
           </div>
@@ -180,6 +206,7 @@ const TickeInfo = () => {
               type="checkbox"
               value="agreed"
               disabled={showReportSection === true ? true : false}
+              checked={checkAgreement}
             />
             <span className="mr-2">I agree with the terms and conditions.</span>
             <Link to="/terms">
