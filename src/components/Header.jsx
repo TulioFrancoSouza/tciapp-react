@@ -65,7 +65,7 @@ const Header = () => {
         </div>
       </div>
       <div>
-        <hr class="em:ml-8 em:mr-8 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr className="em:ml-8 em:mr-8 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
     </div>
   );

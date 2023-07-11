@@ -35,7 +35,6 @@ const TickeInfo = () => {
   }, [ticketData, tId])
      
   
-
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
@@ -43,11 +42,8 @@ const TickeInfo = () => {
   const [checkAgreement, setCheckAgreement] = useState(false);
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
-    useState(false);
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
 
-  console.log(ticketResponsible);
-  console.log(ticketSchedule);
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
   const handleSetHideModalAgreement = () => setshowModalAgreement(false);
@@ -217,13 +213,16 @@ const TickeInfo = () => {
           </div>
         </div>
         <div>
-          <hr class="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+          <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
         </div>
       </div>
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
-      {showReportSection ? <ReportSection /> : null}
+      {showReportSection ? <ReportSection tecnitian={ticketResponsible}
+                                          ticketId={ticketValue.id}
+                                          schedule={ticketSchedule}
+                                           /> : null}
       {showModal && (
         <Modal showReport={showReportSectionTrue} hideModal={handleHideModal} />
       )}

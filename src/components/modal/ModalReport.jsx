@@ -1,6 +1,8 @@
 import React from "react";
 
-const Modal = ({ closeModalReport }) => {
+
+
+const Modal = ({accept,deny,closeModalReport}) => {
   return (
     <div
       onClick={closeModalReport}
@@ -8,7 +10,7 @@ const Modal = ({ closeModalReport }) => {
     >
       <div className="em:w-[300px] em:h-[175px] w-[400px] h-[200px] bg-white px-5 py-5 rounded-lg">
         <div className="flex justify-end">
-          <button onclick={closeModalReport}>X</button>
+          <button onClick={closeModalReport}>X</button>
         </div>
         <div>
           <h2 className="flex justify-center items-center">
@@ -16,11 +18,13 @@ const Modal = ({ closeModalReport }) => {
           </h2>
         </div>
         <div className="mt-8 flex justify-around w-full">
-          <button className="px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400">
+          <button 
+            onClick={accept}
+            className="px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400">
             Yes
           </button>
           <button
-            onclick={closeModalReport}
+            onClick={deny}
             className="px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400"
           >
             No

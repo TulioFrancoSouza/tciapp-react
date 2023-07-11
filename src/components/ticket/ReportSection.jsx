@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 import ModalReport from "../modal/ModalReport";
+import { TicketService } from "../../service/ticket/TicketService";
+
 
 const ReportSection = (props) => {
   const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
@@ -21,8 +23,60 @@ const ReportSection = (props) => {
   const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
   const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
 
+  const [report, setReport] = useState("");
+  const [valueExp, setValueExp ] = useState("");
+  const [extraExp, setExtraExp ] = useState("");
+
   const [showModalReport, setShowModalReport] = useState(false);
   const width = useWindowWidth();
+  
+  useEffect(() =>{
+
+    async function fetchData() {
+      const token = localStorage.getItem('token');
+      const ticket = await TicketService.ticket(token);
+      
+      for (let i = 0; i < ticket.length; i++) {
+        if (ticket[i].id === props.ticketId) {
+          setReport(ticket[i].report);
+          setExtraExp(ticket[i].extraExp)
+          setValueExp(ticket[i].valueExp);
+         
+          continue;
+        }
+      }
+    }
+    fetchData();
+  }, [])
+
+
+  function save(){
+    
+
+    const data ={
+      technician: props.tecnitian,
+      schedule: props.schedule,
+      value: valueExp,
+      extraExp: extraExp,
+      report: report,
+      rtlTravelTo: timeRegTravelTo,
+      rtlArrival: timeArrivalReg,
+      rtlDeparture: timeDepartureReg,
+      rtlTravelFrom: timeRegTravelFrom,
+      otlTravelTo: timeOverTravelTo,
+      otlArrival: timeArrivalOver,
+      otlDeparture: timeDepartureOver,
+      otlTravelFrom: timeOverTravelFrom,
+      amtlTravelTo: timeAfterTravelTo,
+      amtlArrival: timeArrivalAfter,
+      amtlDeparture: timeDepartureAfter,
+      amtlTravelFrom: timeAfterTravelFrom,
+      statusName: "Review"
+    };
+    console.log(data);
+    return TicketService.ticketPatch(localStorage.getItem('token'),props.ticketId,data);
+
+  }
 
   function calcTimeRegWork() {
     let arrTimeArrival = timeArrivalReg.split(":");
@@ -51,7 +105,8 @@ const ReportSection = (props) => {
   }
 
   calcTimeOverWork();
-  console.log(calcTimeOverWork());
+ 
+
 
   function calcTimeAfterWork() {
     let arrTimeArrival = timeArrivalAfter.split(":");
@@ -66,14 +121,27 @@ const ReportSection = (props) => {
   }
 
   calcTimeAfterWork();
-  console.log(calcTimeAfterWork());
 
   const handleShowModalReport = () => {
     setShowModalReport(true);
+   
   };
   const hideShowModalReport = () => {
     setShowModalReport(false);
+    
   };
+
+  const handlerTrue = () => {
+    setShowModalReport(false);
+    console.log("accept");
+    save();
+  }
+
+  const handlerFalse = () => {
+    setShowModalReport(false);
+    console.log("deny");
+  }
+  
 
   return (
     <div>
@@ -84,17 +152,21 @@ const ReportSection = (props) => {
         <div className="mr-4">
           <h2 className="font-bold">Extra expenses:</h2>
           <input
+            onChange={(event) => setExtraExp(event.target.value)}
             className="mb-2 border p-1 rounded-lg border-zinc-700"
             type="text"
             size={width > 390 ? "145" : "50"}
+            defaultValue={extraExp}
           />
         </div>
 
         <div className="mr-4">
           <h2 className="font-bold">Value:</h2>
           <input
+            onChange={(event) => setValueExp(event.target.value)}
             className="mb-1 border p-1 rounded-lg border-zinc-700"
             type="text"
+            defaultValue={valueExp}
           />
         </div>
         {width > 390 ? (
@@ -287,10 +359,12 @@ const ReportSection = (props) => {
         <div className="em:mr-5 h-full py-3 border-2 mt-2 rounded-lg">
           <h2 className="font-bold text-blue-600 mb-5 ml-2">Report:</h2>
           <textarea
+            onChange={(event) => setReport(event.target.value)}
             className="em:max-w-[335px] mb-1 mx-2 border rounded-lg border-zinc-700"
             name="report"
             rows="12"
             Cols={width > 390 ? "100" : "49"}
+            defaultValue={report}
           />
         </div>
         {width <= 450 ? (
@@ -306,7 +380,7 @@ const ReportSection = (props) => {
       </div>
 
       {showModalReport && (
-        <ModalReport closeModalReport={hideShowModalReport} />
+        <ModalReport accept={handlerTrue} deny={handlerFalse} closeModalReport={hideShowModalReport} />
       )}
     </div>
   );
