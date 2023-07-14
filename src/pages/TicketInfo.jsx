@@ -47,11 +47,18 @@ const TickeInfo = () => {
             setCheckAgreement(true);
             setEnableInput(true);
             showReportSectionTrue(true);
+          }else if(ticket[i].status === "Review" 
+                    && i === ticket.length
+                    && ticket[i].admin){
+            console.log(ticket[i].admin)  ;
+            showReportSectionTrue(true);
+            setEnableInput(false);
+            setCheckAgreement(true);
           }else{
             setCheckAgreement(false);
             setEnableInput(false);
           }
-          
+
           continue;
         }
       
@@ -60,8 +67,6 @@ const TickeInfo = () => {
     fetchData();
   }, [ticketData, tId])
      
-  
-
 
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);

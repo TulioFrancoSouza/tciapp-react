@@ -28,6 +28,7 @@ const ReportSection = (props) => {
   const [report, setReport] = useState("");
   const [valueExp, setValueExp ] = useState("");
   const [extraExp, setExtraExp ] = useState("");
+  const [adm, setAdm] = useState(false);
 
   const [showModalReport, setShowModalReport] = useState(false);
   const width = useWindowWidth();
@@ -38,7 +39,16 @@ const ReportSection = (props) => {
       const token = localStorage.getItem('token');
       const ticket = await TicketService.ticket(token);
       
+      let admin = false;
+          
+      if(ticket[ticket.length-1].admin){
+          setAdm(ticket[ticket.length-1].admin);
+          admin = true;
+      }
+      
+
       for (let i = 0; i < ticket.length; i++) {
+
         if (ticket[i].id === props.ticketId) {
           setReport(ticket[i].report);
           setExtraExp(ticket[i].extraExp)
@@ -58,13 +68,17 @@ const ReportSection = (props) => {
           setTimeAfterTravelTo(ticket[i].amtlTravelTo);
           setTimeDepartureAfter(ticket[i].amtlDeparture);
           setTimeArrivalAfter(ticket[i].amtlArrival);
-         
-          if(ticket[i].status === "Review"){
+        
+
+          if(ticket[i].status === "Review" && !ticket[ticket.length-1].admin){
             setEnableInput(true);
+          }else if(ticket[i].status === "Review" && ticket[ticket.length-1].admin){
+            console.log("dentro ddooo");
+            setEnableInput(false);
           }else{
             setEnableInput(false);
           }
-
+                 
           continue;
         }
       }
@@ -213,7 +227,7 @@ const ReportSection = (props) => {
               onClick={handleShowModalReport}
               className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
             >
-              Send
+               {adm ? "Send" : "Save" } 
             </button>
           </div>
         ) : null}
