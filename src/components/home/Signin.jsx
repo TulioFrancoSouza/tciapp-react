@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import Logo from "../../assets/TCI-name-logo.jpg";
+import { Oval } from  'react-loader-spinner';
+
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [load, setLoad ] = useState(false);
   const navigate = useNavigate();
   const { signIn } = UserAuth();
 
@@ -16,7 +19,9 @@ const Signin = () => {
     e.preventDefault();
     setError("");
     try {
+      setLoad(true);
       await signIn(email, password);
+    
       navigate("/summary");
     } catch (e) {
       setError(e.message);
@@ -57,15 +62,20 @@ const Signin = () => {
           />
         </div>
         <button className="border border-blue-400 rounded-lg bg-blue-600 hover:bg-blue-500 w-full mt-8 p-4 text-white">
-          Sign In
+        {!load && "Sign In" }
+        {load &&
+                <Oval height = "20" width = "20" radius = "10" color = 'black' 
+                ariaLabel = 'oval-loading' strokeWidth={2}
+                strokeWidthSecondary={2} /> }
         </button>
         <p className="mt-2 py-2">
           Don't have an account yet?{" "}
-          <Link to="/signup" className="font-bold underline">
+        <Link to="/signup" className="font-bold underline">
             Sign up.
-          </Link>
-        </p>
+        </Link>
+      </p>
       </form>
+      
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ModalReport = ({ showReport, hideModal }) => {
+const ModalReport = ({ handlerTrue, handlerFalse, showReport, hideModal }) => {
   return (
     <div
       onClick={hideModal}
@@ -17,13 +17,13 @@ const ModalReport = ({ showReport, hideModal }) => {
         </div>
         <div className="mt-8 flex justify-around w-full">
           <button
-            onClick={showReport}
+            onClick={handlerTrue}
             className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400"
           >
             Yes
           </button>
           <button
-            onclick={hideModal}
+            onclick={handlerFalse}
             className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400"
           >
             No

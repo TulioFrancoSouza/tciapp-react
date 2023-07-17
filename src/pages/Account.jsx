@@ -9,7 +9,7 @@ const Account = () => {
   const { logout } = UserAuth();
   const navigate = useNavigate();
   const [ user,setUser ] = useState([]);
-  
+ 
 
   const handleLogout = async () => {
     try {
@@ -22,12 +22,11 @@ const Account = () => {
   };
 
   useEffect(() =>{
-
     async function fetchData() {
       const token = localStorage.getItem('token');
       const user = await UserService.user(token);
-      // console.log(user[0]['name']);
-       setUser(user[0]);
+      
+      setUser(user[0]);
     }
     fetchData();
   }, [])

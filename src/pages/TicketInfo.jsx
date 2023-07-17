@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import ReportSection from "../components/ticket/ReportSection";
@@ -12,9 +12,13 @@ import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule
 import { Tickets } from "../tickets";
 import { TicketService } from "../service/ticket/TicketService"
 import dateFormat  from "dateformat";
+import { Oval } from  'react-loader-spinner';
 
 
-const TickeInfo = () => {
+
+const TickeInfo = (props) => {
+
+  const navigate = useNavigate();
   const ticketData = Tickets;
   const { tId } = useParams();
 
@@ -26,6 +30,7 @@ const TickeInfo = () => {
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
   const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
+  const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
   const [status, setStatus] = useState("");
@@ -43,14 +48,13 @@ const TickeInfo = () => {
           setTicketSchedule(ticket[i].schedule)
           setStatus(ticket[i].status)
 
-          if(ticket[i].status === "Review"){
+          if(ticket[i].status === "Review"|| ticket[i].status === "Accepted" ){
             setCheckAgreement(true);
             setEnableInput(true);
             showReportSectionTrue(true);
           }else if(ticket[i].status === "Review" 
                     && i === ticket.length
                     && ticket[i].admin){
-            console.log(ticket[i].admin)  ;
             showReportSectionTrue(true);
             setEnableInput(false);
             setCheckAgreement(true);
@@ -58,7 +62,6 @@ const TickeInfo = () => {
             setCheckAgreement(false);
             setEnableInput(false);
           }
-
           continue;
         }
       
@@ -68,12 +71,49 @@ const TickeInfo = () => {
   }, [ticketData, tId])
      
 
+  function save(){
+    const data ={
+      technician: ticketValue.technician,
+      schedule: ticketSchedule,
+      status: "Accepted"
+    };
+    const ticket = TicketService.ticketPatch(localStorage.getItem('token'),ticketValue.id,data);
+    return ticket;
+  }
+  
+
+  function update(){
+    setLoad(true);
+    const data ={
+      technician: ticketValue.technician,
+      schedule: ticketSchedule,
+      status: ticketValue.status
+    };
+    
+    const ticket = TicketService.ticketPatch(localStorage.getItem('token'),ticketValue.id,data);  
+    ticket.then((response)=>{
+      if(response != null){
+        window.location.reload(true);
+      }
+    }) 
+  }
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
   const handleSetHideModalAgreement = () => setshowModalAgreement(false);
 
-  const handleSetHideModalTicketRespSchedule = () =>
+  const handleSetHideModalTicketRespSchedule = () =>{
+    setShowModalTicketRespSchedule(false); 
+  }
+
+  const handlerTrue = () => {
+    setShowModalTicketRespSchedule(false); 
+    save();
+    navigate('/summary')
+  }
+
+  const handlerFalse = () => {
     setShowModalTicketRespSchedule(false);
+  }
 
   const handlesetCheckAgreement = () => setCheckAgreement(true);
 
@@ -236,9 +276,13 @@ const TickeInfo = () => {
                 </button>
               </>
             ) : null}
-
+            {load &&
+                <Oval height = "20" width = "20" radius = "10" color = 'black' 
+                ariaLabel = 'oval-loading' strokeWidth={2}
+                strokeWidthSecondary={2} /> }
             {showReportSection === true ? (
-              <button className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white">
+              <button className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                      onClick={update}>
                 Update
               </button>
             ) : null}
@@ -256,14 +300,14 @@ const TickeInfo = () => {
                                           schedule={ticketSchedule}
                                            /> : null}
       {showModal && (
-        <Modal showReport={showReportSectionTrue} hideModal={handleHideModal} />
+        <Modal handlerTrue={handlerTrue} handlerFalse={handlerFalse} showReport={showReportSectionTrue} hideModal={handleHideModal} />
       )}
       {showModalAgreement ? (
         <ModalAgreement hideModalAgreement={handleSetHideModalAgreement} />
       ) : null}
       {showModalTicketRespSchedule ? (
         <ModalTicketRespSchedule
-          hideTicketRespSchedule={handleSetHideModalTicketRespSchedule}
+        hideTicketRespSchedule={handleSetHideModalTicketRespSchedule}
         />
       ) : null}
     </div>

@@ -2,6 +2,7 @@ import React, { useState,useEffect} from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 import ModalReport from "../modal/ModalReport";
 import { TicketService } from "../../service/ticket/TicketService";
+import { Oval } from  'react-loader-spinner';
 
 
 const ReportSection = (props) => {
@@ -29,6 +30,7 @@ const ReportSection = (props) => {
   const [valueExp, setValueExp ] = useState("");
   const [extraExp, setExtraExp ] = useState("");
   const [adm, setAdm] = useState(false);
+  const [load,setLoad] = useState(false);
 
   const [showModalReport, setShowModalReport] = useState(false);
   const width = useWindowWidth();
@@ -38,14 +40,10 @@ const ReportSection = (props) => {
     async function fetchData() {
       const token = localStorage.getItem('token');
       const ticket = await TicketService.ticket(token);
-      
-      let admin = false;
           
       if(ticket[ticket.length-1].admin){
           setAdm(ticket[ticket.length-1].admin);
-          admin = true;
       }
-      
 
       for (let i = 0; i < ticket.length; i++) {
 
@@ -88,8 +86,6 @@ const ReportSection = (props) => {
 
 
   function save(){
-    
-
     const data ={
       technician: props.tecnitian,
       schedule: props.schedule,
@@ -110,9 +106,12 @@ const ReportSection = (props) => {
       amtlTravelFrom: timeAfterTravelFrom,
       status: "Review"
     };
-    console.log(data);
-    return TicketService.ticketPatch(localStorage.getItem('token'),props.ticketId,data);
-
+    const ticket = TicketService.ticketPatch(localStorage.getItem('token'),props.ticketId,data);
+    ticket.then((response)=>{
+      if(response != null){
+        window.location.reload(true);
+      }
+    }) 
   }
 
   function calcTimeRegWork() {
@@ -150,9 +149,6 @@ const ReportSection = (props) => {
   }
 
   calcTimeOverWork();
- 
-
-
   function calcTimeAfterWork() {
     let arrTimeArrival = "00:00"
     let arrTimeDeparture = "00:00"
@@ -183,13 +179,12 @@ const ReportSection = (props) => {
 
   const handlerTrue = () => {
     setShowModalReport(false);
-    console.log("accept");
+    setLoad(true);
     save();
   }
 
   const handlerFalse = () => {
     setShowModalReport(false);
-    console.log("deny");
   }
   
 
@@ -221,13 +216,18 @@ const ReportSection = (props) => {
             disabled={enableInput}
           />
         </div>
+       
         {width > 390 ? (
           <div className="em:w-full em:mt-3 em:mb-5 flex justify-center items-center mt-3 mb-3">
+            {load &&
+                <Oval height = "20" width = "20" radius = "10" color = 'black' 
+                ariaLabel = 'oval-loading' strokeWidth={2}
+                strokeWidthSecondary={2} /> } 
             <button
               onClick={handleShowModalReport}
               className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
             >
-               {adm ? "Send" : "Save" } 
+               {adm ? "Send" : "Save"}
             </button>
           </div>
         ) : null}

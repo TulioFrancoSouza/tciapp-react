@@ -1,20 +1,24 @@
 import React, { useEffect,useContext,useState } from "react";
 import { FcAbout } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { Tickets } from "../../tickets";
 import { SearchContext } from "../../context/SearchContext";
 import { TicketService } from "../../service/ticket/TicketService"
+import { Oval } from  'react-loader-spinner';
 
 const TicketTable = () => {
   const { query } = useContext(SearchContext);
   const [ data, setData ] = useState([]);
+  const [load, setLoad ] = useState(false);
 
   useEffect(() =>{
 
     async function fetchData() {
+      setLoad(true);
       const token = localStorage.getItem('token');
       const ticket = await TicketService.ticket(token);
-      setData(ticket);
+      const processTicket = ticket.filter((item) => item.id!=="0");
+      setData(processTicket);
+      setLoad(false);
     }
     fetchData();
   }, [])
@@ -34,7 +38,10 @@ const TicketTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.filter(
+          {load &&
+                <Oval height = "20" width = "20" radius = "10" color = 'black' 
+                ariaLabel = 'oval-loading' wrapperStyle wrapperClass/> }
+          {!load && data.filter(
             (item) =>
               item.id.includes(query) ||
               item.client.toLowerCase().includes(query.toLowerCase()) ||
