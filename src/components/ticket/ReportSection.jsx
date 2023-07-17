@@ -276,12 +276,10 @@ const ReportSection = (props) => {
               <div className="mr-1">
                 <h2 className="font-bold text-xs">Travel from (min):</h2>
                 <input
-                  onChange={(event) => {
-                    setTimeRegTravelFrom(event.target.value);
-                  }}
+                  onChange={(event) => {setTimeRegTravelFrom(event.target.value);}}
                   className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
                   type="number"
-                  value={timeAfterTravelFrom}
+                  value={timeRegTravelFrom}
                   disabled={enableInput}
                 />
               </div>
