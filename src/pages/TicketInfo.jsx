@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams,useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import ReportSection from "../components/ticket/ReportSection";
@@ -10,14 +10,11 @@ import ModalAgreement from "../components/modal/ModalAgreement";
 import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule";
 
 import { Tickets } from "../tickets";
-import { TicketService } from "../service/ticket/TicketService"
-import dateFormat  from "dateformat";
-import { Oval } from  'react-loader-spinner';
-
-
+import { TicketService } from "../service/ticket/TicketService";
+import dateFormat from "dateformat";
+import { Oval } from "react-loader-spinner";
 
 const TickeInfo = (props) => {
-
   const navigate = useNavigate();
   const ticketData = Tickets;
   const { tId } = useParams();
@@ -25,7 +22,7 @@ const TickeInfo = (props) => {
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
-  const [showModalAgreement, setshowModalAgreement] = useState(false);
+  const [showModalAgreement, setshowModalAgreement] = useState(false);  
   const [checkAgreement, setCheckAgreement] = useState(false);
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
@@ -33,87 +30,96 @@ const TickeInfo = (props) => {
   const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
-  const [status, setStatus] = useState("");
-  const [enableInput,setEnableInput] = useState(false);
+  const [enableInput, setEnableInput] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const ticket = await TicketService.ticket(token);
-      
+
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === tId) {
           setTicketValue(ticket[i]);
-          setTicketResponsible(ticket[i].technician)
-          setTicketSchedule(ticket[i].schedule)
-          setStatus(ticket[i].status)
+          setTicketResponsible(ticket[i].technician);
+          setTicketSchedule(ticket[i].schedule);
 
-          if(ticket[i].status === "Review"|| ticket[i].status === "Accepted" ){
+          if (
+            ticket[i].status === "Review" ||
+            ticket[i].status === "Accepted" ||
+            ticket[i].status === "Closed"
+          ) {
             setCheckAgreement(true);
             setEnableInput(true);
             showReportSectionTrue(true);
-          }else if(ticket[i].status === "Review" 
-                    && i === ticket.length
-                    && ticket[i].admin){
+          } else if (
+            ticket[i].status === "Review" &&
+            i === ticket.length &&
+            ticket[i].admin
+          ) {
             showReportSectionTrue(true);
             setEnableInput(false);
             setCheckAgreement(true);
-          }else{
+          } else {
             setCheckAgreement(false);
             setEnableInput(false);
           }
           continue;
         }
-      
       }
     }
     fetchData();
-  }, [ticketData, tId])
-     
+  }, [ticketData, tId]);
 
-  function save(){
-    const data ={
+  function save() {
+    const data = {
       technician: ticketValue.technician,
       schedule: ticketSchedule,
-      status: "Accepted"
+      status: "Accepted",
     };
-    const ticket = TicketService.ticketPatch(localStorage.getItem('token'),ticketValue.id,data);
+    const ticket = TicketService.ticketPatch(
+      localStorage.getItem("token"),
+      ticketValue.id,
+      data
+    );
     return ticket;
   }
-  
 
-  function update(){
+  function update() {
     setLoad(true);
-    const data ={
-      technician: ticketValue.technician,
+    const data = {
+      technician: ticketResponsible,
       schedule: ticketSchedule,
-      status: ticketValue.status
+      status: ticketValue.status,
     };
-    
-    const ticket = TicketService.ticketPatch(localStorage.getItem('token'),ticketValue.id,data);  
-    ticket.then((response)=>{
-      if(response != null){
+
+    const ticket = TicketService.ticketPatch(
+      localStorage.getItem("token"),
+      ticketValue.id,
+      data
+    );
+    ticket.then((response) => {
+      if (response != null) {
         window.location.reload(true);
       }
-    }) 
+    });
   }
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
   const handleSetHideModalAgreement = () => setshowModalAgreement(false);
 
-  const handleSetHideModalTicketRespSchedule = () =>{
-    setShowModalTicketRespSchedule(false); 
-  }
+  const handleSetHideModalTicketRespSchedule = () => {
+    setShowModalTicketRespSchedule(false);
+  };
 
   const handlerTrue = () => {
-    setShowModalTicketRespSchedule(false); 
+    setShowModalTicketRespSchedule(false);
     save();
-    navigate('/summary')
-  }
+    navigate("/summary");
+  };
 
   const handlerFalse = () => {
     setShowModalTicketRespSchedule(false);
-  }
+  };
 
   const handlesetCheckAgreement = () => setCheckAgreement(true);
 
@@ -129,7 +135,6 @@ const TickeInfo = (props) => {
   }
 
   function handleAcceptTicket() {
-    
     if (!checkAgreement) {
       handleSetShowModalAgreement();
     } else if (ticketResponsible === "" || ticketSchedule === "") {
@@ -233,12 +238,13 @@ const TickeInfo = (props) => {
             <div>
               <h3 className="font-bold">Schedule:</h3>
               <input
-                onChange={(event) => 
-                    setTicketSchedule(event.target.value)
-                }
+                onChange={(event) => setTicketSchedule(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="datetime-local"
-                defaultValue={dateFormat(ticketValue.schedule,"yyyy-mm-dd HH:MM:ss")}
+                defaultValue={dateFormat(
+                  ticketValue.schedule,
+                  "yyyy-mm-dd HH:MM:ss"
+                )}
                 disabled={enableInput}
               />
             </div>
@@ -251,7 +257,7 @@ const TickeInfo = (props) => {
               type="checkbox"
               value="agreed"
               disabled={showReportSection === true ? true : false}
-              checked={checkAgreement}
+              defaultChecked={checkAgreement}
             />
             <span className="mr-2">I agree with the terms and conditions.</span>
             <Link to="/terms">
@@ -276,13 +282,22 @@ const TickeInfo = (props) => {
                 </button>
               </>
             ) : null}
-            {load &&
-                <Oval height = "20" width = "20" radius = "10" color = 'black' 
-                ariaLabel = 'oval-loading' strokeWidth={2}
-                strokeWidthSecondary={2} /> }
+            {load && (
+              <Oval
+                height="20"
+                width="20"
+                radius="10"
+                color="black"
+                ariaLabel="oval-loading"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            )}
             {showReportSection === true ? (
-              <button className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
-                      onClick={update}>
+              <button
+                className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                onClick={update}
+              >
                 Update
               </button>
             ) : null}
@@ -295,19 +310,27 @@ const TickeInfo = (props) => {
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
-      {showReportSection ? <ReportSection tecnitian={ticketResponsible}
-                                          ticketId={ticketValue.id}
-                                          schedule={ticketSchedule}
-                                           /> : null}
+      {showReportSection ? (
+        <ReportSection
+          tecnitian={ticketResponsible}
+          ticketId={ticketValue.id}
+          schedule={ticketSchedule}
+        />
+      ) : null}
       {showModal && (
-        <Modal handlerTrue={handlerTrue} handlerFalse={handlerFalse} showReport={showReportSectionTrue} hideModal={handleHideModal} />
+        <Modal
+          handlerTrue={handlerTrue}
+          handlerFalse={handlerFalse}
+          showReport={showReportSectionTrue}
+          hideModal={handleHideModal}
+        />
       )}
       {showModalAgreement ? (
         <ModalAgreement hideModalAgreement={handleSetHideModalAgreement} />
       ) : null}
       {showModalTicketRespSchedule ? (
         <ModalTicketRespSchedule
-        hideTicketRespSchedule={handleSetHideModalTicketRespSchedule}
+          hideTicketRespSchedule={handleSetHideModalTicketRespSchedule}
         />
       ) : null}
     </div>

@@ -38,9 +38,10 @@ const TicketTable = () => {
           </tr>
         </thead>
         <tbody>
-          {load &&
+        <tr><td>{load &&
                 <Oval height = "20" width = "20" radius = "10" color = 'black' 
-                ariaLabel = 'oval-loading' wrapperStyle wrapperClass/> }
+                ariaLabel = 'oval-loading' strokeWidth={2}
+                strokeWidthSecondary={2} /> }</td></tr>
           {!load && data.filter(
             (item) =>
               item.id.includes(query) ||
@@ -50,7 +51,7 @@ const TicketTable = () => {
               item.assignto.toLowerCase().includes(query.toLowerCase()) ||
               item.status.toLowerCase().includes(query.toLowerCase())
           ).map((ticket) => (
-            <tr className="border-t-2 border-b-2 border-gray-300 text-center" hidden={ticket.id === 0 ? true:false} >
+            <tr key={ticket.id} className="border-t-2 border-b-2 border-gray-300 text-center" hidden={ticket.id === 0 ? true:false} >
               <td className="py-2">{ticket.id}</td>
               <td className="py-2">{ticket.client}</td>
               <td className="py-2">{ticket.title}</td>
