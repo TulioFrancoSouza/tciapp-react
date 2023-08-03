@@ -61,6 +61,7 @@ const ReportSection = (props) => {
 
 
   const [report, setReport] = useState("");
+  const [statusReport, setStatusReport] = useState("");
   const [valueExp, setValueExp ] = useState("");
   const [extraExp, setExtraExp ] = useState("");
   const [adm, setAdm] = useState(false);
@@ -77,7 +78,7 @@ const ReportSection = (props) => {
       const ticket = await TicketService.ticket(token);
           
       if(ticket[ticket.length-1].admin){
-          setAdm(ticket[ticket.length-1].admin);
+        setAdm(ticket[ticket.length-1].admin);
       }
 
       for (let i = 0; i < ticket.length; i++) {
@@ -86,10 +87,9 @@ const ReportSection = (props) => {
           setReport(ticket[i].report);
           setExtraExp(ticket[i].extraExp)
           setValueExp(ticket[i].value);
+          setStatusReport(ticket[i].statusReport);
 
-          if(ticket[i].rtlTravelTo ||
-            ticket[i].rtlTravelFrom ||
-            ticket[i].rtlDeparture){
+          if(ticket[i].rtlTravelTo ){
             setShowTimeReg(true);
             setRegularChecked(true);
           }else{
@@ -132,7 +132,6 @@ const ReportSection = (props) => {
           if(ticket[i].status === "Review" && !ticket[ticket.length-1].admin){
             setEnableInput(true);
           }else if(ticket[i].status === "Review" && ticket[ticket.length-1].admin){
-            console.log("dentro ddooo");
             setEnableInput(false);
           }else{
             setEnableInput(false);
@@ -159,6 +158,7 @@ const ReportSection = (props) => {
       value: valueExp,
       extraExp: extraExp,
       report: report,
+      statusReport: statusReport,
       rtlTravelTo: timeRegTravelTo,
       rtlArrival: timeArrivalReg,
       rtlDeparture: timeDepartureReg,
@@ -292,7 +292,6 @@ const ReportSection = (props) => {
     }
     
   }
- 
 
   return (
     <div>
@@ -337,30 +336,30 @@ const ReportSection = (props) => {
           <div className="block">
               <div className="flex em:flex-wrap block">
                 <input
-                    onChange={(event) => setReport(event.target.value)}
+                    //onChange={(event) => setStatusReport(event.target.value)}
                     className="em:max-w-[10px] mb-1 mx-2 border rounded-lg border-zinc-700"
                     name="report"
                     rows="12"
                     cols={width > 390 ? "30" : "29"}
-                    defaultValue={report}
+                   // defaultValue={statusReport}
                     disabled={enableInput}
                   />
                       
               <button
-                //sonClick={handlerTravel}
+                onClick={save}
                 className="max-w-[70%] max-h-[50%] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">
                   Add
                 </button>
             </div>
           
           <div className="flex em:flex-wrap block">
-            <textarea
-            onChange={(event) => setReport(event.target.value)}
+          <textarea
+            //onChange={statusReport}
             className="em:max-w-[10px] mb-1 mx-2 border rounded-lg border-zinc-700"
             name="report"
             rows="12"
             cols={width > 390 ? "30" : "29"}
-            defaultValue={report}
+            defaultValue={statusReport}
             disabled={enableInput}
           />
            </div>
@@ -442,7 +441,7 @@ const ReportSection = (props) => {
                   className="mb-1 ml-1"
                   type="checkbox"
                   disabled={enableInput}
-                  checked={regularChecked}
+                  defaultChecked={regularChecked}
                 />
               </div>
 
@@ -453,7 +452,7 @@ const ReportSection = (props) => {
                   className="mb-1 ml-1"
                   type="checkbox"
                   disabled={enableInput}
-                  checked={afterChecked}
+                  defaultChecked={afterChecked}
                 />
               </div>
 
@@ -464,7 +463,7 @@ const ReportSection = (props) => {
                   className="mb-1 ml-1"
                   type="checkbox"
                   disabled={enableInput}
-                  checked={overChecked}
+                  defaultChecked={overChecked}
                 />
               </div>
           </div>
@@ -476,7 +475,7 @@ const ReportSection = (props) => {
                 </button>
             </div> */}
         </div>
-           { showTimeReg && <SwitchTimeReg {...childProps}/>} 
+           { showTimeReg && <SwitchTimeReg {...childProps}  />} 
            { showTimeAfter && <SwitchTimeAfter {...childProps} />}    
            { showTimeOver && <SwitchTimeOver {...childProps} />}     
 

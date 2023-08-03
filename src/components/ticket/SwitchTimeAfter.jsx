@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 
 const SwitchTimeAfter = (props) => {
+
+
+    const [timeAfterTravelTo, setTimeAfterTravelTo] = useState(props.timeAfterTravelTo);
+    const [timeAfterTravelFrom, setTimeAfterTravelFrom] = useState(props.timeAfterTravelFrom);
+    const [timeArrivalAfter, setTimeArrivalAfter] = useState(props.timeArrivalAfter);
+    const [timeDepartureAfter, setTimeDepartureAfter] = useState(props.timeDepartureAfter);
+
 
     return ( 
     <div>    
@@ -8,43 +15,43 @@ const SwitchTimeAfter = (props) => {
     <div className="mr-1">
         <h2 className="font-bold text-xs">Travel to (min):</h2>
         <input
-          onChange={(event) => props.setTimeAfterTravelTo(event.target.value)}
+          onChange={(event) => setTimeAfterTravelTo(event.target.value)}
           className="mb-1 w-[100px] border-zinc-700"
           type="number"
-          value={props.timeAfterTravelTo != null ? props.timeAfterTravelTo : 0 }
+          value={timeAfterTravelTo != null ? timeAfterTravelTo : 0 }
           disabled={props.enableInput}
         />
       </div>
       <div className="mr-1">
         <h2 className="font-bold text-xs">Arrival:</h2>
         <input
-          onChange={(event) => { props.setTimeArrivalAfter(event.target.value) }}
+          onChange={(event) => { setTimeArrivalAfter(event.target.value) }}
           className="mb-1 min-w-[100px] border-zinc-700"
           type="time"
           min="08:00"
-          value={props.timeArrivalAfter != null ? props.timeArrivalAfter : "00:00" }
+          value={timeArrivalAfter != null ? timeArrivalAfter : "00:00" }
           disabled={props.enableInput}
         />
       </div>
       <div className="mr-1">
         <h2 className="font-bold text-xs">Departure:</h2>
         <input
-          onChange={(event) => props.setTimeDepartureAfter (event.target.value)}
+          onChange={(event) => setTimeDepartureAfter (event.target.value)}
           className="mb-1 min-w-[100px] border-zinc-700"
           type="time"
           max="17:00"
           required
-          value={props.timeDepartureAfter != null ? props.timeDepartureAfter : "00:00" }
+          value={timeDepartureAfter != null ? timeDepartureAfter : "00:00" }
           disabled={props.enableInput}
         />
       </div>
       <div className="mr-1">
         <h2 className="font-bold text-xs">Travel from (min):</h2>
         <input
-          onChange={(event) => {props.setTimeAfterTravelFrom(event.target.value);}}
+          onChange={(event) => {setTimeAfterTravelFrom(event.target.value);}}
           className="mb-1 w-[100px] border-zinc-700"
           type="number"
-          value={props.timeAfterTravelFrom != null ? props.timeAfterTravelFrom : 0}
+          value={timeAfterTravelFrom != null ? timeAfterTravelFrom : 0}
           disabled={props.enableInput}
         />
       </div>

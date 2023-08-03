@@ -2,14 +2,14 @@ import React, {useState} from "react";
 
 const SwitchTimeReg = (props) => {
 
-  const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
-  const [timeRegTravelFrom, setTimeRegTravelFrom] = useState(0);
-  const [timeArrivalReg, setTimeArrivalReg] = useState("00:00");
-  const [timeDepartureReg, setTimeDepartureReg] = useState("00:00");
+  const [timeRegTravelTo, setTimeRegTravelTo] = useState(props.timeRegTravelTo);
+  const [timeRegTravelFrom, setTimeRegTravelFrom] = useState(props.timeRegTravelFrom);
+  const [timeArrivalReg, setTimeArrivalReg] = useState(props.timeArrivalReg);
+  const [timeDepartureReg, setTimeDepartureReg] = useState(props.timeDepartureReg);
 
-    console.log(props);
+  console.log(props);
 
-    return ( 
+  return ( 
     <div>
     <div className="flex flex-wrap-reverse" data-attribute="hidden">   
     <div className="mr-1">
@@ -18,7 +18,7 @@ const SwitchTimeReg = (props) => {
           onChange={(event) => setTimeRegTravelTo(event.target.value)}
           className="mb-1 w-[100px]  border-zinc-700"
           type="number"
-          value={props.timeRegTravelTo != null ? props.timeRegTravelTo : 0 }
+          value={timeRegTravelTo != null ? timeRegTravelTo : 0 }
           disabled={props.enableInput}
         />
       </div>
@@ -29,7 +29,7 @@ const SwitchTimeReg = (props) => {
           className="mb-1 min-w-[100px]   border-zinc-700"
           type="time"
           min="08:00"
-          value={props.timeArrivalReg != null ? props.timeArrivalReg : "00:00" }
+          value={timeArrivalReg != null ? timeArrivalReg : "00:00" }
           disabled={props.enableInput}
         />
       </div>
@@ -41,7 +41,7 @@ const SwitchTimeReg = (props) => {
           type="time"
           max="17:00"
           required
-          value={props.timeDepartureReg != null ? props.timeDepartureReg : "00:00" }
+          value={timeDepartureReg != null ? timeDepartureReg : "00:00" }
           disabled={props.enableInput}
         />
       </div>
@@ -51,7 +51,7 @@ const SwitchTimeReg = (props) => {
           onChange={(event) => {setTimeRegTravelFrom(event.target.value);}}
           className="mb-1 w-[100px] border-zinc-700"
           type="number"
-          value={props.timeRegTravelFrom != null ? props.timeRegTravelFrom : 0}
+          value={timeRegTravelFrom != null ? timeRegTravelFrom : 0}
           disabled={props.enableInput}
         />
       </div>
