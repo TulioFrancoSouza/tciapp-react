@@ -22,11 +22,13 @@ const TickeInfo = (props) => {
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
-  const [showModalAgreement, setshowModalAgreement] = useState(false);  
+  const [showModalAgreement, setshowModalAgreement] = useState(false);
   const [checkAgreement, setCheckAgreement] = useState(false);
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
+  const [ticketTime, setTicketTime] = useState("");
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
+    useState(false);
   const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
@@ -158,61 +160,59 @@ const TickeInfo = (props) => {
         <h2 className="em:ml-8 mr-14 ml-14 font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="em:ml-8 em:mr-8 flex em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
-          <div className="mr-4">
-            <h2 className="font-bold">Ticket:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.id}
+        <div className="em:ml-8 em:mr-8 block em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
+          <div className="flex justify-between">
+            <div className="mr-4">
+              <h2 className="font-bold">Ticket:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.id}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Client:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.client}
+            <div className="mr-4">
+              <h2 className="font-bold">Client:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.client}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Title:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.title}
+            <div className="mr-4">
+              <h2 className="font-bold">Address:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[500px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.address}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Contact:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.contact}
+            <div className="mr-4">
+              <h2 className="font-bold">Contact:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.contact} John Smith
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Phone:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.phone}
-            </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Address:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.address}
+            <div className="mr-1">
+              <h2 className="font-bold">Phone:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.phone}
+              </div>
             </div>
           </div>
 
-          <div className="mr-4">
-            <h2 className="font-bold">Created at:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.createdAt}
+          <div className="flex justify-between">
+            <div className="mr-1">
+              <h2 className="font-bold">Title:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[1000px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.title}
+              </div>
             </div>
-          </div>
+            <div className="mr-4">
+              <h2 className="font-bold">Created at:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.createdAt}
+              </div>
+            </div>
 
-          <div className="mr-4">
-            <h2 className="font-bold">Type:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.type}
-            </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">SLA:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.sla}
+            <div className="mr-1">
+              <h2 className="font-bold">Type:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.type}
+              </div>
             </div>
           </div>
         </div>
@@ -236,11 +236,24 @@ const TickeInfo = (props) => {
               />
             </div>
             <div>
-              <h3 className="font-bold">Schedule:</h3>
+              <h3 className="font-bold">Date:</h3>
               <input
                 onChange={(event) => setTicketSchedule(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
-                type="datetime-local"
+                type="date"
+                defaultValue={dateFormat(
+                  ticketValue.schedule,
+                  "yyyy-mm-dd HH:MM:ss"
+                )}
+                disabled={enableInput}
+              />
+            </div>
+            <div className="ml-4">
+              <h3 className="font-bold">Time(optional):</h3>
+              <input
+                onChange={(event) => setTicketTime(event.target.value)}
+                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                type="time"
                 defaultValue={dateFormat(
                   ticketValue.schedule,
                   "yyyy-mm-dd HH:MM:ss"
@@ -307,6 +320,44 @@ const TickeInfo = (props) => {
           <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
         </div>
       </div>
+
+      <div className="em:flex-wrap mr-14 ml-14 block">
+        <div className="em:ml-1 mr-1 ml-1  py-3 border-2 mt-2 rounded-lg">
+          <h2 className="font-bold text-blue-600 mb-5 ml-2">Notes:</h2>
+          <div className="block min-w-full">
+            <div className="min-w-full em:flex-wrap flex justify-between">
+              <input
+                //onChange={(event) => setStatusReport(event.target.value)}
+                className="em:max-w-[10px] mx-2 border rounded-lg border-zinc-700"
+                name="report"
+                size="158"
+                rows="12"
+                // defaultValue={statusReport}
+                disabled={enableInput}
+              />
+
+              <button
+                onClick={save}
+                className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+              >
+                Send
+              </button>
+            </div>
+
+            <div className="mt-3 em:flex-wrap block">
+              <textarea
+                //onChange={statusReport}
+                className="em:max-w-[10px] mb-1 mx-2 border rounded-lg border-zinc-700"
+                name="report"
+                cols="172"
+                rows="12"
+                disabled={enableInput}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
