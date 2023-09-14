@@ -1,29 +1,13 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
 import { FcEmptyTrash } from "react-icons/fc";
-=======
->>>>>>> main
 import { useWindowWidth } from "@react-hook/window-size";
 import ModalReport from "../modal/ModalReport";
 import { TicketService } from "../../service/ticket/TicketService";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import dateFormat from "dateformat";
 
-
 const ReportSection = (props) => {
-=======
-import SwitchTimeReg from "./SwitchTimeReg";
-import SwitchTimeAfter from "./SwitchTimeAfter";
-import SwitchTimeOver from "./SwitchTimeOver";
-
-const ReportSection = (props) => {
-  const [timeTravelTo, setTimeTravelTo] = useState(0);
-  const [timeTravelFrom, setTimeTravelFrom] = useState(0);
-  const [timeArrival, setTimeArrival] = useState("00:00");
-  const [timeDeparture, setTimeDeparture] = useState("00:00");
->>>>>>> main
 
   const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
   const [timeRegTravelFrom, setTimeRegTravelFrom] = useState(0);
@@ -43,7 +27,6 @@ const ReportSection = (props) => {
   const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
   const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
 
-<<<<<<< HEAD
 
   const [enableInput, setEnableInput] = useState(false);
 
@@ -51,36 +34,6 @@ const ReportSection = (props) => {
   const [statusReport, setStatusReport] = useState("");
   const [schedule, setSchedule] = useState("");
   
-=======
-  const childProps = {
-    timeRegTravelTo,
-    timeRegTravelFrom,
-    timeOverTravelTo,
-    timeOverTravelFrom,
-    timeAfterTravelTo,
-    timeAfterTravelFrom,
-    timeArrivalReg,
-    timeDepartureReg,
-    timeArrivalOver,
-    timeDepartureOver,
-    timeArrivalAfter,
-    timeDepartureAfter,
-  };
-
-  const [showTimeReg, setShowTimeReg] = useState(false);
-  const [showTimeAfter, setShowTimeAfter] = useState(false);
-  const [showTimeOver, setShowTimeOver] = useState(false);
-
-  const [enableInput, setEnableInput] = useState(false);
-  const [regularChecked, setRegularChecked] = useState(false);
-  const [afterChecked, setAfterChecked] = useState(false);
-  const [overChecked, setOverChecked] = useState(false);
-
-  const [report, setReport] = useState("");
-  const [statusReport, setStatusReport] = useState("");
-  const [valueExp, setValueExp] = useState("");
-  const [extraExp, setExtraExp] = useState("");
->>>>>>> main
   const [adm, setAdm] = useState(false);
   const [load, setLoad] = useState(false);
 
@@ -88,7 +41,6 @@ const ReportSection = (props) => {
   const width = useWindowWidth();
   const navigate = useNavigate();
 
-<<<<<<< HEAD
 
   const [extraExpensesContent, setExtraExpensesContent] = useState("");
   const [travelInContent, setTravelInContent] = useState("");
@@ -126,7 +78,6 @@ const ReportSection = (props) => {
   const handleSetLaborTimeStart = (e) => {
     setTravelLaborTimeStart(e.target.value);
   };
-
   const handleSetLaborTimeEnd = (e) => {
     setTravelLaborTimeEnd(e.target.value);
   };
@@ -353,17 +304,12 @@ const ReportSection = (props) => {
   }
 
 
-=======
->>>>>>> main
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
       const ticket = await TicketService.ticket(token);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> main
       if (ticket[ticket.length - 1].admin) {
         setAdm(ticket[ticket.length - 1].admin);
       }
@@ -371,7 +317,6 @@ const ReportSection = (props) => {
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === props.ticketId) {
           setReport(ticket[i].report);
-<<<<<<< HEAD
           setStatusReport(ticket[i].statusReport);
           setSchedule(ticket[i].schedule);
           
@@ -457,36 +402,6 @@ const ReportSection = (props) => {
 
           const extraExp = ticket[i].extraExp!=null ? ticket[i].extraExp : [] ;
           setExtraExpenses(extraExp);
-=======
-          setExtraExp(ticket[i].extraExp);
-          setValueExp(ticket[i].value);
-          setStatusReport(ticket[i].statusReport);
-
-          if (ticket[i].rtlTravelTo) {
-            setShowTimeReg(true);
-            setRegularChecked(true);
-          } else {
-            setShowTimeReg(false);
-            setRegularChecked(false);
-          }
-
-          if (ticket[i].amtlTravelTo) {
-            setShowTimeAfter(true);
-            setAfterChecked(true);
-          } else {
-            setShowTimeAfter(false);
-            setAfterChecked(false);
-          }
-
-          if (ticket[i].otlTravelTo) {
-            setShowTimeOver(true);
-            setOverChecked(true);
-          } else {
-            setShowTimeOver(false);
-            setOverChecked(false);
-          }
-
->>>>>>> main
           setTimeRegTravelTo(ticket[i].rtlTravelTo);
           setTimeRegTravelFrom(ticket[i].rtlTravelFrom);
           setTimeDepartureReg(ticket[i].rtlDeparture);
@@ -633,59 +548,16 @@ const ReportSection = (props) => {
   const handlerFalse = () => {
     setShowModalReport(false);
   };
-<<<<<<< HEAD
 
   return (
     <div>
       <div>
         <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
-=======
-
-  const handlerTravelReg = (event) => {
-    if (event.target.checked) {
-      setShowTimeReg(true);
-      setTimeRegTravelTo(timeTravelTo);
-      setTimeRegTravelFrom(timeTravelFrom);
-      setTimeArrivalReg(timeArrival);
-      setTimeDepartureReg(timeDeparture);
-    } else {
-      setShowTimeReg(false);
-    }
-  };
-
-  const handlerTravelAfter = (event) => {
-    if (event.target.checked) {
-      setShowTimeAfter(true);
-      setTimeAfterTravelTo(timeTravelTo);
-      setTimeAfterTravelFrom(timeTravelFrom);
-      setTimeArrivalAfter(timeArrival);
-      setTimeDepartureAfter(timeDeparture);
-    } else {
-      setShowTimeAfter(false);
-    }
-  };
-
-  const handlerTravelOver = (event) => {
-    if (event.target.checked) {
-      setShowTimeOver(true);
-      setTimeOverTravelTo(timeTravelTo);
-      setTimeOverTravelFrom(timeTravelFrom);
-      setTimeArrivalOver(timeArrival);
-      setTimeDepartureOver(timeDeparture);
-    } else {
-      setShowTimeOver(false);
-    }
-  };
-
-  return (
-    <div>
->>>>>>> main
       <h2 className="em:ml-5 mr-14 ml-14 mt-5 font-bold text-xl text-blue-600">
         Technician Report
       </h2>
 
-<<<<<<< HEAD
       <div className="block em:block border-2 rounded-lg em:ml-5 em:mr-1 items-start ml-14 mr-14 mt-5 mb-2 text-sm">
         <div className="em:flex-wrap block">
           <h2 className="text-blue-600 text-md ml-2 mt-2 font-bold mb-4">
@@ -867,102 +739,6 @@ const ReportSection = (props) => {
                       </thead>
                     </table>
                   </div>
-=======
-      <div className="block em:block border-2 em:ml-5 em:mr-1 items-start ml-14 mr-14 mt-5 mb-10 text-sm">
-        <div className="em:flex-wrap block">
-          <h2 className="text-blue-600 text-md ml-5 mt-2 font-bold mb-4">
-            Extra expenses
-          </h2>
-
-          <div className="em:block em:ml-1 em:mr-5 flex justify-start flex-wrap text-xs text-left ml-5 mr-1 mt-2 py-1">
-            <div className="em:flex-wrap block">
-              <div className="mr-4">
-                <h2 className="font-bold">Description:</h2>
-                <input
-                  onChange={(event) => setExtraExp(event.target.value)}
-                  className="min-w-[1100px] mb-2 border p-1 rounded-lg border-zinc-700"
-                  type="text"
-                  defaultValue={extraExp}
-                  disabled={enableInput}
-                />
-              </div>
-            </div>
-
-            <div className="flex em:flex-wrap">
-              <div className="mr-4">
-                <h2 className="font-bold">Value:</h2>
-                <input
-                  onChange={(event) => setValueExp(event.target.value)}
-                  className="mb-1 border p-1 rounded-lg border-zinc-700"
-                  type="text"
-                  defaultValue={valueExp}
-                  disabled={enableInput}
-                />
-              </div>
-            </div>
-
-            <div className="flex em:flex-wrap align-middle">
-              <button className="drop-shadow-lg mr-1 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 px-2 text-white">
-                Add
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-start flex-wrap mr-5 text-left py-2">
-          <div className="em:w-full w-full ml-4 border-2 px-3 py-3 rounded-lg">
-            <h2 className="text-blue-600 text-md font-bold mb-4">Travel</h2>
-
-            <div className="block w-full">
-              <div className="flex flex-wrap justify-start mb-4">
-                <div className="flex mr-4 em:flex-wrap">
-                  <h2 className="font-bold text-xs">Overtime Tech Labour:</h2>
-                  <input
-                    onChange={(event) => {
-                      handlerTravelOver(event);
-                    }}
-                    className="mb-1 ml-1"
-                    type="checkbox"
-                    disabled={enableInput}
-                    defaultChecked={overChecked}
-                  />
-                </div>
-
-                <div className="flex mr-4 em:flex-wrap">
-                  <h2 className="font-bold text-xs">Regular Tech Labour:</h2>
-                  <input
-                    onChange={(event) => handlerTravelReg(event)}
-                    className="mb-1 ml-1"
-                    type="checkbox"
-                    disabled={enableInput}
-                    defaultChecked={regularChecked}
-                  />
-                </div>
-
-                <div className="flex mr-4 em:flex-wrap">
-                  <h2 className="font-bold text-xs">Overtime Tech Labour:</h2>
-                  <input
-                    onChange={(event) => {
-                      handlerTravelOver(event);
-                    }}
-                    className="mb-1 ml-1"
-                    type="checkbox"
-                    disabled={enableInput}
-                    defaultChecked={overChecked}
-                  />
-                </div>
-
-                <div className="flex mr-4 em:flex-wrap">
-                  <h2 className="font-bold text-xs">
-                    After Midnight Tech Labour:
-                  </h2>
-                  <input
-                    onChange={(event) => handlerTravelAfter(event)}
-                    className="mb-1 ml-1"
-                    type="checkbox"
-                    disabled={enableInput}
-                    defaultChecked={afterChecked}
-                  />
->>>>>>> main
                 </div>
               </div>
             </div>
@@ -970,7 +746,6 @@ const ReportSection = (props) => {
               <h2 className="font-bold">Travel out</h2>
               <h3>(minutes)</h3>
 
-<<<<<<< HEAD
               <div>
                 <input
                   onChange={handleSetTravelOut}
@@ -1015,82 +790,6 @@ const ReportSection = (props) => {
                 </div>
               </div>
             </div>
-=======
-              <div className="flex w-full justify-start">
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Travel to (min):</h2>
-                  <input
-                    onChange={(event) => setTimeTravelTo(event.target.value)}
-                    className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
-                    type="number"
-                    value={timeTravelTo != null ? timeTravelTo : 0}
-                    disabled={enableInput}
-                  />
-                </div>
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Arrival:</h2>
-                  <input
-                    onChange={(event) => {
-                      setTimeArrival(event.target.value);
-                    }}
-                    className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
-                    type="time"
-                    min="08:00"
-                    value={timeArrival != null ? timeArrival : "00:00"}
-                    disabled={enableInput}
-                  />
-                </div>
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Departure:</h2>
-                  <input
-                    onChange={(event) => setTimeDeparture(event.target.value)}
-                    className="mb-1 min-w-[100px] border p-1 rounded-lg border-zinc-700"
-                    type="time"
-                    max="17:00"
-                    required
-                    value={timeDeparture != null ? timeDeparture : "00:00"}
-                    disabled={enableInput}
-                  />
-                </div>
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Travel from (min):</h2>
-                  <input
-                    onChange={(event) => {
-                      setTimeTravelFrom(event.target.value);
-                    }}
-                    className="mb-1 w-[100px] border p-1 rounded-lg border-zinc-700"
-                    type="number"
-                    value={timeTravelFrom != null ? timeTravelFrom : 0}
-                    disabled={enableInput}
-                  />
-                </div>
-
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Total Time(min):</h2>
-                  <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                    {Number(timeTravelTo) + Number(timeTravelFrom)}
-                  </div>
-                </div>
-                <div className="mr-4">
-                  <h2 className="font-bold text-xs">Work Time(min):</h2>
-                  <div className="mb-1 bg-gray-200 border p-1 rounded-lg w-[100px] border-zinc-700">
-                    {calcTimeRegWork()}
-                  </div>
-                </div>
-              </div>
-
-              {/* <div className="flex flex-wrap-reverse"> 
-              <button
-                onClick={handlerTravel}
-                className="max-w-[70%] max-h-[50%] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white">
-                  Add
-                </button>
-            </div> */}
-            </div>
-            {showTimeReg && <SwitchTimeReg {...childProps} />}
-            {showTimeAfter && <SwitchTimeAfter {...childProps} />}
-            {showTimeOver && <SwitchTimeOver {...childProps} />}
->>>>>>> main
           </div>
         </div>
       </div>
@@ -1108,16 +807,10 @@ const ReportSection = (props) => {
         <textarea
           onChange={(event) => setReport(event.target.value)}
           className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
-<<<<<<< HEAD
           placeholder=" Write your report here..."
           name="report"
           rows="12"
           cols={width > 390 ? "150" : "49"}
-=======
-          name="report"
-          rows="12"
-          cols={width > 390 ? "173" : "49"}
->>>>>>> main
           defaultValue={report}
           disabled={enableInput}
         />
@@ -1138,15 +831,9 @@ const ReportSection = (props) => {
           )}
           <button
             onClick={handleShowModalReport}
-<<<<<<< HEAD
             className="min-w-[100px] drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
           >
             {adm ? "Send report" : "Save"}
-=======
-            className="min-w-[100px] drop-shadow-lg mr-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
-          >
-            {adm ? "Send" : "Save"}
->>>>>>> main
           </button>
         </div>
       ) : null}

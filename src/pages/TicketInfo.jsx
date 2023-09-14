@@ -27,17 +27,11 @@ const TickeInfo = (props) => {
   const [checkAgreement, setCheckAgreement] = useState(false);
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
-<<<<<<< HEAD
   const [ticketDate, setTicketDate] = useState("");
   const [ticketTime, setTicketTime] = useState("");
   const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
     useState(false);
   const [showModalConversation, setShowModalConversation] = useState(false);
-=======
-  const [ticketTime, setTicketTime] = useState("");
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
-    useState(false);
->>>>>>> main
   const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
@@ -190,7 +184,6 @@ const TickeInfo = (props) => {
               <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
                 {ticketValue.id}
               </div>
-<<<<<<< HEAD
             </div>
             <div className="mr-4">
               <h2 className="font-bold">Client:</h2>
@@ -210,27 +203,6 @@ const TickeInfo = (props) => {
                 {ticketValue.contact} John Smith
               </div>
             </div>
-=======
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Client:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.client}
-              </div>
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Address:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[500px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.address}
-              </div>
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Contact:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.contact} John Smith
-              </div>
-            </div>
->>>>>>> main
             <div className="mr-1">
               <h2 className="font-bold">Phone:</h2>
               <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
@@ -277,7 +249,7 @@ const TickeInfo = (props) => {
                 onChange={(event) => setTicketResponsible(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 defaultValue={ticketResponsible}
-                disabled={enableInput}
+                //disabled={enableInput}
               />
             </div>
             <div>
@@ -286,27 +258,11 @@ const TickeInfo = (props) => {
                 onChange={(event) => setTicketDate(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="date"
-<<<<<<< HEAD
-=======
-                defaultValue={dateFormat(
-                  ticketValue.schedule,
-                  "yyyy-mm-dd HH:MM:ss"
-                )}
-                disabled={enableInput}
-              />
-            </div>
-            <div className="ml-4">
-              <h3 className="font-bold">Time(optional):</h3>
-              <input
-                onChange={(event) => setTicketTime(event.target.value)}
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
-                type="time"
->>>>>>> main
                 defaultValue={dateFormat(
                   ticketValue.schedule,
                   "yyyy-mm-dd"
                 )}
-                disabled={enableInput}
+                //disabled={enableInput}
               />
               {ticketDate}
             </div>
@@ -318,7 +274,7 @@ const TickeInfo = (props) => {
                 type="time"
                 defaultValue={
                   ticketValue.schedule != null ? dateFormat(ticketValue.schedule, "HH:MM:ss") : "00:00:00" }
-                disabled={enableInput}
+                //disabled={enableInput}
               />
               {ticketTime}
             </div>
@@ -406,46 +362,6 @@ const TickeInfo = (props) => {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      <div className="em:flex-wrap mr-14 ml-14 block">
-        <div className="em:ml-1 mr-1 ml-1  py-3 border-2 mt-2 rounded-lg">
-          <h2 className="font-bold text-blue-600 mb-5 ml-2">Notes:</h2>
-          <div className="block min-w-full">
-            <div className="min-w-full em:flex-wrap flex justify-between">
-              <input
-                //onChange={(event) => setStatusReport(event.target.value)}
-                className="em:max-w-[10px] mx-2 border rounded-lg border-zinc-700"
-                name="report"
-                size="158"
-                rows="12"
-                // defaultValue={statusReport}
-                disabled={enableInput}
-              />
-
-              <button
-                onClick={save}
-                className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
-              >
-                Send
-              </button>
-            </div>
-
-            <div className="mt-3 em:flex-wrap block">
-              <textarea
-                //onChange={statusReport}
-                className="em:max-w-[10px] mb-1 mx-2 border rounded-lg border-zinc-700"
-                name="report"
-                cols="172"
-                rows="12"
-                disabled={enableInput}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
->>>>>>> main
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
