@@ -39,12 +39,7 @@ const TickeInfo = () => {
               1477 - Cineplex Dorval
             </div>
           </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Title:</h2>
-            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              PC not working
-            </div>
-          </div>
+          
           <div className="mr-4">
             <h2 className="font-bold">Contact:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
@@ -78,13 +73,13 @@ const TickeInfo = () => {
               Normal
             </div>
           </div>
-          <div className="mr-4">
-            <h2 className="font-bold">SLA:</h2>
+        </div>
+        <div className="mr-4">
+            <h2 className="font-bold">Title:</h2>
             <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-              12 hours
+              PC not working
             </div>
           </div>
-        </div>
 
         <div className="w-[1200] ml-14 mr-14 ">
           <h2 className="font-bold">Description:</h2>
@@ -107,10 +102,17 @@ const TickeInfo = () => {
             <input className="mb-2 border p-2 rounded-lg border-zinc-700" />
           </div>
           <div>
-            <h3 className="font-bold">Schedule:</h3>
+            <h3 className="font-bold">Date:</h3>
             <input
               className="mb-2 border p-2 rounded-lg border-zinc-700"
-              type="datetime-local"
+              type="date"
+            />
+          </div>
+          <div>
+            <h3 className="font-bold">Time (Optinal):</h3>
+            <input
+              className="mb-2 border p-2 rounded-lg border-zinc-700"
+              type="date"
             />
           </div>
 

@@ -8,7 +8,7 @@ const ModalTicketRespSchedule = ({ hideModalTicketRespSchedule }) => {
     >
       <div className="em:w-[300px] em:h-[175px] w-[400px] h-[200px] bg-white px-5 py-5 rounded-lg">
         <div className="flex justify-end">
-          <button onclick={hideModalTicketRespSchedule}>X</button>
+          <button onClick={hideModalTicketRespSchedule}>X</button>
         </div>
         <div>
           <h2 className="flex justify-centser items-center">
@@ -17,7 +17,7 @@ const ModalTicketRespSchedule = ({ hideModalTicketRespSchedule }) => {
         </div>
         <div className="mt-8 flex justify-around w-full">
           <button
-            onclick={hideModalTicketRespSchedule}
+            onClick={hideModalTicketRespSchedule}
             className="px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400"
           >
             Ok

@@ -32,7 +32,6 @@ const TicketTable = () => {
             <th>Client</th>
             <th>Title</th>
             <th className="em:hidden">Address</th>
-            <th>SLA</th>
             <th>Assign to</th>
             <th>Status</th>
           </tr>
@@ -51,7 +50,7 @@ const TicketTable = () => {
               item.assignto.toLowerCase().includes(query.toLowerCase()) ||
               item.status.toLowerCase().includes(query.toLowerCase())
           ).map((ticket) => (
-            <tr key={ticket.id} className="border-t-2 border-b-2 border-gray-300 text-center" hidden={ticket.id === 0 ? true:false} >
+            <tr key={ticket.id} className="border-t-2 border-b-2 border-gray-300 text-left" hidden={ticket.id === 0 ? true:false} >
               <td className="py-2">{ticket.id}</td>
               <td className="py-2">{ticket.client}</td>
               <td className="py-2">{ticket.title}</td>

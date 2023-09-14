@@ -11,7 +11,7 @@ const SwitchTimeReg = (props) => {
 
   return ( 
     <div>
-    <div className="flex flex-wrap-reverse" data-attribute="hidden">   
+    <div className="flex flex-wrap-reverse justify-between mt-4" data-attribute="hidden">   
     <div className="mr-1">
         <h2 className="font-bold text-xs">Travel to (min):</h2>
         <input

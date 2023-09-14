@@ -9,7 +9,7 @@ const SwitchTimeOver = (props) => {
 
     return ( 
     <div>    
-    <div className="flex flex-wrap-reverse">   
+    <div className="flex flex-wrap-reverse justify-between mt-4">   
     <div className="mr-1">
         <h2 className="font-bold text-xs">Travel to (min):</h2>
         <input
