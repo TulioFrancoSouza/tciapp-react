@@ -8,6 +8,7 @@ import TicketRejectSection from "../components/ticket/TicketRejectSection";
 import Modal from "../components/modal/Modal";
 import ModalAgreement from "../components/modal/ModalAgreement";
 import ModalTicketRespSchedule from "../components/modal/ModalTicketRespSchedule";
+import ModalConversation from "../components/modal/ModalConversation";
 
 import { Tickets } from "../tickets";
 import { TicketService } from "../service/ticket/TicketService";
@@ -22,27 +23,32 @@ const TickeInfo = (props) => {
   const [showRejectSection, setshowRejectSection] = useState(false);
   const [showReportSection, setshowReportSection] = useState(false);
   const [showModal, setshowModal] = useState(false);
-  const [showModalAgreement, setshowModalAgreement] = useState(false);  
+  const [showModalAgreement, setshowModalAgreement] = useState(false);
   const [checkAgreement, setCheckAgreement] = useState(false);
   const [ticketResponsible, setTicketResponsible] = useState("");
   const [ticketSchedule, setTicketSchedule] = useState("");
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
+  const [ticketDate, setTicketDate] = useState("");
+  const [ticketTime, setTicketTime] = useState("");
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
+    useState(false);
+  const [showModalConversation, setShowModalConversation] = useState(false);
   const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
   const [enableInput, setEnableInput] = useState(false);
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
       const ticket = await TicketService.ticket(token);
 
+
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === tId) {
           setTicketValue(ticket[i]);
           setTicketResponsible(ticket[i].technician);
           setTicketSchedule(ticket[i].schedule);
-
           if (
             ticket[i].status === "Review" ||
             ticket[i].status === "Accepted" ||
@@ -63,6 +69,8 @@ const TickeInfo = (props) => {
             setCheckAgreement(false);
             setEnableInput(false);
           }
+
+          setNotes(ticket[i].note)
           continue;
         }
       }
@@ -71,11 +79,19 @@ const TickeInfo = (props) => {
   }, [ticketData, tId]);
 
   function save() {
+    let dateSchedule;
+    if(ticketDate !== ""){
+      dateSchedule = ticketDate;
+    }else{
+      dateSchedule = ticketSchedule;
+    }
+ 
     const data = {
-      technician: ticketValue.technician,
-      schedule: ticketSchedule,
-      status: "Accepted",
+      technician: ticketResponsible,
+      schedule: dateSchedule,
+      status: "Accepted"
     };
+   
     const ticket = TicketService.ticketPatch(
       localStorage.getItem("token"),
       ticketValue.id,
@@ -88,7 +104,7 @@ const TickeInfo = (props) => {
     setLoad(true);
     const data = {
       technician: ticketResponsible,
-      schedule: ticketSchedule,
+      schedule:  dateFormat(ticketDate,"yyyy-mm-dd") + dateFormat(ticketTime, "HH:MM:ss"),
       status: ticketValue.status,
     };
 
@@ -126,6 +142,9 @@ const TickeInfo = (props) => {
   const handleHideModal = () => setshowModal(false);
   const handleShowModal = () => setshowModal(true);
 
+  const handleHideModalConversation = () => setShowModalConversation(false);
+  const handleShowModalConversation = () => setShowModalConversation(true);
+
   const showReportSectionTrue = () => setshowReportSection(true);
 
   const showRejectSectionTrue = () => setshowRejectSection(true);
@@ -158,61 +177,59 @@ const TickeInfo = (props) => {
         <h2 className="em:ml-8 mr-14 ml-14 font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="em:ml-8 em:mr-8 flex em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
-          <div className="mr-4">
-            <h2 className="font-bold">Ticket:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.id}
+        <div className="em:ml-8 em:mr-8 block em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
+          <div className="flex justify-between">
+            <div className="mr-4">
+              <h2 className="font-bold">Ticket:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.id}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Client:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.client}
+            <div className="mr-4">
+              <h2 className="font-bold">Client:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.client}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Title:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.title}
+            <div className="mr-4">
+              <h2 className="font-bold">Address:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[500px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.address}
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Contact:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.contact}
+            <div className="mr-4">
+              <h2 className="font-bold">Contact:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.contact} John Smith
+              </div>
             </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Phone:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.phone}
-            </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">Address:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.address}
+            <div className="mr-1">
+              <h2 className="font-bold">Phone:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.phone}
+              </div>
             </div>
           </div>
 
-          <div className="mr-4">
-            <h2 className="font-bold">Created at:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.createdAt}
+          <div className="flex justify-between">
+            <div className="mr-1">
+              <h2 className="font-bold">Title:</h2>
+              <div className="mb-2 bg-gray-100 border min-w-[1000px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.title}
+              </div>
             </div>
-          </div>
+            <div className="mr-4">
+              <h2 className="font-bold">Created at:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.createdAt}
+              </div>
+            </div>
 
-          <div className="mr-4">
-            <h2 className="font-bold">Type:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.type}
-            </div>
-          </div>
-          <div className="mr-4">
-            <h2 className="font-bold">SLA:</h2>
-            <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.sla}
+            <div className="mr-1">
+              <h2 className="font-bold">Type:</h2>
+              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.type}
+              </div>
             </div>
           </div>
         </div>
@@ -232,21 +249,34 @@ const TickeInfo = (props) => {
                 onChange={(event) => setTicketResponsible(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 defaultValue={ticketResponsible}
-                disabled={enableInput}
+                //disabled={enableInput}
               />
             </div>
             <div>
-              <h3 className="font-bold">Schedule:</h3>
+              <h3 className="font-bold">Date:</h3>
               <input
-                onChange={(event) => setTicketSchedule(event.target.value)}
+                onChange={(event) => setTicketDate(event.target.value)}
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
-                type="datetime-local"
+                type="date"
                 defaultValue={dateFormat(
                   ticketValue.schedule,
-                  "yyyy-mm-dd HH:MM:ss"
+                  "yyyy-mm-dd"
                 )}
-                disabled={enableInput}
+                //disabled={enableInput}
               />
+              {ticketDate}
+            </div>
+            <div className="ml-4">
+              <h3 className="font-bold">Time(optional):</h3>
+              <input
+                onChange={(event) => setTicketTime(event.target.value)}
+                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                type="time"
+                defaultValue={
+                  ticketValue.schedule != null ? dateFormat(ticketValue.schedule, "HH:MM:ss") : "00:00:00" }
+                //disabled={enableInput}
+              />
+              {ticketTime}
             </div>
           </div>
 
@@ -276,7 +306,7 @@ const TickeInfo = (props) => {
                 </button>
                 <button
                   onClick={showRejectSectionTrue}
-                  className="min-w-[100px] drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
+                  className="min-w-[100px] mr-4 drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
                 >
                   Reject
                 </button>
@@ -294,19 +324,44 @@ const TickeInfo = (props) => {
               />
             )}
             {showReportSection === true ? (
-              <button
-                className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
-                onClick={update}
-              >
-                Update
-              </button>
+              <>
+                <button
+                  className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                  onClick={update}
+                >
+                  Update
+                </button>
+                
+              </>
             ) : null}
           </div>
         </div>
         <div>
           <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
         </div>
+        <div className="em:ml-5 mr-14 ml-14 h-full py-3 border-2 mt-2 rounded-lg">
+          <div className="w-full flex justify-between mb-2">
+            <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
+            <button
+              onClick={handleShowModalConversation}
+              className="min-w-[100px] drop-shadow-lg mr-3 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white"
+            >
+              Open chat
+            </button>
+          </div>
+
+          <textarea
+            onChange={setNotes}
+            value={notes.map((row) => row.note)}
+            className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
+            style={{width:"99%"}}
+            name="report"
+            rows="12"
+            disabled="disabled"
+          />
+        </div>
       </div>
+
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
@@ -331,6 +386,11 @@ const TickeInfo = (props) => {
       {showModalTicketRespSchedule ? (
         <ModalTicketRespSchedule
           hideTicketRespSchedule={handleSetHideModalTicketRespSchedule}
+        />
+      ) : null}
+      {showModalConversation ? (
+        <ModalConversation
+          hideModalConversation={handleHideModalConversation}
         />
       ) : null}
     </div>

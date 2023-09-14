@@ -23,7 +23,7 @@ const ModalReport = ({ handlerTrue, handlerFalse, showReport, hideModal }) => {
             Yes
           </button>
           <button
-            onclick={handlerFalse}
+            onClick={handlerFalse}
             className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-red-400"
           >
             No
