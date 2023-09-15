@@ -438,7 +438,7 @@ const ReportSection = (props) => {
     fetchData();
   }, [props.ticketId]);
 
-  function save() {
+  function save(send) {
     let status = "";
     if (!adm) {
       status = "Review";
@@ -446,6 +446,7 @@ const ReportSection = (props) => {
       status = "Closed";
     }
     const data = {
+      send:send,
       technician: props.tecnitian,
       schedule: props.schedule,
       extraExp: extraExpenses,
@@ -542,7 +543,7 @@ const ReportSection = (props) => {
   const handlerTrue = () => {
     setShowModalReport(false);
     setLoad(true);
-    save();
+    save(true);
   };
 
   const handlerFalse = () => {
