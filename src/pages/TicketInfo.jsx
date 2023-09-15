@@ -70,7 +70,12 @@ const TickeInfo = (props) => {
             setEnableInput(false);
           }
 
-          setNotes(ticket[i].note)
+          let notesInline = ""
+          ticket[i].note.map((row)=> {
+            return notesInline = notesInline + row.note + "\n"
+          })
+
+          setNotes(notesInline)
           continue;
         }
       }
@@ -352,7 +357,7 @@ const TickeInfo = (props) => {
 
           <textarea
             onChange={setNotes}
-            value={notes.map((row) => row.note)}
+            value={notes}
             className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
             style={{width:"99%"}}
             name="report"
@@ -390,6 +395,7 @@ const TickeInfo = (props) => {
       ) : null}
       {showModalConversation ? (
         <ModalConversation
+          notes={ticketValue}
           hideModalConversation={handleHideModalConversation}
         />
       ) : null}
