@@ -86,7 +86,7 @@ const ReportSection = (props) => {
     setTravelLaborTimeType(e.target.value);
   };
 
-  const [extraExpenses, setExtraExpenses] = useState([]);
+  const [extraExpenses, setExtraExpenses] = useState([{description:""}]);
 
   const addExtraExpenses = (description) => {
     const newExtraExpenses = [
@@ -166,7 +166,6 @@ const ReportSection = (props) => {
         otlTravelFrom = row.type === "OvertimeIn" ? row.time : null;
         amtlTravelFrom = row.type === "After mid-nightIn" ? row.time : null;
       }
-
       if(eType === "TravelOut"){
         rtlTravelTo = row.type === "RegularOut" ? row.time : null;
         otlTravelTo = row.type === "OvertimeOut" ? row.time : null;
@@ -400,7 +399,9 @@ const ReportSection = (props) => {
 
           setTravelInOut(travel);
 
-          const extraExp = ticket[i].extraExp!=null ? ticket[i].extraExp : [] ;
+          const extraExp = ticket[i].extraExp!=null ? JSON.parse(ticket[i].extraExp) : [] ;
+
+
           setExtraExpenses(extraExp);
           setTimeRegTravelTo(ticket[i].rtlTravelTo);
           setTimeRegTravelFrom(ticket[i].rtlTravelFrom);
@@ -416,6 +417,8 @@ const ReportSection = (props) => {
           setTimeAfterTravelTo(ticket[i].amtlTravelTo);
           setTimeDepartureAfter(ticket[i].amtlDeparture);
           setTimeArrivalAfter(ticket[i].amtlArrival);
+
+         
 
           if (
             ticket[i].status === "Review" &&
@@ -593,9 +596,9 @@ const ReportSection = (props) => {
                   <th className="w-[1150px]">Item</th>
                   <th className="w-[50px]"></th>
                 </tr>
-                {extraExpenses.map((extraExpenses,index) => (
-                  <tr key={extraExpenses.id} className="border-t-2 text-left p-2 border-gray-300">
-                    <td value={extraExpenses}>{extraExpenses.description}</td>
+                {extraExpenses.length > 0 && extraExpenses.map((extraExpense,index) => (
+                  <tr key={Object.keys(extraExpense)[index]} className="border-t-2 text-left p-2 border-gray-300">
+                    <td value={extraExpense}>{extraExpense.description}</td>
                     <td>
                       <div>
                         <FcEmptyTrash onClick={(e) => handleRemoveExtraExpense(e,index)}/>
@@ -657,8 +660,8 @@ const ReportSection = (props) => {
                           <th className="w-[px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel=>travel.type.match("In")).map((travel) => (
-                                                    <tr className="border-t-2 text-center border-gray-300">
+                        {travelInOut.filter(travel=>travel.type.match("In")).map((travel,index) => (
+                                                    <tr key={Object.keys(travel)[index]}  className="border-t-2 text-center border-gray-300">
                                                     <td>{travel.time}</td>
                                                     <td>{travel.type.replace("In","")}</td>
                                                     <td>
@@ -725,7 +728,7 @@ const ReportSection = (props) => {
                           <th></th>
                         </tr>
                         {travelInOut.filter(travel=>travel.type.match("Labor")).map((travel) => (
-                                                    <tr className="border-t-2 text-center border-gray-300">
+                                                    <tr key={travel.id}  className="border-t-2 text-center border-gray-300">
                                                     <td>{travel.time}</td>
                                                     <td>{travel.timeEnd}</td>
                                                     <td>{travel.type.replace("Labor","")}</td>
@@ -775,7 +778,7 @@ const ReportSection = (props) => {
                           <th></th>
                         </tr>
                         {travelInOut.filter(travel=>travel.type.match("Out")).map((travel) => (
-                                                    <tr className="border-t-2 text-center border-gray-300">
+                                                    <tr key={travel.id} className="border-t-2 text-center border-gray-300">
                                                     <td>{travel.time}</td>
                                                     <td>{travel.type.replace("Out","")}</td>
                                                     <td>
