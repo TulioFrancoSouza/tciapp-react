@@ -92,6 +92,7 @@ const TickeInfo = (props) => {
     }
  
     const data = {
+      send:true,
       technician: ticketResponsible,
       schedule: dateSchedule,
       status: "Accepted"
@@ -269,7 +270,6 @@ const TickeInfo = (props) => {
                 )}
                 //disabled={enableInput}
               />
-              {ticketDate}
             </div>
             <div className="ml-4">
               <h3 className="font-bold">Time(optional):</h3>
@@ -278,10 +278,11 @@ const TickeInfo = (props) => {
                 className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="time"
                 defaultValue={
-                  ticketValue.schedule != null ? dateFormat(ticketValue.schedule, "HH:MM:ss") : "00:00:00" }
+                  ticketValue.schedule != null 
+                  ? dateFormat(ticketValue.schedule, "HH:MM:ss") 
+                  : "00:00:00" }
                 //disabled={enableInput}
               />
-              {ticketTime}
             </div>
           </div>
 

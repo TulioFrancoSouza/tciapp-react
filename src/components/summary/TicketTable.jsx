@@ -55,7 +55,6 @@ const TicketTable = () => {
               <td className="py-2">{ticket.client}</td>
               <td className="py-2">{ticket.title}</td>
               <td className="em:hidden py-2">{ticket.address}</td>
-              <td className="py-2">{ticket.sla}</td>
               <td className="py-2">{ticket.assignto}</td>
               <td className="py-2">{ticket.status}</td>
               <td className="py-2">

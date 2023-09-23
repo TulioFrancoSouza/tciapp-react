@@ -11,17 +11,26 @@ const ModalConversation = (props) => {
 
   function update() {
 
+    const notesAndName = props.notes.technician + " - " + ticketNote;
+
     const data = {
       send:true,
-      note: [ {note:ticketNote} ],
+      note: [ {note:notesAndName} ],
       status: props.notes.status
     };
 
-    TicketService.ticketPatch(
+    const ticket = TicketService.ticketPatch(
       localStorage.getItem("token"),
       props.notes.id,
       data
     );
+
+    ticket.then((response) => {
+      if (response != null) {
+        window.location.reload(true);
+      }
+    });
+  
   }
 
 
@@ -53,6 +62,7 @@ const ModalConversation = (props) => {
                   name="report"
                   cols="120"
                   rows="12"
+                  disabled="disabled"
                 />
               </div>
               <div className="min-w-full em:flex-wrap mt-5 flex justify-start">
@@ -70,6 +80,7 @@ const ModalConversation = (props) => {
                   cols="113"
                   rows="2"
                   defaultValue={JSON.stringify(ticket.notes)}
+                  
                 />
               </div>
               <div className="min-w-full mt-4 em:flex-wrap flex justify-center">

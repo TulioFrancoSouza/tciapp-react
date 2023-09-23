@@ -96,6 +96,7 @@ const ReportSection = (props) => {
         description: extraExpensesContent ,
       }
     ];
+    
     const data = {
       extraExp: newExtraExpenses
     }
@@ -135,15 +136,16 @@ const ReportSection = (props) => {
 
 
     const newTravelInOut = [
-      ...travelInOut,
+      ...travelInOut.filter(row=>row.type !== resolveTravelInOutType),
       {
         id: String(Math.random().toFixed(2)),
         time: travelGo,
         timeEnd: travelEnd,
         type: resolveTravelInOutType ,
-      }
+      } 
     ];
-   
+
+    console.log(newTravelInOut);
     let rtlTravelFrom = null;
     let otlTravelFrom = null;
     let amtlTravelFrom = null;
@@ -186,6 +188,21 @@ const ReportSection = (props) => {
       
       return ""
     })
+    
+    setTimeAfterTravelTo(amtlTravelTo);
+    setTimeAfterTravelFrom(amtlTravelFrom);
+    setTimeArrivalAfter(amtlArrival);
+    setTimeDepartureAfter(amtlDeparture);
+
+    setTimeRegTravelTo(rtlTravelTo);
+    setTimeRegTravelFrom(rtlTravelFrom);
+    setTimeDepartureReg(rtlDeparture);
+    setTimeArrivalReg(rtlArrival);
+
+    setTimeOverTravelFrom(otlTravelFrom);
+    setTimeOverTravelTo(otlTravelTo);
+    setTimeDepartureOver(otlDeparture);
+    setTimeArrivalOver(otlArrival)
 
     const data = {
       rtlTravelFrom: rtlTravelFrom,
@@ -256,8 +273,12 @@ const ReportSection = (props) => {
                           }
                           return "";
           }) 
-      
- 
+    if(trv.type==="After mid-nightLabor"){
+      setTimeArrivalAfter("");
+      setTimeDepartureAfter("");
+      console.log(trv);
+    }
+    
     // const data = {
     //   extraExp: newTravelInOut
     // }
@@ -359,7 +380,7 @@ const ReportSection = (props) => {
            })
          }
 
-         if(ticket[i].amtlTravelTo != null ){
+         if(ticket[i].amtlTravelTo != null || ticket[i].amtlTravelTo !== ""){
           travel.push({
             id: String(Math.random().toFixed(2)),
             time: ticket[i].amtlTravelTo,
@@ -369,7 +390,7 @@ const ReportSection = (props) => {
 
 
 
-         if(ticket[i].amtlArrival != null ){
+         if(ticket[i].amtlArrival != null && ticket[i].amtlArrival !== "" ){
           travel.push({
             id: String(Math.random().toFixed(2)),
             time: ticket[i].amtlArrival,
@@ -382,8 +403,8 @@ const ReportSection = (props) => {
          if(ticket[i].rtlArrival != null ){
           travel.push({
             id: String(Math.random().toFixed(2)),
-            time: ticket[i].amtlArrival,
-            timeEnd: ticket[i].amtlDeparture,
+            time: ticket[i].rtlArrival,
+            timeEnd: ticket[i].rtlDeparture,
             type: "RegularLabor"
            })
          }
@@ -391,15 +412,15 @@ const ReportSection = (props) => {
          if(ticket[i].otlArrival != null ){
           travel.push({
             id: String(Math.random().toFixed(2)),
-            time: ticket[i].amtlArrival,
-            timeEnd: ticket[i].amtlDeparture,
+            time: ticket[i].otlArrival,
+            timeEnd: ticket[i].otlDeparture,
             type: "OvertimeLabor"
            })
          }
 
           setTravelInOut(travel);
 
-          const extraExp = ticket[i].extraExp!=null ? JSON.parse(ticket[i].extraExp) : [] ;
+          const extraExp = ticket[i].extraExp != null ?  ticket[i].extraExp : [] ;
 
 
           setExtraExpenses(extraExp);
@@ -443,14 +464,15 @@ const ReportSection = (props) => {
 
   function save(send) {
     let status = "";
-    if (!adm) {
-      status = "Review";
+    if (!adm ) {  
+        status = "Review";
     } else {
-      status = "Closed";
+        status = "Closed"      
     }
+
     const data = {
       send:send,
-      technician: props.tecnitian,
+      technician: props.technician,
       schedule: props.schedule,
       extraExp: extraExpenses,
       report: report,
@@ -469,6 +491,7 @@ const ReportSection = (props) => {
       amtlTravelFrom: timeAfterTravelFrom,
       status: status,
     };
+    
     const ticket = TicketService.ticketPatch(
       localStorage.getItem("token"),
       props.ticketId,
@@ -546,7 +569,12 @@ const ReportSection = (props) => {
   const handlerTrue = () => {
     setShowModalReport(false);
     setLoad(true);
-    save(true);
+    if(adm===true){
+      save(true);
+    }else{
+      save(false);
+    }
+    
   };
 
   const handlerFalse = () => {
@@ -596,7 +624,7 @@ const ReportSection = (props) => {
                   <th className="w-[1150px]">Item</th>
                   <th className="w-[50px]"></th>
                 </tr>
-                {extraExpenses.length > 0 && extraExpenses.map((extraExpense,index) => (
+                { extraExpenses != null && extraExpenses.length > 0 && extraExpenses.map((extraExpense,index) => (
                   <tr key={Object.keys(extraExpense)[index]} className="border-t-2 text-left p-2 border-gray-300">
                     <td value={extraExpense}>{extraExpense.description}</td>
                     <td>
@@ -727,8 +755,8 @@ const ReportSection = (props) => {
                           <th className="w-[75px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel=>travel.type.match("Labor")).map((travel) => (
-                                                    <tr key={travel.id}  className="border-t-2 text-center border-gray-300">
+                        {travelInOut.filter(travel=>travel.type.match("Labor")).map((travel,index) => (
+                                                    <tr key={Object(travel)[index]}  className="border-t-2 text-center border-gray-300">
                                                     <td>{travel.time}</td>
                                                     <td>{travel.timeEnd}</td>
                                                     <td>{travel.type.replace("Labor","")}</td>
@@ -777,8 +805,8 @@ const ReportSection = (props) => {
                           <th className="w-[px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel=>travel.type.match("Out")).map((travel) => (
-                                                    <tr key={travel.id} className="border-t-2 text-center border-gray-300">
+                        {travelInOut.filter(travel=>travel.type.match("Out")).map((travel,index) => (
+                                                    <tr key={Object(travel)[index]} className="border-t-2 text-center border-gray-300">
                                                     <td>{travel.time}</td>
                                                     <td>{travel.type.replace("Out","")}</td>
                                                     <td>
