@@ -8,29 +8,27 @@ import { useWindowWidth } from "@react-hook/window-size";
 import { useEffect, useState } from "react";
 import { UserService } from "../service/user/UserService";
 
-
 const Header = () => {
   const width = useWindowWidth();
   const location = useLocation();
-  const [ user,setUser ] = useState([]);
+  const [user, setUser] = useState([]);
 
-  useEffect(() =>{
-
+  useEffect(() => {
     async function fetchData() {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const user = await UserService.user(token);
       // console.log(user[0]['name']);
-       setUser(user[0]);
+      setUser(user[0]);
     }
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <div>
-      <div className="em:block em:ml-5 em:mr-5	flex justify-between align-center mt-8 ml-14 mr-14 ">
+      <div className="flex flex-col px-5 md:flex-row px-5 justify-between mt-8">
         <Link to={location.pathname === "/summary" ? "/account" : "#"}>
           <div className="em:ml-8 em:mr-8 em:justify-between flex justify-evenly align-center">
-            <div className="em:flex flex">
+            <div className="flex justify-start">
               <img
                 className="em:mt-0 object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
                 src={ProfilePic}
@@ -58,14 +56,14 @@ const Header = () => {
 
         <div>
           <img
-            className="em:hidden object-scale-down h-12 w-24"
+            className="hidden md:block object-scale-down h-12 w-24"
             src={Logo}
             alt="Techni-Connection"
           ></img>
         </div>
       </div>
       <div>
-        <hr className="em:ml-8 em:mr-8 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr className="mx-5 my-2 md:mx-5 h-0.5  border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
     </div>
   );

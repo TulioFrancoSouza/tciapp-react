@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       font: {
-        asap: ['Asap', 'sans-serif'],
+        asap: ["Asap", "sans-serif"],
       },
     },
     screens: {

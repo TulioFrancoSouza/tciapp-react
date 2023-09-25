@@ -63,7 +63,7 @@ const Filter = () => {
   }
 
   return (
-    <div className="flex items-center em:justify-center">
+    <div className="flex my-10 md:my-0">
       <button
         onClick={handleSetQueryPending}
         className={

@@ -42,10 +42,9 @@ const TickeInfo = (props) => {
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
-      const ticket = await TicketService.ticket(token,tId);
+      const ticket = await TicketService.ticket(token, tId);
       setTicket(ticket);
       for (let i = 0; i < ticket.length; i++) {
-        
         if (ticket[i].id === tId) {
           setTicketValue(ticket[i]);
           setTicketResponsible(ticket[i].technician);
@@ -71,12 +70,12 @@ const TickeInfo = (props) => {
             setEnableInput(false);
           }
 
-          let notesInline = ""
-          ticket[i].note.map((row)=> {
-            return notesInline = notesInline + row.note + "<br>"
-          })
+          let notesInline = "";
+          ticket[i].note.map((row) => {
+            return (notesInline = notesInline + row.note + "<br>");
+          });
 
-          setNotes(notesInline)
+          setNotes(notesInline);
           continue;
         }
       }
@@ -86,19 +85,19 @@ const TickeInfo = (props) => {
 
   function save() {
     let dateSchedule;
-    if(ticketDate !== ""){
+    if (ticketDate !== "") {
       dateSchedule = ticketDate;
-    }else{
+    } else {
       dateSchedule = ticketSchedule;
     }
- 
+
     const data = {
-      send:true,
+      send: true,
       technician: ticketResponsible,
       schedule: dateSchedule,
-      status: "Accepted"
+      status: "Accepted",
     };
-   
+
     const ticket = TicketService.ticketPatch(
       localStorage.getItem("token"),
       ticketValue.id,
@@ -111,7 +110,7 @@ const TickeInfo = (props) => {
     setLoad(true);
     const data = {
       technician: ticketResponsible,
-      schedule:  dateFormat(ticketDate,"yyyy-mm-dd HH:MM:ss")  ,
+      schedule: dateFormat(ticketDate, "yyyy-mm-dd HH:MM:ss"),
       status: ticketValue.status,
     };
 
@@ -175,119 +174,118 @@ const TickeInfo = (props) => {
       <Header />
       <div>
         <Link to="/summary">
-          <button className="em:ml-8 em:mr-8 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
+          <button className="ml-5 md:ml-8 h-8 em:mr-8 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
             Back
           </button>
         </Link>
       </div>
-      <div className="mt-5 text-sm">
-        <h2 className="em:ml-8 mr-14 ml-14 font-bold text-xl text-blue-600">
+      <div className="px-5 md:px-5 mt-5 text-sm">
+        <h2 className="ml-0 mr-0 md:font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="em:ml-8 em:mr-8 block em:justify-start justify-between flex-wrap text-left ml-14 mr-14 py-2">
-          <div className="flex justify-between">
-            <div className="mr-4">
-              <h2 className="font-bold">Ticket:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.id}
+        <div className="ml-0 mr-0 md:flex text-left ml-14 mr-14 py-2">
+          <div className="md: flex flex-col w-full ">
+            <div className="flex-col md: flex w-full justify-between">
+              {" "}
+              <div className="">
+                <h2 className="font-bold">Ticket:</h2>
+                <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.id}
+                </div>
+              </div>
+              <div className="">
+                <h2 className="font-bold">Client:</h2>
+                <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.client}
+                </div>
+              </div>
+              <div className="">
+                <h2 className="font-bold">Title:</h2>
+                <div className="md:  px-2 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
+                  {ticketValue.title}
+                </div>
+              </div>
+              <div className="">
+                <h2 className="font-bold">Created at:</h2>
+                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.createdAt}
+                </div>
+              </div>
+              <div className="">
+                <h2 className="font-bold">Type:</h2>
+                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.type}
+                </div>
               </div>
             </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Client:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.client}
+            <div className="flex">
+              <div className="mr-4">
+                <h2 className="font-bold">Address:</h2>
+                <div className="mb-2 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.address}
+                </div>
               </div>
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Address:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[500px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.address}
+              <div className="mr-4">
+                <h2 className="font-bold">Contact:</h2>
+                <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.contact} John Smith
+                </div>
               </div>
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Contact:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.contact} John Smith
-              </div>
-            </div>
-            <div className="mr-1">
-              <h2 className="font-bold">Phone:</h2>
-              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.phone}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-between">
-            <div className="mr-1">
-              <h2 className="font-bold">Title:</h2>
-              <div className="mb-2 bg-gray-100 border min-w-[1000px] px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.title}
-              </div>
-            </div>
-            <div className="mr-4">
-              <h2 className="font-bold">Created at:</h2>
-              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.createdAt}
-              </div>
-            </div>
-
-            <div className="mr-1">
-              <h2 className="font-bold">Type:</h2>
-              <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-                {ticketValue.type}
+              <div className="mr-1">
+                <h2 className="font-bold">Phone:</h2>
+                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.phone}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="em:ml-8 em:mr-8 w-[1200] ml-14 mr-14 ">
+        <div className="ml-0 mr-0 md:w-[1200]">
           <h2 className="font-bold">Description:</h2>
           <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
 
-        <div className="em:ml-8 em:mr-8 flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 py-2">
-          <div className="em:block flex justify-start">
-            <div className="em:mt-0 mr-5">
+        <div className="ml-0 mr-0 md:flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 py-2">
+          <div className="flex flex-col em:block flex-row justify-start w-full">
+            <div className="em:mt-0 mr-5 w-full">
               <h3 className="font-bold">Technician:</h3>
               <input
                 onChange={(event) => setTicketResponsible(event.target.value)}
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 defaultValue={ticketResponsible}
                 //disabled={enableInput}
               />
             </div>
-            <div>
+            <div className="w-full">
               <h3 className="font-bold">Date:</h3>
               <input
                 onChange={(event) => setTicketDate(event.target.value)}
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="date"
-                defaultValue={dateFormat(
-                  ticketValue.schedule,
-                  "yyyy-mm-dd"
-                )}
+                defaultValue={dateFormat(ticketValue.schedule, "yyyy-mm-dd")}
                 //disabled={enableInput}
               />
             </div>
-            <div className="ml-4">
+            <div className="w-full">
               <h3 className="font-bold">Time(optional):</h3>
               <input
                 onChange={(event) => setTicketTime(event.target.value)}
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="time"
                 defaultValue={
-                  ticketValue.schedule != null 
-                  ? dateFormat(ticketValue.schedule, "HH:MM:ss") 
-                  : "00:00:00" }
+                  ticketValue.schedule != null
+                    ? dateFormat(ticketValue.schedule, "HH:MM:ss")
+                    : "00:00:00"
+                }
                 //disabled={enableInput}
               />
             </div>
           </div>
 
-          <div className="em:mt-3 flex justify-center items-c enter">
+          <div className="em:mt-3 flex justify-center items-center">
             <input
               onClick={handlesetCheckAgreement}
               className="mr-3"
@@ -333,25 +331,24 @@ const TickeInfo = (props) => {
             {showReportSection === true ? (
               <>
                 <button
-                  className="min-w-[100px] drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                  className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
                   onClick={update}
                 >
                   Update
                 </button>
-                
               </>
             ) : null}
           </div>
         </div>
         <div>
-          <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+          <hr className="md:mt-3 mb-6 h-0.5 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
         </div>
-        <div className="em:ml-5 mr-14 ml-14 h-full py-3 border-2 mt-2 rounded-lg">
+        <div className="ml-0 mr-0 md:h-full py-3 border-2 mt-2 rounded-lg">
           <div className="w-full flex justify-between mb-2">
             <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
             <button
               onClick={handleShowModalConversation}
-              className="min-w-[100px] drop-shadow-lg mr-3 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white"
+              className="min-w-[100px] h-8 p-1 drop-shadow-lg mr-3 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white"
             >
               Open chat
             </button>
@@ -361,14 +358,12 @@ const TickeInfo = (props) => {
             //onChange={setNotes}
             //value={notes}
             className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
-            style={{width:"99%"}}
+            style={{ width: "99%" }}
             name="report"
             // rows="12"
             // disabled="disabled"
-            dangerouslySetInnerHTML={{__html: notes}}
-          >
-            
-          </div>
+            dangerouslySetInnerHTML={{ __html: notes }}
+          ></div>
         </div>
       </div>
 

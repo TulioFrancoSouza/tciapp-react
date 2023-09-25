@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 const Account = () => {
   const { logout } = UserAuth();
   const navigate = useNavigate();
-  const [ user,setUser ] = useState([]);
- 
+  const [user, setUser] = useState([]);
 
   const handleLogout = async () => {
     try {
@@ -21,15 +20,15 @@ const Account = () => {
     }
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     async function fetchData() {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const user = await UserService.user(token);
-      
+
       setUser(user[0]);
     }
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -47,36 +46,41 @@ const Account = () => {
           Logout
         </button>
       </div>
-      <div className="em:ml-5 em:mr-5 em:justify-start flex justify-start items-center flex-wrap text-xs text-left ml-14 mr-14 my-2 py-2">
-        <div className="mr-4">
-          <h2 className="font-bold">Name:</h2>
-          <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-            {user.name}
+      <div className="flex-col em:ml-5 em:mr-5 em:justify-start flex justify-start items-start flex-wrap text-xs text-left ml-14 mr-14 my-2 py-2">
+        <div className="flex w-full">
+          {" "}
+          <div className="mr-4 w-1/2">
+            <h2 className="font-bold">Name:</h2>
+            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+              {user.name}
+            </div>
           </div>
-        </div>  
-        <div className="mr-4">
-          <h2 className="font-bold">Company:</h2>
-          <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-           {user.company}
+          <div className=" w-1/2">
+            <h2 className="font-bold">Company:</h2>
+            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+              {user.company}
+            </div>
           </div>
         </div>
-        <div className="mr-4">
-          <h2 className="font-bold">Email:</h2>
-          <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-           {user.email}
+        <div className="flex w-full">
+          <div className="mr-4 w-1/2">
+            <h2 className="font-bold">Email:</h2>
+            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+              {user.email}
+            </div>
+          </div>
+          <div className=" w-1/2">
+            <h2 className="font-bold">Phone:</h2>
+            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+              {user.phone}
+            </div>
           </div>
         </div>
 
-        <div className="mr-4">
-          <h2 className="font-bold">Phone:</h2>
-          <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-          {user.phone}
-          </div>
-        </div>
-        <div className="mr-4">
+        <div className="w-full mr-4">
           <h2 className="font-bold">Address:</h2>
           <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
-          {user.address}
+            {user.address}
           </div>
         </div>
       </div>
