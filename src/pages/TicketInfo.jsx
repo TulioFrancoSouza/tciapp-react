@@ -35,16 +35,17 @@ const TickeInfo = (props) => {
   const [load, setLoad] = useState("");
 
   const [ticketValue, setTicketValue] = useState("");
+  const [ticket, setTicket] = useState("");
   const [enableInput, setEnableInput] = useState(false);
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
-      const ticket = await TicketService.ticket(token);
-
-
+      const ticket = await TicketService.ticket(token,tId);
+      setTicket(ticket);
       for (let i = 0; i < ticket.length; i++) {
+        
         if (ticket[i].id === tId) {
           setTicketValue(ticket[i]);
           setTicketResponsible(ticket[i].technician);
@@ -72,7 +73,7 @@ const TickeInfo = (props) => {
 
           let notesInline = ""
           ticket[i].note.map((row)=> {
-            return notesInline = notesInline + row.note + "\n"
+            return notesInline = notesInline + row.note + "<br>"
           })
 
           setNotes(notesInline)
@@ -110,7 +111,7 @@ const TickeInfo = (props) => {
     setLoad(true);
     const data = {
       technician: ticketResponsible,
-      schedule:  dateFormat(ticketDate,"yyyy-mm-dd") + dateFormat(ticketTime, "HH:MM:ss"),
+      schedule:  dateFormat(ticketDate,"yyyy-mm-dd HH:MM:ss")  ,
       status: ticketValue.status,
     };
 
@@ -356,15 +357,18 @@ const TickeInfo = (props) => {
             </button>
           </div>
 
-          <textarea
-            onChange={setNotes}
-            value={notes}
+          <div
+            //onChange={setNotes}
+            //value={notes}
             className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
             style={{width:"99%"}}
             name="report"
-            rows="12"
-            disabled="disabled"
-          />
+            // rows="12"
+            // disabled="disabled"
+            dangerouslySetInnerHTML={{__html: notes}}
+          >
+            
+          </div>
         </div>
       </div>
 
@@ -375,6 +379,7 @@ const TickeInfo = (props) => {
         <ReportSection
           tecnitian={ticketResponsible}
           ticketId={ticketValue.id}
+          ticket={ticket}
           schedule={ticketSchedule}
         />
       ) : null}

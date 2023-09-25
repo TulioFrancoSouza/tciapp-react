@@ -1,11 +1,12 @@
 import { ApiClient } from "../../config/api";
 
-const ticket = async (token) => {
+const ticket = async (token,id) => {
   try {
     let config = {
       headers: {
         Authorization: token,
       },
+      params:{id:id}
     };
     const { data } = await ApiClient.get("/ticket", config);
     if (!data) throw new Error("Error.");

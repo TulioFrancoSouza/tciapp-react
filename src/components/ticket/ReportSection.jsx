@@ -327,15 +327,17 @@ const ReportSection = (props) => {
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem("token");
-      const ticket = await TicketService.ticket(token);
-
+      //const ticket = await TicketService.ticket(token,props.ticketId);
+      const ticket = props.ticket;
+    
 
       if (ticket[ticket.length - 1].admin) {
         setAdm(ticket[ticket.length - 1].admin);
       }
-
+      
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === props.ticketId) {
+          console.log(ticket[i]);
           setReport(ticket[i].report);
           setStatusReport(ticket[i].statusReport);
           setSchedule(ticket[i].schedule);
@@ -624,7 +626,7 @@ const ReportSection = (props) => {
                   <th className="w-[1150px]">Item</th>
                   <th className="w-[50px]"></th>
                 </tr>
-                { extraExpenses != null && extraExpenses.length > 0 && extraExpenses.map((extraExpense,index) => (
+                { extraExpenses != null && extraExpenses.length > 0 && extraExpenses.filter(extra=>extra.id != null).map((extraExpense,index) => (
                   <tr key={Object.keys(extraExpense)[index]} className="border-t-2 text-left p-2 border-gray-300">
                     <td value={extraExpense}>{extraExpense.description}</td>
                     <td>
@@ -634,6 +636,7 @@ const ReportSection = (props) => {
                     </td>
                   </tr>
                 ))}
+              
               </thead>
             </table>
           </div>
