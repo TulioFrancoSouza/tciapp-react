@@ -174,7 +174,7 @@ const TickeInfo = (props) => {
       <Header />
       <div>
         <Link to="/summary">
-          <button className="ml-5 md:ml-8 h-8 em:mr-8 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
+          <button className="ml-5 md: h-8 mr-8 ml-0 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white">
             Back
           </button>
         </Link>
@@ -183,8 +183,8 @@ const TickeInfo = (props) => {
         <h2 className="ml-0 mr-0 md:font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="ml-0 mr-0 md:flex text-left ml-14 mr-14 py-2">
-          <div className="md: flex flex-col w-full ">
+        <div className="ml-0 mr-0 md:flex text-left py-2">
+          <div className="md:flex flex-col w-full ">
             <div className="flex-col md: flex w-full justify-between">
               {" "}
               <div className="">
@@ -248,7 +248,7 @@ const TickeInfo = (props) => {
           </div>
         </div>
 
-        <div className="ml-0 mr-0 md:flex justify-between flex-end items-center flex-wrap text-left ml-14 mr-14 py-2">
+        <div className="ml-0 mr-0 md:flex justify-between flex-end items-center flex-wrap text-left py-2">
           <div className="flex flex-col em:block flex-row justify-start w-full">
             <div className="em:mt-0 mr-5 w-full">
               <h3 className="font-bold">Technician:</h3>

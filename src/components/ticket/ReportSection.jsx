@@ -580,7 +580,7 @@ const ReportSection = (props) => {
         Technician Report
       </h2>
 
-      <div className="block ml-0 w-[100%] md:block border-2 rounded-lg ml-5 mr-1 items-start ml-14 mr-14 mt-5 mb-2 text-sm">
+      <div className="block ml-0 w-[100%] md:block border-2 rounded-lg  items-start mt-5 mb-2 text-sm">
         <div className="em:flex-wrap block">
           <h2 className="text-blue-600 text-md ml-2 mt-2 font-bold mb-4">
             Extra expenses
@@ -872,7 +872,7 @@ const ReportSection = (props) => {
         />
       )}
 
-      <div className="w-[100%] ml-0 px-2 md:w-[100%] ml-5 mr-14 ml-14 h-full py-3 border-2 mt-2 rounded-lg">
+      <div className="w-[100%] ml-0 px-2 md:w-[100%] h-full py-3 border-2 mt-2 rounded-lg">
         <h2 className="font-bold text-blue-600 mb-5 ml-2">Report:</h2>
         <textarea
           onChange={(event) => setReport(event.target.value)}
