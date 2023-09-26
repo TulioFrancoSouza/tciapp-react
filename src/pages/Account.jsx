@@ -41,7 +41,7 @@ const Account = () => {
         </Link>
         <button
           onClick={handleLogout}
-          className="em:ml-5 em:mr-5 max-w-[100px] border ml-14 border-red-400 rounded-lg bg-red-400 hover:bg-red-700 w-full p-1 text-white"
+          className="md:ml-5 mr-14 max-w-[100px] border ml-14 border-red-400 rounded-lg bg-red-400 hover:bg-red-700 w-full p-1 text-white"
         >
           Logout
         </button>

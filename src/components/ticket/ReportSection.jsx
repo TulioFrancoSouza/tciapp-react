@@ -574,7 +574,7 @@ const ReportSection = (props) => {
   return (
     <div className="px-5">
       <div>
-        <hr className="md:my-6 h-0.5  border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr className="my-5 md:my-6 h-0.5  border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
       <h2 className="ml-0 md:mt-5 font-bold text-xl text-blue-600">
         Technician Report
