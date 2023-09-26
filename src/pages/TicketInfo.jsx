@@ -285,59 +285,62 @@ const TickeInfo = (props) => {
             </div>
           </div>
 
-          <div className="em:mt-3 flex justify-center items-center">
-            <input
-              onClick={handlesetCheckAgreement}
-              className="mr-3"
-              type="checkbox"
-              value="agreed"
-              disabled={showReportSection === true ? true : false}
-              defaultChecked={checkAgreement}
-            />
-            <span className="mr-2">I agree with the terms and conditions.</span>
-            <Link to="/terms">
-              <p className="underline">Read the agreement</p>
-            </Link>
-          </div>
-
-          <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
-            {showReportSection === false ? (
-              <>
-                <button
-                  onClick={handleAcceptTicket}
-                  className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={showRejectSectionTrue}
-                  className="min-w-[100px] mr-4 drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
-                >
-                  Reject
-                </button>
-              </>
-            ) : null}
-            {load && (
-              <Oval
-                height="20"
-                width="20"
-                radius="10"
-                color="black"
-                ariaLabel="oval-loading"
-                strokeWidth={2}
-                strokeWidthSecondary={2}
+          <div className="md:mt-3 flex justify-between items-center w-full">
+            <div className="flex">
+              <input
+                onClick={handlesetCheckAgreement}
+                className="mr-3"
+                type="checkbox"
+                value="agreed"
+                disabled={showReportSection === true ? true : false}
+                defaultChecked={checkAgreement}
               />
-            )}
-            {showReportSection === true ? (
-              <>
-                <button
-                  className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
-                  onClick={update}
-                >
-                  Update
-                </button>
-              </>
-            ) : null}
+              <span className="mr-2">
+                I agree with the terms and conditions.
+              </span>
+              <Link to="/terms">
+                <p className="underline">Read the agreement</p>
+              </Link>
+            </div>
+            <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
+              {showReportSection === false ? (
+                <>
+                  <button
+                    onClick={handleAcceptTicket}
+                    className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={showRejectSectionTrue}
+                    className="min-w-[100px] mr-4 drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
+                  >
+                    Reject
+                  </button>
+                </>
+              ) : null}
+              {load && (
+                <Oval
+                  height="20"
+                  width="20"
+                  radius="10"
+                  color="black"
+                  ariaLabel="oval-loading"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+              )}
+              {showReportSection === true ? (
+                <>
+                  <button
+                    className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                    onClick={update}
+                  >
+                    Update
+                  </button>
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
         <div>

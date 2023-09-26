@@ -591,7 +591,7 @@ const ReportSection = (props) => {
             <div className="em:flex-wrap mr-2 block w-full">
               <input
                 onChange={handleSetExtraExpenses}
-                className="w-full mb-2 border py-1 rounded-lg border-zinc-700"
+                className="w-full mb-2 border px-2 py-1.5 rounded-lg border-zinc-700"
                 type="text"
                 placeholder=" Insert an item description + Price. e.g 'Switch Cisco 12.000 + $1.250,50"
               />
