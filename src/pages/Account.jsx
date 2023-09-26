@@ -51,13 +51,13 @@ const Account = () => {
           {" "}
           <div className="mr-4 w-1/2">
             <h2 className="font-bold">Name:</h2>
-            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+            <div className="mb-2 h-8 bg-gray-200 border p-2 rounded-lg border-zinc-700">
               {user.name}
             </div>
           </div>
           <div className=" w-1/2">
             <h2 className="font-bold">Company:</h2>
-            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+            <div className="mb-2 h-8 bg-gray-200 border p-2 rounded-lg border-zinc-700">
               {user.company}
             </div>
           </div>
@@ -65,13 +65,13 @@ const Account = () => {
         <div className="flex w-full">
           <div className="mr-4 w-1/2">
             <h2 className="font-bold">Email:</h2>
-            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+            <div className="mb-2 h-8 bg-gray-200 border p-2 rounded-lg border-zinc-700">
               {user.email}
             </div>
           </div>
           <div className=" w-1/2">
             <h2 className="font-bold">Phone:</h2>
-            <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+            <div className="mb-2 h-8 bg-gray-200 border p-2 rounded-lg border-zinc-700">
               {user.phone}
             </div>
           </div>
@@ -79,7 +79,7 @@ const Account = () => {
 
         <div className="w-full mr-4">
           <h2 className="font-bold">Address:</h2>
-          <div className="mb-2 bg-gray-200 border p-2 rounded-lg border-zinc-700">
+          <div className="mb-2 h-8 bg-gray-200 border p-2 rounded-lg border-zinc-700">
             {user.address}
           </div>
         </div>

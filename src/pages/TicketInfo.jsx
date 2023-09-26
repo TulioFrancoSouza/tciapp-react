@@ -189,31 +189,31 @@ const TickeInfo = (props) => {
               {" "}
               <div className="">
                 <h2 className="font-bold">Ticket:</h2>
-                <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.id}
                 </div>
               </div>
               <div className="">
                 <h2 className="font-bold">Client:</h2>
-                <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.client}
                 </div>
               </div>
               <div className="">
                 <h2 className="font-bold">Title:</h2>
-                <div className="md:  px-2 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
+                <div className="md:px-2 h-8 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
                   {ticketValue.title}
                 </div>
               </div>
               <div className="">
                 <h2 className="font-bold">Created at:</h2>
-                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.createdAt}
                 </div>
               </div>
               <div className="">
                 <h2 className="font-bold">Type:</h2>
-                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.type}
                 </div>
               </div>
@@ -221,19 +221,19 @@ const TickeInfo = (props) => {
             <div className="flex">
               <div className="mr-4">
                 <h2 className="font-bold">Address:</h2>
-                <div className="mb-2 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.address}
                 </div>
               </div>
               <div className="mr-4">
                 <h2 className="font-bold">Contact:</h2>
-                <div className="mb-2 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.contact} John Smith
                 </div>
               </div>
               <div className="mr-1">
                 <h2 className="font-bold">Phone:</h2>
-                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.phone}
                 </div>
               </div>
@@ -243,7 +243,7 @@ const TickeInfo = (props) => {
 
         <div className="ml-0 mr-0 md:w-[1200]">
           <h2 className="font-bold">Description:</h2>
-          <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+          <div className="mb-2 bg-gray-100 h-8 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
@@ -254,7 +254,7 @@ const TickeInfo = (props) => {
               <h3 className="font-bold">Technician:</h3>
               <input
                 onChange={(event) => setTicketResponsible(event.target.value)}
-                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
                 defaultValue={ticketResponsible}
                 //disabled={enableInput}
               />
@@ -263,7 +263,7 @@ const TickeInfo = (props) => {
               <h3 className="font-bold">Date:</h3>
               <input
                 onChange={(event) => setTicketDate(event.target.value)}
-                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
                 type="date"
                 defaultValue={dateFormat(ticketValue.schedule, "yyyy-mm-dd")}
                 //disabled={enableInput}
@@ -273,7 +273,7 @@ const TickeInfo = (props) => {
               <h3 className="font-bold">Time(optional):</h3>
               <input
                 onChange={(event) => setTicketTime(event.target.value)}
-                className="w-1/2 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="w-1/2 mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
                 type="time"
                 defaultValue={
                   ticketValue.schedule != null

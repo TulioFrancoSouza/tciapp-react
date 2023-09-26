@@ -591,7 +591,7 @@ const ReportSection = (props) => {
             <div className="em:flex-wrap mr-2 block w-full">
               <input
                 onChange={handleSetExtraExpenses}
-                className="w-full mb-2 border px-2 py-1.5 rounded-lg border-zinc-700"
+                className="w-full h-8 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="text"
                 placeholder=" Insert an item description + Price. e.g 'Switch Cisco 12.000 + $1.250,50"
               />
@@ -649,7 +649,7 @@ const ReportSection = (props) => {
               <input
                 defaultValue={dateFormat(schedule, "yyyy-mm-dd")}
                 type="date"
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
               ></input>
             </div>
           </div>
@@ -663,14 +663,14 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelIn}
                   value={travelInContent}
                   type="number"
-                  className="mb-2 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700"
                   title="Insert minutes spent in travel in. Only numbers allowed."
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
                   <select
                     onChange={handleSetTravelInType}
-                    className="mb-2 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
+                    className="mb-2 h-8 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
                   >
                     <option>Regular</option>
                     <option>Overtime</option>
@@ -727,7 +727,7 @@ const ReportSection = (props) => {
                   <input
                     onChange={handleSetLaborTimeStart}
                     type="time"
-                    className="mb-2 border px-5 py-1 rounded-lg border-zinc-700"
+                    className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
                   ></input>
                 </div>
 
@@ -737,7 +737,7 @@ const ReportSection = (props) => {
                   <input
                     onChange={handleSetLaborTimeEnd}
                     type="time"
-                    className="mb-2 border px-5 py-1 rounded-lg border-zinc-700"
+                    className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
                   ></input>
                 </div>
               </div>
@@ -747,7 +747,7 @@ const ReportSection = (props) => {
                   <h3 className="font-bold">Type</h3>
                   <select
                     onChange={handleSetLaborTimeType}
-                    className="mb-2 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
+                    className="mb-2 border h-8 px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
                   >
                     <option>Regular</option>
                     <option>Overtime</option>
@@ -806,13 +806,13 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelOut}
                   value={travelOutContent}
                   type="number"
-                  className="mb-2 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700"
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
                   <select
                     onChange={handleSetTravelOutType}
-                    className="mb-2 border px-2 py-1 mt-2 rounded-lg text-center border-zinc-700"
+                    className="mb-2 border h-8 px-2 py-1 mt-2 rounded-lg text-center border-zinc-700"
                   >
                     <option>Regular</option>
                     <option>Overtime</option>
