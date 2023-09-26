@@ -33,20 +33,20 @@ const Account = () => {
   return (
     <div>
       <Header />
-      <div className="md:mr-0 flex justify-between mr-14">
+      <div className="md:mr-0 flex justify-between">
         <Link to="/summary">
-          <button className="em:ml-5 em:mr-5 max-w-[100px] border ml-14 border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
+          <button className="md:max-w-[100px] border ml-5 border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-1 text-white">
             Back
           </button>
         </Link>
         <button
           onClick={handleLogout}
-          className="md:ml-5 mr-14 max-w-[100px] border ml-14 border-red-400 rounded-lg bg-red-400 hover:bg-red-700 w-full p-1 text-white"
+          className="md:ml-5 mr-5 max-w-[100px] border ml-14 border-red-400 rounded-lg bg-red-400 hover:bg-red-700 w-full p-1 text-white"
         >
           Logout
         </button>
       </div>
-      <div className="flex-col em:ml-5 em:mr-5 em:justify-start flex justify-start items-start flex-wrap text-xs text-left ml-14 mr-14 my-2 py-2">
+      <div className="md:flex-col ml-5 mr-5 justify-start flex justify-start items-start flex-wrap text-xs text-left ml-14 mr-14 my-2 py-2">
         <div className="flex w-full">
           {" "}
           <div className="mr-4 w-1/2">
