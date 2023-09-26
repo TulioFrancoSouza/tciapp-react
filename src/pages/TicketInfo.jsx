@@ -187,19 +187,16 @@ const TickeInfo = (props) => {
           <div className="md:flex flex-col w-full ">
             <div className="flex-col md: flex w-full justify-between">
               {" "}
-              <div className="flex w-full">
-                {" "}
-                <div className="w-1/2">
-                  <h2 className="font-bold">Ticket:</h2>
-                  <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
-                    {ticketValue.id}
-                  </div>
+              <div className="">
+                <h2 className="font-bold">Ticket:</h2>
+                <div className="mb-2 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.id}
                 </div>
-                <div className="w-1/2 ml-2">
-                  <h2 className="font-bold">Client:</h2>
-                  <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
-                    {ticketValue.client}
-                  </div>
+              </div>
+              <div className="">
+                <h2 className="font-bold">Client:</h2>
+                <div className="mb-2 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.client}
                 </div>
               </div>
               <div className="">
@@ -214,18 +211,18 @@ const TickeInfo = (props) => {
                   {ticketValue.createdAt}
                 </div>
               </div>
-              <div>
-                <h2 className="font-bold">Address:</h2>
-                <div className="mb-2 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
-                  {ticketValue.address}
+              <div className="">
+                <h2 className="font-bold">Type:</h2>
+                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.type}
                 </div>
               </div>
             </div>
             <div className="flex">
               <div className="mr-4">
-                <h2 className="font-bold">Type:</h2>
-                <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-                  {ticketValue.type}
+                <h2 className="font-bold">Address:</h2>
+                <div className="mb-2 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
+                  {ticketValue.address}
                 </div>
               </div>
               <div className="mr-4">
@@ -246,7 +243,7 @@ const TickeInfo = (props) => {
 
         <div className="ml-0 mr-0 md:w-[1200]">
           <h2 className="font-bold">Description:</h2>
-          <div className="h-20 mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+          <div className="mb-2 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
