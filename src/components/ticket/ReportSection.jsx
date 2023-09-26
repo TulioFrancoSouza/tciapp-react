@@ -599,7 +599,7 @@ const ReportSection = (props) => {
 
             <div className="flex em:flex-wrap align-middle">
               <button
-                className="min-w-[100px] h-8 mr-4 drop-shadow-lg align-baseline border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                className="min-w-[100px] h-8 mr-4 drop-shadow-lg align-baseline border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                 onClick={handleInsertExtraExpense}
               >
                 Add
@@ -680,7 +680,7 @@ const ReportSection = (props) => {
                 <div>
                   <button
                     onClick={(e) => handleInsertTravelInOut(e, "TravelIn")}
-                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
                   </button>
@@ -757,7 +757,7 @@ const ReportSection = (props) => {
                 <div>
                   <button
                     onClick={(e) => handleInsertTravelInOut(e, "LaborTime")}
-                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
                   </button>
@@ -822,7 +822,7 @@ const ReportSection = (props) => {
                 <div>
                   <button
                     onClick={(e) => handleInsertTravelInOut(e, "TravelOut")}
-                    className="min-w-[100px] h-8 mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                    className="min-w-[100px] h-8 mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
                   </button>
@@ -901,7 +901,7 @@ const ReportSection = (props) => {
           )}
           <button
             onClick={handleShowModalReport}
-            className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
+            className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white text-sm"
           >
             {adm ? "Send report" : "Save"}
           </button>

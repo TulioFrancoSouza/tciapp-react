@@ -333,7 +333,7 @@ const TickeInfo = (props) => {
               {showReportSection === true ? (
                 <>
                   <button
-                    className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white"
+                    className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white text-sm"
                     onClick={update}
                   >
                     Update
@@ -351,7 +351,7 @@ const TickeInfo = (props) => {
             <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
             <button
               onClick={handleShowModalConversation}
-              className="min-w-[100px] h-8 p-1 drop-shadow-lg mr-3 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white"
+              className="min-w-[100px] h-8 p-1 drop-shadow-lg mr-3 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white text-sm"
             >
               Open chat
             </button>
