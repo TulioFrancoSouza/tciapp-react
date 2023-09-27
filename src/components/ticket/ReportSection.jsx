@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { FcEmptyTrash } from "react-icons/fc";
-import { useWindowWidth } from "@react-hook/window-size";
-import ModalReport from "../modal/ModalReport";
-import { TicketService } from "../../service/ticket/TicketService";
-import { Oval } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
-import dateFormat from "dateformat";
+import React, { useState, useEffect } from 'react';
+import { FcEmptyTrash } from 'react-icons/fc';
+import { useWindowWidth } from '@react-hook/window-size';
+import ModalReport from '../modal/ModalReport';
+import { TicketService } from '../../service/ticket/TicketService';
+import { Oval } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
 const ReportSection = (props) => {
   const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
@@ -17,20 +17,20 @@ const ReportSection = (props) => {
   const [timeAfterTravelTo, setTimeAfterTravelTo] = useState(0);
   const [timeAfterTravelFrom, setTimeAfterTravelFrom] = useState(0);
 
-  const [timeArrivalReg, setTimeArrivalReg] = useState("00:00");
-  const [timeDepartureReg, setTimeDepartureReg] = useState("00:00");
+  const [timeArrivalReg, setTimeArrivalReg] = useState('00:00');
+  const [timeDepartureReg, setTimeDepartureReg] = useState('00:00');
 
-  const [timeArrivalOver, setTimeArrivalOver] = useState("00:00");
-  const [timeDepartureOver, setTimeDepartureOver] = useState("00:00");
+  const [timeArrivalOver, setTimeArrivalOver] = useState('00:00');
+  const [timeDepartureOver, setTimeDepartureOver] = useState('00:00');
 
-  const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
-  const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
+  const [timeArrivalAfter, setTimeArrivalAfter] = useState('00:00');
+  const [timeDepartureAfter, setTimeDepartureAfter] = useState('00:00');
 
   const [enableInput, setEnableInput] = useState(false);
 
-  const [report, setReport] = useState("");
-  const [statusReport, setStatusReport] = useState("");
-  const [schedule, setSchedule] = useState("");
+  const [report, setReport] = useState('');
+  const [statusReport, setStatusReport] = useState('');
+  const [schedule, setSchedule] = useState('');
 
   const [adm, setAdm] = useState(false);
   const [load, setLoad] = useState(false);
@@ -39,15 +39,15 @@ const ReportSection = (props) => {
   const width = useWindowWidth();
   const navigate = useNavigate();
 
-  const [extraExpensesContent, setExtraExpensesContent] = useState("");
-  const [travelInContent, setTravelInContent] = useState("");
-  const [travelOutContent, setTravelOutContent] = useState("");
+  const [extraExpensesContent, setExtraExpensesContent] = useState('');
+  const [travelInContent, setTravelInContent] = useState('');
+  const [travelOutContent, setTravelOutContent] = useState('');
 
-  const [travelInType, setTravelInType] = useState("");
-  const [travelOutType, setTravelOutType] = useState("");
-  const [travelLaborTimeStart, setTravelLaborTimeStart] = useState("");
-  const [travelLaborTimeEnd, setTravelLaborTimeEnd] = useState("");
-  const [travelLaborTimeType, setTravelLaborTimeType] = useState("");
+  const [travelInType, setTravelInType] = useState('');
+  const [travelOutType, setTravelOutType] = useState('');
+  const [travelLaborTimeStart, setTravelLaborTimeStart] = useState('');
+  const [travelLaborTimeEnd, setTravelLaborTimeEnd] = useState('');
+  const [travelLaborTimeType, setTravelLaborTimeType] = useState('');
 
   const [travelInOut, setTravelInOut] = useState([]);
 
@@ -82,7 +82,7 @@ const ReportSection = (props) => {
     setTravelLaborTimeType(e.target.value);
   };
 
-  const [extraExpenses, setExtraExpenses] = useState([{ description: "" }]);
+  const [extraExpenses, setExtraExpenses] = useState([{ description: '' }]);
 
   const addExtraExpenses = (description) => {
     const newExtraExpenses = [
@@ -98,7 +98,7 @@ const ReportSection = (props) => {
     };
 
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -111,26 +111,26 @@ const ReportSection = (props) => {
     let travelEnd = null;
 
     switch (eType) {
-      case "TravelIn":
+      case 'TravelIn':
         resolveTravelInOutType =
-          travelInType !== "" ? travelInType + "In" : "RegularIn";
+          travelInType !== '' ? travelInType + 'In' : 'RegularIn';
         travelGo = travelInContent;
         break;
-      case "TravelOut":
+      case 'TravelOut':
         resolveTravelInOutType =
-          travelOutType !== "" ? travelOutType + "Out" : "RegularOut";
+          travelOutType !== '' ? travelOutType + 'Out' : 'RegularOut';
         travelGo = travelOutContent;
         break;
-      case "LaborTime":
+      case 'LaborTime':
         resolveTravelInOutType =
-          travelLaborTimeType !== ""
-            ? travelLaborTimeType + "Labor"
-            : "RegularLabor";
+          travelLaborTimeType !== ''
+            ? travelLaborTimeType + 'Labor'
+            : 'RegularLabor';
         travelGo = travelLaborTimeStart;
         travelEnd = travelLaborTimeEnd;
         break;
       default:
-        console.log("void");
+        console.log('void');
     }
 
     const newTravelInOut = [
@@ -161,30 +161,30 @@ const ReportSection = (props) => {
     let rtlArrival = null;
 
     newTravelInOut.map((row) => {
-      if (eType === "TravelIn") {
-        rtlTravelFrom = row.type === "RegularIn" ? row.time : null;
-        otlTravelFrom = row.type === "OvertimeIn" ? row.time : null;
-        amtlTravelFrom = row.type === "After mid-nightIn" ? row.time : null;
+      if (eType === 'TravelIn') {
+        rtlTravelFrom = row.type === 'RegularIn' ? row.time : null;
+        otlTravelFrom = row.type === 'OvertimeIn' ? row.time : null;
+        amtlTravelFrom = row.type === 'After mid-nightIn' ? row.time : null;
       }
-      if (eType === "TravelOut") {
-        rtlTravelTo = row.type === "RegularOut" ? row.time : null;
-        otlTravelTo = row.type === "OvertimeOut" ? row.time : null;
-        amtlTravelTo = row.type === "After mid-nightOut" ? row.time : null;
+      if (eType === 'TravelOut') {
+        rtlTravelTo = row.type === 'RegularOut' ? row.time : null;
+        otlTravelTo = row.type === 'OvertimeOut' ? row.time : null;
+        amtlTravelTo = row.type === 'After mid-nightOut' ? row.time : null;
       }
 
-      if (eType === "LaborTime") {
-        rtlArrival = row.type === "RegularLabor" ? row.time : null;
-        rtlDeparture = row.type === "RegularLabor" ? row.timeEnd : null;
+      if (eType === 'LaborTime') {
+        rtlArrival = row.type === 'RegularLabor' ? row.time : null;
+        rtlDeparture = row.type === 'RegularLabor' ? row.timeEnd : null;
 
-        otlArrival = row.type === "OvertimeLabor" ? row.time : null;
-        otlDeparture = row.type === "OvertimeLabor" ? row.timeEnd : null;
+        otlArrival = row.type === 'OvertimeLabor' ? row.time : null;
+        otlDeparture = row.type === 'OvertimeLabor' ? row.timeEnd : null;
 
-        amtlArrival = row.type === "After mid-nightLabor" ? row.time : null;
+        amtlArrival = row.type === 'After mid-nightLabor' ? row.time : null;
         amtlDeparture =
-          row.type === "After mid-nightLabor" ? row.timeEnd : null;
+          row.type === 'After mid-nightLabor' ? row.timeEnd : null;
       }
 
-      return "";
+      return '';
     });
 
     setTimeAfterTravelTo(amtlTravelTo);
@@ -218,7 +218,7 @@ const ReportSection = (props) => {
     };
 
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -237,7 +237,7 @@ const ReportSection = (props) => {
     };
 
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -269,11 +269,11 @@ const ReportSection = (props) => {
         newTravelInOut.push(row);
         //console.log(row);
       }
-      return "";
+      return '';
     });
-    if (trv.type === "After mid-nightLabor") {
-      setTimeArrivalAfter("");
-      setTimeDepartureAfter("");
+    if (trv.type === 'After mid-nightLabor') {
+      setTimeArrivalAfter('');
+      setTimeDepartureAfter('');
       console.log(trv);
     }
 
@@ -294,7 +294,7 @@ const ReportSection = (props) => {
     e.preventDefault();
     if (!extraExpensesContent) return;
     addExtraExpenses(extraExpensesContent);
-    setExtraExpensesContent("");
+    setExtraExpensesContent('');
   };
 
   const handleRemoveExtraExpense = (e, index) => {
@@ -306,8 +306,8 @@ const ReportSection = (props) => {
     e.preventDefault();
     // if (!travelInContent || !travelOutContent) return;
     addTravelInOut(eType);
-    setTravelInContent("");
-    setTravelOutContent("");
+    setTravelInContent('');
+    setTravelOutContent('');
   };
 
   const handleRemoveTravelInOut = (e, index) => {
@@ -322,7 +322,7 @@ const ReportSection = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       //const ticket = await TicketService.ticket(token,props.ticketId);
       const ticket = props.ticket;
 
@@ -343,21 +343,21 @@ const ReportSection = (props) => {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlTravelFrom,
-              type: "RegularIn",
+              type: 'RegularIn',
             });
           }
           if (ticket[i].rtlTravelTo != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlTravelTo,
-              type: "RegularOut",
+              type: 'RegularOut',
             });
           }
           if (ticket[i].otlTravelFrom != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlTravelFrom,
-              type: "OvertimeIn",
+              type: 'OvertimeIn',
             });
           }
 
@@ -365,7 +365,7 @@ const ReportSection = (props) => {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlTravelTo,
-              type: "OvertimeOut",
+              type: 'OvertimeOut',
             });
           }
 
@@ -373,24 +373,24 @@ const ReportSection = (props) => {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlTravelFrom,
-              type: "After mid-nightIn",
+              type: 'After mid-nightIn',
             });
           }
 
-          if (ticket[i].amtlTravelTo != null || ticket[i].amtlTravelTo !== "") {
+          if (ticket[i].amtlTravelTo != null || ticket[i].amtlTravelTo !== '') {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlTravelTo,
-              type: "After mid-nightOut",
+              type: 'After mid-nightOut',
             });
           }
 
-          if (ticket[i].amtlArrival != null && ticket[i].amtlArrival !== "") {
+          if (ticket[i].amtlArrival != null && ticket[i].amtlArrival !== '') {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlArrival,
               timeEnd: ticket[i].amtlDeparture,
-              type: "After mid-nightLabor",
+              type: 'After mid-nightLabor',
             });
           }
 
@@ -399,7 +399,7 @@ const ReportSection = (props) => {
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlArrival,
               timeEnd: ticket[i].rtlDeparture,
-              type: "RegularLabor",
+              type: 'RegularLabor',
             });
           }
 
@@ -408,7 +408,7 @@ const ReportSection = (props) => {
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlArrival,
               timeEnd: ticket[i].otlDeparture,
-              type: "OvertimeLabor",
+              type: 'OvertimeLabor',
             });
           }
 
@@ -433,12 +433,12 @@ const ReportSection = (props) => {
           setTimeArrivalAfter(ticket[i].amtlArrival);
 
           if (
-            ticket[i].status === "Review" &&
+            ticket[i].status === 'Review' &&
             !ticket[ticket.length - 1].admin
           ) {
             setEnableInput(true);
           } else if (
-            ticket[i].status === "Review" &&
+            ticket[i].status === 'Review' &&
             ticket[ticket.length - 1].admin
           ) {
             setEnableInput(false);
@@ -454,11 +454,11 @@ const ReportSection = (props) => {
   }, [props.ticketId]);
 
   function save(send) {
-    let status = "";
+    let status = '';
     if (!adm) {
-      status = "Review";
+      status = 'Review';
     } else {
-      status = "Closed";
+      status = 'Closed';
     }
 
     const data = {
@@ -484,7 +484,7 @@ const ReportSection = (props) => {
     };
 
     const ticket = TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -493,15 +493,15 @@ const ReportSection = (props) => {
         window.location.reload(true);
       }
     });
-    navigate("/summary");
+    navigate('/summary');
   }
 
   function calcTimeRegWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
     if (timeArrivalReg != null && timeDepartureReg != null) {
-      arrTimeArrival = timeArrivalReg.split(":");
-      arrTimeDeparture = timeDepartureReg.split(":");
+      arrTimeArrival = timeArrivalReg.split(':');
+      arrTimeDeparture = timeDepartureReg.split(':');
     }
 
     let timeReg =
@@ -515,11 +515,11 @@ const ReportSection = (props) => {
   calcTimeRegWork();
 
   function calcTimeOverWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
     if (timeArrivalOver != null && timeDepartureOver != null) {
-      arrTimeArrival = timeArrivalOver.split(":");
-      arrTimeDeparture = timeDepartureOver.split(":");
+      arrTimeArrival = timeArrivalOver.split(':');
+      arrTimeDeparture = timeDepartureOver.split(':');
     }
 
     let timeOver =
@@ -532,12 +532,12 @@ const ReportSection = (props) => {
 
   calcTimeOverWork();
   function calcTimeAfterWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
 
     if (timeArrivalAfter != null && timeDepartureAfter != null) {
-      arrTimeArrival = timeArrivalAfter.split(":");
-      arrTimeDeparture = timeDepartureAfter.split(":");
+      arrTimeArrival = timeArrivalAfter.split(':');
+      arrTimeDeparture = timeDepartureAfter.split(':');
     }
 
     let timeAfter =
@@ -606,7 +606,7 @@ const ReportSection = (props) => {
               </button>
             </div>
           </div>
-          <div className="flex justify-start items-center ml-2 mb-10 w-full h-full">
+          <div className="flex w-[95%] md:justify-start items-center ml-2 mb-10 w-full h-full">
             <table className="align-middle border-spacing-2 table-fixed mt-5">
               <thead>
                 <tr className="border-t-2 border-b p-2 border-gray-300 text-left">
@@ -640,14 +640,14 @@ const ReportSection = (props) => {
         </div>
       </div>
 
-      <div className="md: border-2 mt-2 rounded-lg">
-        <h2 className="font-bold text-blue-600 mb-2 ml-2">Time report:</h2>
+      <div className="md:border-2 mt-2 rounded-lg">
+        <h2 className="font-bold text-blue-600 mb-2 ml-2 mt-2">Time report:</h2>
         <div className="block mr-5 text-left py-2">
           <div className="block">
             <h2 className="text-center font-bold text-blue-600">Date</h2>
             <div className="text-center">
               <input
-                defaultValue={dateFormat(schedule, "yyyy-mm-dd")}
+                defaultValue={dateFormat(schedule, 'yyyy-mm-dd')}
                 type="date"
                 className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
               ></input>
@@ -663,14 +663,14 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelIn}
                   value={travelInContent}
                   type="number"
-                  className="mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="w-[40%] mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700 md:w-[30%]"
                   title="Insert minutes spent in travel in. Only numbers allowed."
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
                   <select
                     onChange={handleSetTravelInType}
-                    className="mb-2 h-8 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
+                    className="w-[40%] mb-2 h-8 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700 md:w-[30%]"
                   >
                     <option>Regular</option>
                     <option>Overtime</option>
@@ -679,7 +679,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
-                    onClick={(e) => handleInsertTravelInOut(e, "TravelIn")}
+                    onClick={(e) => handleInsertTravelInOut(e, 'TravelIn')}
                     className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
@@ -693,14 +693,14 @@ const ReportSection = (props) => {
                           <th></th>
                         </tr>
                         {travelInOut
-                          .filter((travel) => travel.type.match("In"))
+                          .filter((travel) => travel.type.match('In'))
                           .map((travel, index) => (
                             <tr
                               key={Object.keys(travel)[index]}
                               className="border-t-2 text-center border-gray-300"
                             >
                               <td>{travel.time}</td>
-                              <td>{travel.type.replace("In", "")}</td>
+                              <td>{travel.type.replace('In', '')}</td>
                               <td>
                                 <button>
                                   <FcEmptyTrash
@@ -756,7 +756,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
-                    onClick={(e) => handleInsertTravelInOut(e, "LaborTime")}
+                    onClick={(e) => handleInsertTravelInOut(e, 'LaborTime')}
                     className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
@@ -771,7 +771,7 @@ const ReportSection = (props) => {
                           <th></th>
                         </tr>
                         {travelInOut
-                          .filter((travel) => travel.type.match("Labor"))
+                          .filter((travel) => travel.type.match('Labor'))
                           .map((travel, index) => (
                             <tr
                               key={Object(travel)[index]}
@@ -779,7 +779,7 @@ const ReportSection = (props) => {
                             >
                               <td>{travel.time}</td>
                               <td>{travel.timeEnd}</td>
-                              <td>{travel.type.replace("Labor", "")}</td>
+                              <td>{travel.type.replace('Labor', '')}</td>
                               <td>
                                 <button>
                                   <FcEmptyTrash
@@ -806,13 +806,13 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelOut}
                   value={travelOutContent}
                   type="number"
-                  className="mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="w-[40%] mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700 md:w-[30%]"
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
                   <select
                     onChange={handleSetTravelOutType}
-                    className="mb-2 border h-8 px-2 py-1 mt-2 rounded-lg text-center border-zinc-700"
+                    className="w-[40%] mb-2 border h-8 px-2 py-1 mt-2 rounded-lg text-center border-zinc-700 md:w-[30%]"
                   >
                     <option>Regular</option>
                     <option>Overtime</option>
@@ -821,7 +821,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
-                    onClick={(e) => handleInsertTravelInOut(e, "TravelOut")}
+                    onClick={(e) => handleInsertTravelInOut(e, 'TravelOut')}
                     className="min-w-[100px] h-8 mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
                     Add
@@ -835,14 +835,14 @@ const ReportSection = (props) => {
                           <th></th>
                         </tr>
                         {travelInOut
-                          .filter((travel) => travel.type.match("Out"))
+                          .filter((travel) => travel.type.match('Out'))
                           .map((travel, index) => (
                             <tr
                               key={Object(travel)[index]}
                               className="border-t-2 text-center border-gray-300"
                             >
                               <td>{travel.time}</td>
-                              <td>{travel.type.replace("Out", "")}</td>
+                              <td>{travel.type.replace('Out', '')}</td>
                               <td>
                                 <button>
                                   <FcEmptyTrash
@@ -872,15 +872,15 @@ const ReportSection = (props) => {
         />
       )}
 
-      <div className="w-[100%] ml-0 px-2 md:w-[100%] h-full py-3 border-2 mt-2 rounded-lg">
+      <div className="w-[100%] ml-0 px-2 md:w-[100%] h-full py-2 border-2 mt-2 rounded-lg">
         <h2 className="font-bold text-blue-600 mb-5 ml-2">Report:</h2>
         <textarea
           onChange={(event) => setReport(event.target.value)}
-          className="w-[96%] md:w-4/5 mb-1 mx-2 border rounded-lg border-zinc-700"
+          className="w-[96%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
           placeholder=" Write your report here..."
           name="report"
           rows="12"
-          cols={width > 390 ? "150" : "49"}
+          cols={width > 390 ? '150' : '49'}
           defaultValue={report}
           disabled={enableInput}
         />
@@ -903,7 +903,7 @@ const ReportSection = (props) => {
             onClick={handleShowModalReport}
             className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white text-sm"
           >
-            {adm ? "Send report" : "Save"}
+            {adm ? 'Send report' : 'Save'}
           </button>
         </div>
       ) : null}
