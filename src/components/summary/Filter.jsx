@@ -1,6 +1,6 @@
-import React from "react";
-import { useContext, useState } from "react";
-import { SearchContext } from "../../context/SearchContext";
+import React from 'react';
+import { useContext, useState } from 'react';
+import { SearchContext } from '../../context/SearchContext';
 
 const Filter = () => {
   const { setQuery } = useContext(SearchContext);
@@ -13,52 +13,52 @@ const Filter = () => {
   function handleSetQueryPending() {
     if (statusPending === true) {
       setStatusPending(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(false);
       setStatusClosed(false);
       setStatusPending(true);
-      setQuery("Pending");
+      setQuery('Pending');
     }
   }
 
   function handleSetQueryAccepted() {
     if (statusAccepted === true) {
       setStatusAccepted(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(true);
       setStatusReview(false);
       setStatusClosed(false);
       setStatusPending(false);
-      setQuery("Accepted");
+      setQuery('Accepted');
     }
   }
 
   function handleSetQueryReview() {
     if (statusReview === true) {
       setStatusReview(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(true);
       setStatusClosed(false);
       setStatusPending(false);
-      setQuery("Review");
+      setQuery('Review');
     }
   }
 
   function handleSetQueryClosed() {
     if (statusClosed === true) {
       setStatusClosed(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(false);
       setStatusClosed(true);
       setStatusPending(false);
-      setQuery("Closed");
+      setQuery('Closed');
     }
   }
 

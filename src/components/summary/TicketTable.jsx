@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useState } from "react";
-import { FcAbout } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { SearchContext } from "../../context/SearchContext";
-import { TicketService } from "../../service/ticket/TicketService";
-import { Oval } from "react-loader-spinner";
+import React, { useEffect, useContext, useState } from 'react';
+import { FcAbout } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
+import { SearchContext } from '../../context/SearchContext';
+import { TicketService } from '../../service/ticket/TicketService';
+import { Oval } from 'react-loader-spinner';
 
 const TicketTable = () => {
   const { query } = useContext(SearchContext);
@@ -13,9 +13,9 @@ const TicketTable = () => {
   useEffect(() => {
     async function fetchData() {
       setLoad(true);
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const ticket = await TicketService.ticket(token);
-      const processTicket = ticket.filter((item) => item.id !== "0");
+      const processTicket = ticket.filter((item) => item.id !== '0');
       setData(processTicket);
       setLoad(false);
     }
@@ -23,7 +23,7 @@ const TicketTable = () => {
   }, []);
 
   return (
-    <div className="w-full mt-5 overflow-x-auto md:flex justify-center mt-10 px-5">
+    <div className="w-[95vw] mt-5 overflow-x-auto md:flex justify-center mt-10 px-5">
       <table className="max-w-sm md:max-w-none w-[100%] ">
         <thead className="w-[100%]">
           <tr className="w-[100%]">
