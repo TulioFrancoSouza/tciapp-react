@@ -25,10 +25,10 @@ const Header = () => {
 
   return (
     <div>
-      <div className="flex flex-col px-5 md:flex-row px-5 justify-between mt-8">
+      <div className="flex flex-col px-5 md:flex-row px-5 justify-between mt-8 items-center">
         <Link to={location.pathname === "/summary" ? "/account" : "#"}>
-          <div className="em:ml-8 em:mr-8 em:justify-between flex justify-evenly align-center">
-            <div className="flex justify-start">
+          <div className="flex justify-between w-[100%] md:ml-8 mr-8 items-center">
+            <div className="flex justify-between md:justify-start">
               <img
                 className="em:mt-0 object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
                 src={ProfilePic}

@@ -221,19 +221,19 @@ const TickeInfo = (props) => {
             <div className="flex">
               <div className="mr-4">
                 <h2 className="font-bold">Address:</h2>
-                <div className="mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
+                <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.address}
                 </div>
               </div>
               <div className="mr-4">
                 <h2 className="font-bold">Contact:</h2>
-                <div className="mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+                <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.contact} John Smith
                 </div>
               </div>
               <div className="mr-1">
                 <h2 className="font-bold">Phone:</h2>
-                <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
                   {ticketValue.phone}
                 </div>
               </div>
@@ -243,7 +243,7 @@ const TickeInfo = (props) => {
 
         <div className="ml-0 mr-0 md:w-[1200]">
           <h2 className="font-bold">Description:</h2>
-          <div className="mb-2 bg-gray-100 h-8 border px-2 py-1 rounded-lg border-zinc-700">
+          <div className="overflow-y-auto mb-2 bg-gray-100 h-8 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
@@ -285,24 +285,27 @@ const TickeInfo = (props) => {
             </div>
           </div>
 
-          <div className="md:mt-3 flex justify-between items-center w-full">
-            <div className="flex">
-              <input
-                onClick={handlesetCheckAgreement}
-                className="mr-3"
-                type="checkbox"
-                value="agreed"
-                disabled={showReportSection === true ? true : false}
-                defaultChecked={checkAgreement}
-              />
-              <span className="mr-2">
-                I agree with the terms and conditions.
-              </span>
+          <div className="flex flex-col justify-between items-start md:flex-row mt-3 w-full items-center">
+            <div className="flex flex-col  md:flex-row">
+              <div>
+                <input
+                  onClick={handlesetCheckAgreement}
+                  className="mr-3"
+                  type="checkbox"
+                  value="agreed"
+                  disabled={showReportSection === true ? true : false}
+                  defaultChecked={checkAgreement}
+                />
+                <span className="mr-2">
+                  I agree with the terms and conditions.
+                </span>
+              </div>
+
               <Link to="/terms">
                 <p className="underline">Read the agreement</p>
               </Link>
             </div>
-            <div className="em:mt-5 em:mb-3 em:w-full em:justify-center flex justify-between items-center">
+            <div className="flex justify-start items-center mt-0 md:w-1/2 justify-end ">
               {showReportSection === false ? (
                 <>
                   <button

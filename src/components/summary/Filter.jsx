@@ -63,12 +63,12 @@ const Filter = () => {
   }
 
   return (
-    <div className="flex my-10 md:my-0">
+    <div className="flex justify-between my-5 items-center md:my-0">
       <button
         onClick={handleSetQueryPending}
         className={
           !statusPending
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -79,7 +79,7 @@ const Filter = () => {
         onClick={handleSetQueryAccepted}
         className={
           !statusAccepted
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -90,7 +90,7 @@ const Filter = () => {
         onClick={handleSetQueryReview}
         className={
           !statusReview
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -101,7 +101,7 @@ const Filter = () => {
         onClick={handleSetQueryClosed}
         className={
           !statusClosed
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"

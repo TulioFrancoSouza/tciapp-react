@@ -23,16 +23,16 @@ const TicketTable = () => {
   }, []);
 
   return (
-    <div className="w-full overflow-x-auto md:flex justify-center px-5">
-      <table className="max-w-sm md:max-w-none w-[100%]">
-        <thead>
-          <tr>
-            <th className="py-2">Ticket</th>
-            <th>Client</th>
-            <th>Title</th>
-            <th className="hidden md:block">Address</th>
-            <th>Assign to</th>
-            <th>Status</th>
+    <div className="w-full mt-5 overflow-x-auto md:flex justify-center mt-10 px-5">
+      <table className="max-w-sm md:max-w-none w-[100%] ">
+        <thead className="w-[100%]">
+          <tr className="w-[100%]">
+            <th className="py-2 w-[16%] text-start">Ticket</th>
+            <th className="py-2 w-[16%] text-start">Client</th>
+            <th className="py-2 w-[16%] text-start">Title</th>
+            <th className="py-2 w-[16%] text-start">Address</th>
+            <th className="py-2 w-[16%]">Assign to</th>
+            <th className="py-2 w-[16%]">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -68,15 +68,17 @@ const TicketTable = () => {
               .map((ticket) => (
                 <tr
                   key={ticket.id}
-                  className="border-t-2 border-b-2 border-gray-300"
+                  className="border-t-2 border-b-2 border-gray-300 w-[100%]"
                   hidden={ticket.id === 0 ? true : false}
                 >
-                  <td className="py-2">{ticket.id}</td>
-                  <td className="py-2">{ticket.client}</td>
-                  <td className="py-2">{ticket.title}</td>
-                  <td className="hidden md:block py-2">{ticket.address}</td>
-                  <td className="py-2">{ticket.assignto}</td>
-                  <td className="py-2">{ticket.status}</td>
+                  <td className="py-2 w-[16%]">{ticket.id}</td>
+                  <td className="py-2 w-[16%]">{ticket.client}</td>
+                  <td className="py-2 max-w-[16%] w-[16%]">{ticket.title}</td>
+                  <td className="py-2 w-[16%] text-start">{ticket.address}</td>
+                  <td className="py-2 w-[16%] text-center">
+                    {ticket.assignto}
+                  </td>
+                  <td className="py-2 w-[16%] text-center">{ticket.status}</td>
                   <td className="py-2">
                     <Link to={`/ticketinfo/${ticket.id}`}>
                       <FcAbout />
