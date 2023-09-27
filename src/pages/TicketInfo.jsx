@@ -183,7 +183,7 @@ const TickeInfo = (props) => {
         <h2 className="ml-0 mr-0 md:font-bold text-xl text-blue-600">
           Ticket Information
         </h2>
-        <div className="flex flex-col w-full mt-4 md:flex-row">
+        <div className="flex flex-col w-full mt-4 md:flex-row w-[100%]">
           <div className="">
             <h2 className="font-bold">Ticket:</h2>
             <div className="mb-2 h-8 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
@@ -192,25 +192,25 @@ const TickeInfo = (props) => {
           </div>
           <div className="ml-0 md:ml-4">
             <h2 className="font-bold">Client:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700">
+            <div className="mb-2 h-8 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[280px]">
               {ticketValue.client}
             </div>
           </div>
           <div className="ml-0 md:ml-4">
             <h2 className="font-bold">Address:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700">
+            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[300px]">
               {ticketValue.address}
             </div>
           </div>
           <div className="ml-0 md:ml-4">
             <h2 className="font-bold">Contact:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700">
+            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[200px]">
               {ticketValue.contact} John Smith
             </div>
           </div>
           <div className="ml-0 md:ml-4">
             <h2 className="font-bold">Phone:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[150px]">
               {ticketValue.phone}
             </div>
           </div>
@@ -237,7 +237,7 @@ const TickeInfo = (props) => {
         </div>
         <div className="ml-0 mr-0 md:w-[1200]">
           <h2 className="font-bold">Description:</h2>
-          <div className="overflow-y-auto mb-2 bg-gray-100 h-8 border px-2 py-1 rounded-lg border-zinc-700">
+          <div className="overflow-y-auto mb-2 bg-gray-100 h-20 border px-2 py-1 rounded-lg border-zinc-700">
             {ticketValue.description}
           </div>
         </div>
