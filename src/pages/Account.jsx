@@ -77,7 +77,7 @@ const Account = () => {
           </div>
         </div>
 
-        <div className="w-full mr-4">
+        <div className="w-full">
           <h2 className="font-bold">Address:</h2>
           <div className="mb-2 h-8 bg-gray-100 border p-2 rounded-lg border-zinc-700">
             {user.address}

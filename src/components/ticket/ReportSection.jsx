@@ -606,14 +606,14 @@ const ReportSection = (props) => {
               </button>
             </div>
           </div>
-          <div className="flex w-[94%] md:justify-start items-center ml-2 mb-10 w-full h-full">
-            <table className="align-middle border-spacing-2 table-fixed mt-5">
+          <div className="flex w-[99%] md:justify-start items-center ml-2 mb-10 w-[100%] h-full">
+            <table className="align-middle border-spacing-2 table-fixed mt-5 md:w-[100%]">
               <thead>
                 <tr className="border-t-2 border-b p-2 border-gray-300 text-left">
                   <th className="w-[1150px]">Item</th>
                   <th className="w-[50px]"></th>
                 </tr>
-                {extraExpenses != null &&
+                {/* {extraExpenses != null &&
                   extraExpenses.length > 0 &&
                   extraExpenses
                     .filter((extra) => extra.id != null)
@@ -633,7 +633,7 @@ const ReportSection = (props) => {
                           </div>
                         </td>
                       </tr>
-                    ))}
+                    ))}*/}
               </thead>
             </table>
           </div>

@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <div className="w-[100vw] md:w-[100%]">
-      <div className="flex flex-col px-5 md:flex-row px-5 justify-between mt-8 items-center">
+      <div className="flex flex-col items-start px-5 md:flex-row px-5 justify-between mt-8 items-center">
         <Link to={location.pathname === '/summary' ? '/account' : '#'}>
           <div className="flex justify-between w-[100%] md:ml-2 mr-8 items-center">
             <div className="flex justify-between md:justify-start">

@@ -1,6 +1,6 @@
-import React from "react";
-import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const Agreement = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Agreement = () => {
       <div>
         <button
           onClick={() => navigate(-1)}
-          className="em:ml-5 em:mr-5 ml-14 max-w-[100px] border border-blue-400 rounded-lg bg-blue-400 hover:bg-blue-700 w-full p-0 text-white"
+          className="h-8 em:ml-5 em:mr-5 ml-14 max-w-[100px] border border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 w-full p-0 text-white"
         >
           Back
         </button>

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { TicketService } from "../../service/ticket/TicketService";
+import React, { useState } from 'react';
+import { TicketService } from '../../service/ticket/TicketService';
 
 const ModalConversation = (props) => {
   const [ticket, setTicket] = useState(props.notes);
-  const [ticketNote, setTicketNote] = useState("");
+  const [ticketNote, setTicketNote] = useState('');
 
   function update() {
-    const notesAndName = props.notes.technician + " - " + ticketNote;
+    const notesAndName = props.notes.technician + ' - ' + ticketNote;
 
     const data = {
       send: true,
@@ -15,7 +15,7 @@ const ModalConversation = (props) => {
     };
 
     const ticket = TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.notes.id,
       data
     );
@@ -29,7 +29,7 @@ const ModalConversation = (props) => {
 
   return (
     <div className="w-screen h-screen drop-shadow-2xl flex justify-center items-center fixed top-0 right-0 bg-gray-400/80">
-      <div className="w-[80%] px-1 py-1 md:w-[1000px] bg-white px-5 py-5 rounded-lg">
+      <div className="w-[80%] px-1 py-1 md:w-[1000px] bg-white px-3 py-3 rounded-lg">
         <div className="flex justify-end">
           <button
             onClick={props.hideModalConversation}
@@ -38,18 +38,18 @@ const ModalConversation = (props) => {
             X
           </button>
         </div>
-        <div className=" md:flex-wrap mr-5 ml-5 block">
+        <div className="md:flex-wrap mr-5 ml-5 block">
           <div className="ml-0 mr-0 md:ml-1 mr-1 ml-1 py-1 mt-2 rounded-lg">
-            <h2 className="font-bold text-blue-600 mb-2 ml-2">Chat:</h2>
+            <h2 className="font-bold text-blue-600 mb-1 ml-2">Chat:</h2>
             <div className="block w-full">
               <div className="mt-3 em:flex-wrap flex justify-center">
                 <textarea
                   onChange={props.notes}
                   defaultValue={props.notes.note.map((row) => {
-                    let note = "";
-                    return (note = note + row.note + "\n");
+                    let note = '';
+                    return (note = note + row.note + '\n');
                   })}
-                  className="md:max-w-[100%] mb-1 mx-2 border rounded-lg border-zinc-700"
+                  className="md:max-w-[100%] mb-1 mx-2 border rounded-lg border-gray-300"
                   name="report"
                   cols="120"
                   rows="12"
@@ -66,7 +66,7 @@ const ModalConversation = (props) => {
                 <textarea
                   onChange={(event) => setTicketNote(event.target.value)}
                   type="text"
-                  className="em:max-w-[100%] mx-2 border py-2 rounded-lg border-zinc-700"
+                  className="em:max-w-[100%] mx-2 border py-2 rounded-lg border-gray-300"
                   name="report"
                   cols="113"
                   rows="2"
