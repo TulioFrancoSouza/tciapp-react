@@ -606,7 +606,7 @@ const ReportSection = (props) => {
               </button>
             </div>
           </div>
-          <div className="flex w-[99%] md:justify-start items-center ml-2 mb-10 w-[100%] h-full">
+          <div className="flex w-[95%] pl-2 pb-10 md:w-[99%]">
             <table className="align-middle border-spacing-2 table-fixed mt-5 md:w-[100%]">
               <thead>
                 <tr className="border-t-2 border-b p-2 border-gray-300 text-left">
