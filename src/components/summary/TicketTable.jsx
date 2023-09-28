@@ -23,7 +23,7 @@ const TicketTable = () => {
   }, []);
 
   return (
-    <div className="w-[95vw] mt-5 overflow-x-auto md:flex justify-center mt-10 px-5">
+    <div className="w-[95vw] mt-5 overflow-x-auto md:flex justify-center mt-10 px-5 w-[100vw]">
       <table className="max-w-sm md:max-w-none w-[100%] ">
         <thead className="w-[100%]">
           <tr className="w-[100%]">
