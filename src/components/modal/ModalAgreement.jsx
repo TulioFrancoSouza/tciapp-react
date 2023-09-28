@@ -1,12 +1,16 @@
-import React from "react";
+import React from 'react';
 
-const ModalAgreement = ({ handlerTrue, handlerFalse, handleSetHideModalAgreement }) => {
+const ModalAgreement = ({
+  handlerTrue,
+  handlerFalse,
+  handleSetHideModalAgreement,
+}) => {
   return (
     <div
       onClick={handleSetHideModalAgreement}
       className="w-screen h-screen drop-shadow-2xl flex justify-center items-center fixed top-0 right-0 bg-gray-400/80"
     >
-      <div className="em:w-[300px] em:h-[175px] w-[400px] h-[200px] bg-white px-5 py-5 rounded-lg">
+      <div className="em:w-[300px] em:h-[175px] w-[400px] h-[200px] bg-white px-3 py-3 rounded-lg">
         <div className="flex justify-end">
           <button onClick={handlerFalse}>X</button>
         </div>
