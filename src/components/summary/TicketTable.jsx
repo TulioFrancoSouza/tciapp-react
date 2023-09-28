@@ -27,8 +27,8 @@ const TicketTable = () => {
       <table className="max-w-sm md:max-w-none w-[100%] ">
         <thead className="w-[100%]">
           <tr className="w-[100%]">
-            <th className="py-2 w-[16%] text-start">Ticket</th>
-            <th className="py-2 w-[16%] text-start">Client</th>
+            <th className="py-2 w-[12%] text-start">Ticket</th>
+            <th className="py-2 w-[20%] text-start">Client</th>
             <th className="py-2 w-[16%] text-start">Title</th>
             <th className="py-2 w-[16%] text-start">Address</th>
             <th className="py-2 w-[16%]">Assign to</th>
@@ -71,8 +71,8 @@ const TicketTable = () => {
                   className="border-t-2 border-b-2 border-gray-300 w-[100%]"
                   hidden={ticket.id === 0 ? true : false}
                 >
-                  <td className="py-2 w-[16%]">{ticket.id}</td>
-                  <td className="py-2 w-[16%]">{ticket.client}</td>
+                  <td className="py-2 w-[12%]">{ticket.id}</td>
+                  <td className="py-2 w-[20%]">{ticket.client}</td>
                   <td className="py-2 max-w-[16%] w-[16%]">{ticket.title}</td>
                   <td className="py-2 w-[16%] text-start">{ticket.address}</td>
                   <td className="py-2 w-[16%] text-center">
