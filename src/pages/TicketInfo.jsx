@@ -210,7 +210,7 @@ const TickeInfo = (props) => {
           </div>
           <div className="ml-0 md:ml-4">
             <h2 className="font-bold">Phone:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[150px]">
+            <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[150px]">
               {ticketValue.phone}
             </div>
           </div>
@@ -218,7 +218,7 @@ const TickeInfo = (props) => {
         <div className="flex flex-col w-full md:flex-row">
           <div className="min-w-none md:min-w-[40%]">
             <h2 className="font-bold">Title:</h2>
-            <div className="md:px-2 h-8 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
+            <div className="overflow-auto max-w-[100%] md:px-2 h-8 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
               {ticketValue.title}
             </div>
           </div>
@@ -344,7 +344,7 @@ const TickeInfo = (props) => {
           <hr className="md:mt-3 mb-6 h-0.5 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
         </div>
         <div className="py-5 ml-0 mr-0 md:h-full py-2 border-2 mt-2 rounded-lg">
-          <div className="w-full flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-2">
             <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
             <button
               onClick={handleShowModalConversation}
@@ -357,7 +357,7 @@ const TickeInfo = (props) => {
           <div
             //onChange={setNotes}
             //value={notes}
-            className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
+            className="w-[95%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
             name="report"
             // rows="12"
             // disabled="disabled"
