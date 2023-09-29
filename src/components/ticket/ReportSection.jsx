@@ -464,10 +464,13 @@ const ReportSection = (props) => {
       status = "Closed"
     }
 
+    const schedule = props.schedule != null ? 
+        props.schedule : dateFormat(Date.now(), 'yyyy-mm-dd HH:MM:ss');
+
     const data = {
       send: send,
       technician: props.technician,
-      schedule: props.schedule,
+      schedule: schedule,
       extraExp: extraExpenses,
       report: report,
       statusReport: statusReport,

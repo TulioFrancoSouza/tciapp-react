@@ -94,7 +94,7 @@ const TickeInfo = (props) => {
     const data = {
       send: true,
       technician: ticketResponsible,
-      schedule: dateSchedule,
+      schedule: dateSchedule != null ? dateSchedule : dateFormat(new Date.now(), 'yyyy-mm-dd') ,
       status: 'Accepted',
     };
 
@@ -356,6 +356,7 @@ const TickeInfo = (props) => {
 
           <div
             className="w-[95%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
+            style={{width:"99%",padding:'50px'}}
             name="report"
             dangerouslySetInnerHTML={{ __html: notes }}
           ></div>
