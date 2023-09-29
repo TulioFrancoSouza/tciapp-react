@@ -26,6 +26,7 @@ const Signin = () => {
     } catch (e) {
       setError(e.message);
       console.log(e.message);
+      setLoad(false);
     }
   };
 
@@ -73,6 +74,7 @@ const Signin = () => {
         <Link to="/signup" className="font-bold underline">
             Sign up.
         </Link>
+        <div style={{color:'red'}}>{error}</div>
       </p>
       </form>
       

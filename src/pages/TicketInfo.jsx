@@ -357,18 +357,11 @@ const TickeInfo = (props) => {
             </button>
           </div>
 
-          <div
-            //onChange={setNotes}
-            //value={notes}
-            className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
+          <div className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
             style={{width:"99%"}}
             name="report"
-            // rows="12"
-            // disabled="disabled"
-            dangerouslySetInnerHTML={{__html: notes}}
-          >
-            
-          </div>
+            dangerouslySetInnerHTML={{ __html: notes }}
+          ></div>
         </div>
       </div>
 
@@ -401,7 +394,8 @@ const TickeInfo = (props) => {
       ) : null}
       {showModalConversation ? (
         <ModalConversation
-          notes={ticketValue}
+          notes={notes}
+          tickets={ticketValue}
           hideModalConversation={handleHideModalConversation}
         />
       ) : null}

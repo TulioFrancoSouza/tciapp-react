@@ -5,18 +5,18 @@ import { TicketService } from "../../service/ticket/TicketService";
 const ModalConversation = (props) => {
 
 
-  const [ticket, setTicket] = useState(props.notes);
+  const [ticket, setTicket] = useState(props.tickets);
   const [ticketNote, setTicketNote] = useState("");
 
 
   function update() {
 
-    const notesAndName = props.notes.technician + " - " + ticketNote;
+    const notesAndName = props.tickets.technician + " - " + ticketNote;
 
     const data = {
       send:true,
       note: [ {note:notesAndName} ],
-      status: props.notes.status
+      status: props.tickets.status
     };
 
     const ticket = TicketService.ticketPatch(
@@ -52,18 +52,15 @@ const ModalConversation = (props) => {
             <h2 className="font-bold text-blue-600 mb-2 ml-2">Chat:</h2>
             <div className="block w-full">
               <div className="mt-3 em:flex-wrap flex justify-center">
-                <textarea
-                  onChange={props.notes}
-                  defaultValue={props.notes.note.map((row)=> {
-                    let note = "";
-                    return note = note + row.note + "\n"
-                  })}
-                  className="em:max-w-[10px] mb-1 mx-2 border rounded-lg border-zinc-700"
-                  name="report"
-                  cols="120"
-                  rows="12"
-                  disabled="disabled"
-                />
+                 <div
+                    className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
+                    style={{width:"99%",padding:'50px'}}
+                    name="report"
+                    dangerouslySetInnerHTML={{__html: props.notes}}
+              >
+              </div>
+
+
               </div>
               <div className="min-w-full em:flex-wrap mt-5 flex justify-start">
                 <h2 className="font-bold text-blue-600 mb-2 ml-2">

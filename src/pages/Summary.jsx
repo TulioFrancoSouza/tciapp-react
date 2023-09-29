@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import TicketTable from "../components/summary/TicketTable";
+import TicketTable from "../components/summary/TicketTable.tsx";
 
 const Summary = () => {
   return (
