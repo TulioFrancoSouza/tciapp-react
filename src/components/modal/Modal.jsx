@@ -15,7 +15,7 @@ const ModalReport = ({ handlerTrue, handlerFalse, showReport, hideModal }) => {
             Do you want to accept this ticket?
           </h2>
         </div>
-        <div className="mt-12 flex justify-around w-full">
+        <div className="mt-8 flex justify-around w-full">
           <button
             onClick={handlerTrue}
             className="text-white px-10 py-2 rounded-lg drop-shadow-2xl bg-lime-400"
