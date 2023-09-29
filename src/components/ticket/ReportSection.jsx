@@ -898,7 +898,7 @@ const ReportSection = (props) => {
             onClick={handleShowModalReport}
             className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white text-sm"
           >
-            {adm ? "Send report" : "Approve report"}
+            {adm ? "Approve report" : "Send report"}
           </button>
         </div>
 
