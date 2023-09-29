@@ -48,6 +48,7 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
           const ticket = await TicketService.ticket(token, id);
           tk = ticket[0];
           console.log(ticket[0]);
+          await this.delay(5000);
         }
         newTicket.push(tk);
       }
