@@ -40,22 +40,22 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
     this.setState({ data: processTicket });
     this.setState({ load: false }); 
 
-    // const interval = setInterval(async () => {
-    //   const newTicket: any = []
-    //   for (var tk of await this.state.data) {
-    //     const id = tk.id;
-    //     if (tk.status === "Pending" || tk.status === "Accepted") {
-    //       const ticket = await TicketService.ticket(token, id);
-    //       tk = ticket[0];
-    //       console.log(ticket[0]);
-    //     }
-    //     newTicket.push(tk);
-    //   }
-    //   if (newTicket.length > 0) {
-    //     this.setState({ data: newTicket });
-    //   }
-    // }, 5000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(async () => {
+      const newTicket: any = []
+      for (var tk of await this.state.data) {
+        const id = tk.id;
+        if (tk.status === "Pending" || tk.status === "Accepted") {
+          const ticket = await TicketService.ticket(token, id);
+          tk = ticket[0];
+          console.log(ticket[0]);
+        }
+        newTicket.push(tk);
+      }
+      if (newTicket.length > 0) {
+        this.setState({ data: newTicket });
+      }
+    }, 5000);
+    return () => clearInterval(interval);
 
   }
 
