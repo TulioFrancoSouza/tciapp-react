@@ -14,7 +14,7 @@ const Search = () => {
     <div className="">
       <input
         onChange={handleSetQuery}
-        className="min-w-[300px] w-[80%] mb-0 mt-5 focus:bg-white focus:text-black focus:placeholder:text-white bg-gray-200 md:mt-0 mb-0 min-w-[400px] min-h-[40px] px-5 py-1 rounded-lg border-r-2"
+        className="w-[300px] p-2 bg-gray-200 rounded-lg focus:text-black  focus:bg-white focus:placeholder:text-white mt-5 md:mt-0"
         type="text"
         name="search"
         placeholder="Ticket number or keyword"

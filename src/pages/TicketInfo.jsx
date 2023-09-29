@@ -298,7 +298,7 @@ const TickeInfo = (props) => {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-row justify-start items-center my-5 md:w-1/2 justify-end">
+            <div className="flex flex-row justify-center items-center my-5 md:w-1/2 md:justify-end">
               {showReportSection === false ? (
                 <>
                   <button

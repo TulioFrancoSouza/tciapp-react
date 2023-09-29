@@ -6,8 +6,8 @@ const Modal = ({ accept, deny, closeModalReport }) => {
       onClick={closeModalReport}
       className="w-screen h-screen drop-shadow-2xl flex justify-center items-center fixed top-0 right-0 bg-gray-400/80"
     >
-      <div className="w-[250px] md:w-[300px] bg-white px-3 py-3 rounded-lg">
-        <div className="flex justify-end">
+      <div className="w-[250px] md:w-[300px] bg-white px-6 py-6 rounded-lg">
+        <div className="flex justify-end pb-1">
           <button onClick={closeModalReport}>X</button>
         </div>
         <div>
