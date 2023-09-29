@@ -1,6 +1,6 @@
-import React from "react";
-import { useContext, useState } from "react";
-import { SearchContext } from "../../context/SearchContext";
+import React from 'react';
+import { useContext, useState } from 'react';
+import { SearchContext } from '../../context/SearchContext';
 
 const Filter = () => {
   const { setQuery } = useContext(SearchContext);
@@ -13,62 +13,62 @@ const Filter = () => {
   function handleSetQueryPending() {
     if (statusPending === true) {
       setStatusPending(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(false);
       setStatusClosed(false);
       setStatusPending(true);
-      setQuery("Pending");
+      setQuery('Pending');
     }
   }
 
   function handleSetQueryAccepted() {
     if (statusAccepted === true) {
       setStatusAccepted(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(true);
       setStatusReview(false);
       setStatusClosed(false);
       setStatusPending(false);
-      setQuery("Accepted");
+      setQuery('Accepted');
     }
   }
 
   function handleSetQueryReview() {
     if (statusReview === true) {
       setStatusReview(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(true);
       setStatusClosed(false);
       setStatusPending(false);
-      setQuery("Review");
+      setQuery('Review');
     }
   }
 
   function handleSetQueryClosed() {
     if (statusClosed === true) {
       setStatusClosed(false);
-      setQuery("");
+      setQuery('');
     } else {
       setStatusAccepted(false);
       setStatusReview(false);
       setStatusClosed(true);
       setStatusPending(false);
-      setQuery("Closed");
+      setQuery('Closed');
     }
   }
 
   return (
-    <div className="flex items-center em:justify-center">
+    <div className="flex justify-end my-5 px-5 items-center md:my-0">
       <button
         onClick={handleSetQueryPending}
         className={
           !statusPending
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -79,7 +79,7 @@ const Filter = () => {
         onClick={handleSetQueryAccepted}
         className={
           !statusAccepted
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -90,7 +90,7 @@ const Filter = () => {
         onClick={handleSetQueryReview}
         className={
           !statusReview
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"
@@ -101,7 +101,7 @@ const Filter = () => {
         onClick={handleSetQueryClosed}
         className={
           !statusClosed
-            ? `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
+            ? `h-10 em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-gray-300 hover:border-blue-400 hover:bg-blue-400 hover:text-white rounded-lg px-5 py-2 text-sm text-gray-400`
             : `em:m-1 em:px-2 em:py-2 mr-3 border-solid border-2 border-blue-400 bg-blue-400 text-white rounded-lg px-5 py-2 text-sm`
         }
         type="button"

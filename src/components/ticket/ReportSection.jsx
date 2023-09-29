@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { FcEmptyTrash } from "react-icons/fc";
-import { useWindowWidth } from "@react-hook/window-size";
-import ModalReport from "../modal/ModalReport";
-import { TicketService } from "../../service/ticket/TicketService";
-import { Oval } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
-import dateFormat from "dateformat";
+import React, { useState, useEffect } from 'react';
+import { FcEmptyTrash } from 'react-icons/fc';
+import { useWindowWidth } from '@react-hook/window-size';
+import ModalReport from '../modal/ModalReport';
+import { TicketService } from '../../service/ticket/TicketService';
+import { Oval } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
 const ReportSection = (props) => {
-
   const [timeRegTravelTo, setTimeRegTravelTo] = useState(0);
   const [timeRegTravelFrom, setTimeRegTravelFrom] = useState(0);
 
@@ -18,21 +17,20 @@ const ReportSection = (props) => {
   const [timeAfterTravelTo, setTimeAfterTravelTo] = useState(0);
   const [timeAfterTravelFrom, setTimeAfterTravelFrom] = useState(0);
 
-  const [timeArrivalReg, setTimeArrivalReg] = useState("00:00");
-  const [timeDepartureReg, setTimeDepartureReg] = useState("00:00");
+  const [timeArrivalReg, setTimeArrivalReg] = useState('00:00');
+  const [timeDepartureReg, setTimeDepartureReg] = useState('00:00');
 
-  const [timeArrivalOver, setTimeArrivalOver] = useState("00:00");
-  const [timeDepartureOver, setTimeDepartureOver] = useState("00:00");
+  const [timeArrivalOver, setTimeArrivalOver] = useState('00:00');
+  const [timeDepartureOver, setTimeDepartureOver] = useState('00:00');
 
-  const [timeArrivalAfter, setTimeArrivalAfter] = useState("00:00");
-  const [timeDepartureAfter, setTimeDepartureAfter] = useState("00:00");
-
+  const [timeArrivalAfter, setTimeArrivalAfter] = useState('00:00');
+  const [timeDepartureAfter, setTimeDepartureAfter] = useState('00:00');
 
   const [enableInput, setEnableInput] = useState(false);
 
-  const [report, setReport] = useState("");
-  const [statusReport, setStatusReport] = useState("");
-  const [schedule, setSchedule] = useState("");
+  const [report, setReport] = useState('');
+  const [statusReport, setStatusReport] = useState('');
+  const [schedule, setSchedule] = useState('');
 
   const [adm, setAdm] = useState(false);
   const [load, setLoad] = useState(false);
@@ -41,16 +39,15 @@ const ReportSection = (props) => {
   const width = useWindowWidth();
   const navigate = useNavigate();
 
+  const [extraExpensesContent, setExtraExpensesContent] = useState('');
+  const [travelInContent, setTravelInContent] = useState('');
+  const [travelOutContent, setTravelOutContent] = useState('');
 
-  const [extraExpensesContent, setExtraExpensesContent] = useState("");
-  const [travelInContent, setTravelInContent] = useState("");
-  const [travelOutContent, setTravelOutContent] = useState("");
-
-  const [travelInType, setTravelInType] = useState("");
-  const [travelOutType, setTravelOutType] = useState("");
-  const [travelLaborTimeStart, setTravelLaborTimeStart] = useState("");
-  const [travelLaborTimeEnd, setTravelLaborTimeEnd] = useState("");
-  const [travelLaborTimeType, setTravelLaborTimeType] = useState("");
+  const [travelInType, setTravelInType] = useState('');
+  const [travelOutType, setTravelOutType] = useState('');
+  const [travelLaborTimeStart, setTravelLaborTimeStart] = useState('');
+  const [travelLaborTimeEnd, setTravelLaborTimeEnd] = useState('');
+  const [travelLaborTimeType, setTravelLaborTimeType] = useState('');
 
   const [travelInOut, setTravelInOut] = useState([]);
 
@@ -74,7 +71,6 @@ const ReportSection = (props) => {
     setTravelOutType(e.target.value);
   };
 
-
   const handleSetLaborTimeStart = (e) => {
     setTravelLaborTimeStart(e.target.value);
   };
@@ -94,16 +90,16 @@ const ReportSection = (props) => {
       {
         id: String(Math.random().toFixed(2)),
         description: extraExpensesContent,
-      }
+      },
     ];
 
     const data = {
-      extraExp: newExtraExpenses
-    }
+      extraExp: newExtraExpenses,
+    };
 
     console.log(data);
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -111,9 +107,7 @@ const ReportSection = (props) => {
     setExtraExpensesContent("");
   };
 
-
   const addTravelInOut = (eType) => {
-
     let resolveTravelInOutType = null;
     let travelGo = null;
     let travelEnd = null;
@@ -135,7 +129,6 @@ const ReportSection = (props) => {
       default:
         console.log("void");
     }
-
 
     const newTravelInOut = [
       ...travelInOut.filter(row => row.type !== resolveTravelInOutType),
@@ -183,9 +176,12 @@ const ReportSection = (props) => {
         otlArrival = row.type === "OvertimeLabor" ? row.time : null;
         otlDeparture = row.type === "OvertimeLabor" ? row.timeEnd : null;
 
-        amtlArrival = row.type === "After mid-nightLabor" ? row.time : null;
-        amtlDeparture = row.type === "After mid-nightLabor" ? row.timeEnd : null;
+        otlArrival = row.type === 'OvertimeLabor' ? row.time : null;
+        otlDeparture = row.type === 'OvertimeLabor' ? row.timeEnd : null;
 
+        amtlArrival = row.type === 'After mid-nightLabor' ? row.time : null;
+        amtlDeparture =
+          row.type === 'After mid-nightLabor' ? row.timeEnd : null;
       }
 
       return ""
@@ -204,7 +200,7 @@ const ReportSection = (props) => {
     setTimeOverTravelFrom(otlTravelFrom);
     setTimeOverTravelTo(otlTravelTo);
     setTimeDepartureOver(otlDeparture);
-    setTimeArrivalOver(otlArrival)
+    setTimeArrivalOver(otlArrival);
 
     const data = {
       rtlTravelFrom: rtlTravelFrom,
@@ -218,11 +214,11 @@ const ReportSection = (props) => {
       otlDeparture: otlDeparture,
       otlArrival: otlArrival,
       rtlDeparture: rtlDeparture,
-      rtlArrival: rtlArrival
-    }
+      rtlArrival: rtlArrival,
+    };
 
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -230,17 +226,18 @@ const ReportSection = (props) => {
     setTravelInOut(newTravelInOut);
   };
 
-
   const removeExtraExpenses = (idx) => {
-    const newExtraExpenses = []
-    extraExpenses.map((row, index) => index !== idx ? newExtraExpenses.push(row) : [])
+    const newExtraExpenses = [];
+    extraExpenses.map((row, index) =>
+      index !== idx ? newExtraExpenses.push(row) : []
+    );
 
     const data = {
-      extraExp: newExtraExpenses
-    }
+      extraExp: newExtraExpenses,
+    };
 
     TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -248,10 +245,11 @@ const ReportSection = (props) => {
     setExtraExpenses(newExtraExpenses);
   };
 
-
   const removeTravelInOut = (travel) => {
-    const newTravelInOut = []
-    travelInOut.map((row) => row.type !== travel.type ? newTravelInOut.push(row) : [])
+    const newTravelInOut = [];
+    travelInOut.map((row) =>
+      row.type !== travel.type ? newTravelInOut.push(row) : []
+    );
     // const data = {
     //   extraExp: newTravelInOut
     // }
@@ -263,8 +261,6 @@ const ReportSection = (props) => {
     // );
     setTravelInOut(newTravelInOut);
   };
-
-
 
   const removeLaborTime = (trv) => {
     const newTravelInOut = []
@@ -305,7 +301,7 @@ const ReportSection = (props) => {
   const handleRemoveExtraExpense = (e, index) => {
     e.preventDefault();
     removeExtraExpenses(index);
-  }
+  };
 
   const handleInsertTravelInOut = (e, eType) => {
     e.preventDefault();
@@ -313,25 +309,23 @@ const ReportSection = (props) => {
     addTravelInOut(eType);
     setTravelInContent('');
     setTravelOutContent('');
-  }
+  };
 
   const handleRemoveTravelInOut = (e, index) => {
     e.preventDefault();
     removeTravelInOut(index);
-  }
+  };
 
   const handleRemoveLabourTime = (e, travel) => {
     e.preventDefault();
     removeLaborTime(travel);
-  }
-
+  };
 
   useEffect(() => {
     async function fetchData() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       //const ticket = await TicketService.ticket(token,props.ticketId);
       const ticket = props.ticket;
-
 
       if (ticket[ticket.length - 1].admin) {
         setAdm(ticket[ticket.length - 1].admin);
@@ -344,73 +338,70 @@ const ReportSection = (props) => {
           setStatusReport(ticket[i].statusReport);
           setSchedule(ticket[i].schedule);
 
-          const travel = []
+          const travel = [];
 
           if (ticket[i].rtlTravelFrom != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlTravelFrom,
-              type: "RegularIn"
-            })
+              type: 'RegularIn',
+            });
           }
           if (ticket[i].rtlTravelTo != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlTravelTo,
-              type: "RegularOut"
-            })
+              type: 'RegularOut',
+            });
           }
           if (ticket[i].otlTravelFrom != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlTravelFrom,
-              type: "OvertimeIn"
-            })
+              type: 'OvertimeIn',
+            });
           }
 
           if (ticket[i].otlTravelTo != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlTravelTo,
-              type: "OvertimeOut"
-            })
+              type: 'OvertimeOut',
+            });
           }
 
           if (ticket[i].amtlTravelFrom != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlTravelFrom,
-              type: "After mid-nightIn"
-            })
+              type: 'After mid-nightIn',
+            });
           }
 
-          if (ticket[i].amtlTravelTo != null || ticket[i].amtlTravelTo !== "") {
+          if (ticket[i].amtlTravelTo != null || ticket[i].amtlTravelTo !== '') {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlTravelTo,
-              type: "After mid-nightOut"
-            })
+              type: 'After mid-nightOut',
+            });
           }
 
-
-
-          if (ticket[i].amtlArrival != null && ticket[i].amtlArrival !== "") {
+          if (ticket[i].amtlArrival != null && ticket[i].amtlArrival !== '') {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].amtlArrival,
               timeEnd: ticket[i].amtlDeparture,
-              type: "After mid-nightLabor"
-            })
+              type: 'After mid-nightLabor',
+            });
           }
-
 
           if (ticket[i].rtlArrival != null) {
             travel.push({
               id: String(Math.random().toFixed(2)),
               time: ticket[i].rtlArrival,
               timeEnd: ticket[i].rtlDeparture,
-              type: "RegularLabor"
-            })
+              type: 'RegularLabor',
+            });
           }
 
           if (ticket[i].otlArrival != null) {
@@ -418,14 +409,13 @@ const ReportSection = (props) => {
               id: String(Math.random().toFixed(2)),
               time: ticket[i].otlArrival,
               timeEnd: ticket[i].otlDeparture,
-              type: "OvertimeLabor"
-            })
+              type: 'OvertimeLabor',
+            });
           }
 
           setTravelInOut(travel);
 
           const extraExp = ticket[i].extraExp != null ? ticket[i].extraExp : [];
-
 
           setExtraExpenses(extraExp);
           setTimeRegTravelTo(ticket[i].rtlTravelTo);
@@ -446,12 +436,12 @@ const ReportSection = (props) => {
 
 
           if (
-            ticket[i].status === "Review" &&
+            ticket[i].status === 'Review' &&
             !ticket[ticket.length - 1].admin
           ) {
             setEnableInput(true);
           } else if (
-            ticket[i].status === "Review" &&
+            ticket[i].status === 'Review' &&
             ticket[ticket.length - 1].admin
           ) {
             setEnableInput(false);
@@ -497,7 +487,7 @@ const ReportSection = (props) => {
     };
 
     const ticket = TicketService.ticketPatch(
-      localStorage.getItem("token"),
+      localStorage.getItem('token'),
       props.ticketId,
       data
     );
@@ -506,15 +496,15 @@ const ReportSection = (props) => {
         window.location.reload(true);
       }
     });
-    navigate("/summary");
+    navigate('/summary');
   }
 
   function calcTimeRegWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
     if (timeArrivalReg != null && timeDepartureReg != null) {
-      arrTimeArrival = timeArrivalReg.split(":");
-      arrTimeDeparture = timeDepartureReg.split(":");
+      arrTimeArrival = timeArrivalReg.split(':');
+      arrTimeDeparture = timeDepartureReg.split(':');
     }
 
     let timeReg =
@@ -528,11 +518,11 @@ const ReportSection = (props) => {
   calcTimeRegWork();
 
   function calcTimeOverWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
     if (timeArrivalOver != null && timeDepartureOver != null) {
-      arrTimeArrival = timeArrivalOver.split(":");
-      arrTimeDeparture = timeDepartureOver.split(":");
+      arrTimeArrival = timeArrivalOver.split(':');
+      arrTimeDeparture = timeDepartureOver.split(':');
     }
 
     let timeOver =
@@ -545,12 +535,12 @@ const ReportSection = (props) => {
 
   calcTimeOverWork();
   function calcTimeAfterWork() {
-    let arrTimeArrival = "00:00";
-    let arrTimeDeparture = "00:00";
+    let arrTimeArrival = '00:00';
+    let arrTimeDeparture = '00:00';
 
     if (timeArrivalAfter != null && timeDepartureAfter != null) {
-      arrTimeArrival = timeArrivalAfter.split(":");
-      arrTimeDeparture = timeDepartureAfter.split(":");
+      arrTimeArrival = timeArrivalAfter.split(':');
+      arrTimeDeparture = timeDepartureAfter.split(':');
     }
 
     let timeAfter =
@@ -578,7 +568,6 @@ const ReportSection = (props) => {
     } else {
       save(false);
     }
-
   };
 
   const handlerFalse = () => {
@@ -586,15 +575,15 @@ const ReportSection = (props) => {
   };
 
   return (
-    <div>
+    <div className="px-5">
       <div>
-        <hr className="em:ml-5 em:mr-5 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr className="my-5 md:my-6 h-0.5  border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
-      <h2 className="em:ml-5 mr-14 ml-14 mt-5 font-bold text-xl text-blue-600">
+      <h2 className="ml-0 md:mt-5 font-bold text-xl text-blue-600">
         Technician Report
       </h2>
 
-      <div className="block em:block border-2 rounded-lg em:ml-5 em:mr-1 items-start ml-14 mr-14 mt-5 mb-2 text-sm">
+      <div className="block ml-0 w-[100%] md:block border-2 rounded-lg  items-start mt-5 mb-2 text-sm">
         <div className="em:flex-wrap block">
           <h2 className="text-blue-600 text-md ml-2 mt-2 font-bold mb-4">
             Extra expenses
@@ -602,10 +591,10 @@ const ReportSection = (props) => {
           <h2 className="font-bold ml-2">Description:</h2>
 
           <div className="em:block em:ml-1 em:mr-5 mb-2 flex justify-start flex-wrap text-xs text-left ml-2 mr-1 mt-2 py-1">
-            <div className="em:flex-wrap mr-2 block">
+            <div className="em:flex-wrap mr-2 block w-full">
               <input
                 onChange={handleSetExtraExpenses}
-                className="min-w-[1075px] mb-2 border py-1 rounded-lg border-zinc-700"
+                className="w-full h-8 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="text"
                 placeholder=" Insert an item description + Price. e.g 'Switch Cisco 12.000 + $1.250,50"
               />
@@ -613,15 +602,15 @@ const ReportSection = (props) => {
 
             <div className="flex em:flex-wrap align-middle">
               <button
-                className="min-w-[100px] mr-4 drop-shadow-lg h-[80%] align-baseline border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 px-1 text-white"
-                onClick={handleInsertExtraExpense}>
+                className="min-w-[100px] h-8 mr-4 drop-shadow-lg align-baseline border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
+                onClick={handleInsertExtraExpense}
+              >
                 Add
               </button>
             </div>
           </div>
-          <div className="flex justify-start items-center ml-2 mb-10 w-full h-full">
-            <table
-              className="align-middle border-spacing-2 table-fixed mt-5">
+          <div className="flex w-[95%] pl-2 pb-10 md:w-[99%]">
+            <table className="align-middle border-spacing-2 table-fixed mt-5 md:w-[100%]">
               <thead>
                 <tr className="border-t-2 border-b p-2 border-gray-300 text-left">
                   <th className="w-[1150px]">Item</th>
@@ -643,21 +632,21 @@ const ReportSection = (props) => {
         </div>
       </div>
 
-      <div className="em:ml-5 mr-14 ml-14 h-full py-3 border-2 mt-2 rounded-lg">
-        <h2 className="font-bold text-blue-600 mb-2 ml-2">Time report:</h2>
+      <div className="md:border-2 mt-2 rounded-lg">
+        <h2 className="font-bold text-blue-600 mb-2 ml-2 mt-2">Time report:</h2>
         <div className="block mr-5 text-left py-2">
-          <div className="block m-auto">
+          <div className="block">
             <h2 className="text-center font-bold text-blue-600">Date</h2>
             <div className="text-center">
               <input
                 defaultValue={dateFormat(schedule, "yyyy-mm-dd")}
                 type="date"
-                className="mb-2 border px-2 py-1 rounded-lg border-zinc-700"
+                className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
               ></input>
             </div>
           </div>
-          <div className="flex flex-wrap justify-between text-center ml-4 mr-4 mb-4 columns-3">
-            <div className="block border-2 mt-2 mb-2 rounded-lg	p-2 min-w-[300px] ml-10">
+          <div className="flex flex-col md:flex-row text-center">
+            <div className="ml-2 mr-2 border-2 mt-2 mb-2 rounded-lg	p-2 w-full md:ml-5 mr-0">
               <h2 className="font-bold">Travel in</h2>
               <h3>(minutes)</h3>
 
@@ -666,12 +655,15 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelIn}
                   value={travelInContent}
                   type="number"
-                  className="mb-2 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="w-[40%] mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700 md:w-[30%]"
                   title="Insert minutes spent in travel in. Only numbers allowed."
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
-                  <select onChange={handleSetTravelInType} className="mb-2 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700">
+                  <select
+                    onChange={handleSetTravelInType}
+                    className="w-[40%] mb-2 h-8 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700 md:w-[30%]"
+                  >
                     <option>Regular</option>
                     <option>Overtime</option>
                     <option>After mid-night</option>
@@ -679,8 +671,9 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
-                    onClick={(e) => handleInsertTravelInOut(e, "TravelIn")}
-                    className="min-w-[100px] drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white">
+                    onClick={(e) => handleInsertTravelInOut(e, 'TravelIn')}
+                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
+                  >
                     Add
                   </button>
                   <div className="flex justify-evenly items-center w-full h-full">
@@ -691,18 +684,26 @@ const ReportSection = (props) => {
                           <th className="w-[px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel => travel.type.match("In")).map((travel, index) => (
-                          <tr key={Object.keys(travel)[index]} className="border-t-2 text-center border-gray-300">
-                            <td>{travel.time}</td>
-                            <td>{travel.type.replace("In", "")}</td>
-                            <td>
-                              <button>
-                                <FcEmptyTrash onClick={(e) => handleRemoveTravelInOut(e, travel)} />
-                              </button>
-                            </td>
-                          </tr>
-
-                        ))}
+                        {travelInOut
+                          .filter((travel) => travel.type.match('In'))
+                          .map((travel, index) => (
+                            <tr
+                              key={Object.keys(travel)[index]}
+                              className="border-t-2 text-center border-gray-300"
+                            >
+                              <td>{travel.time}</td>
+                              <td>{travel.type.replace('In', '')}</td>
+                              <td>
+                                <button>
+                                  <FcEmptyTrash
+                                    onClick={(e) =>
+                                      handleRemoveTravelInOut(e, travel)
+                                    }
+                                  />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </thead>
                     </table>
                   </div>
@@ -710,7 +711,7 @@ const ReportSection = (props) => {
               </div>
             </div>
 
-            <div className="block border-2 mt-2 mb-2 rounded-lg	p-2 min-w-[300px]">
+            <div className="block mx-2 border-2 mt-2 mb-2 rounded-lg	p-2 w-full md:mx-5">
               <h2 className="font-bold">Labour time (minutes)</h2>
               <div className="flex justify-evenly">
                 <div>
@@ -718,7 +719,7 @@ const ReportSection = (props) => {
                   <input
                     onChange={handleSetLaborTimeStart}
                     type="time"
-                    className="mb-2 border px-5 py-1 rounded-lg border-zinc-700"
+                    className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
                   ></input>
                 </div>
 
@@ -728,7 +729,7 @@ const ReportSection = (props) => {
                   <input
                     onChange={handleSetLaborTimeEnd}
                     type="time"
-                    className="mb-2 border px-5 py-1 rounded-lg border-zinc-700"
+                    className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
                   ></input>
                 </div>
               </div>
@@ -736,8 +737,10 @@ const ReportSection = (props) => {
               <div>
                 <div>
                   <h3 className="font-bold">Type</h3>
-                  <select onChange={handleSetLaborTimeType}
-                    className="mb-2 border px-2 py-1 mt-2 text-center rounded-lg border-zinc-700">
+                  <select
+                    onChange={handleSetLaborTimeType}
+                    className="mb-2 border h-8 px-2 py-1 mt-2 text-center rounded-lg border-zinc-700"
+                  >
                     <option>Regular</option>
                     <option>Overtime</option>
                     <option>After mid-night</option>
@@ -745,8 +748,9 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
-                    onClick={(e) => handleInsertTravelInOut(e, "LaborTime")}
-                    className="min-w-[100px] drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white">
+                    onClick={(e) => handleInsertTravelInOut(e, 'LaborTime')}
+                    className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
+                  >
                     Add
                   </button>
                   <div className="flex justify-evenly items-center w-full h-full">
@@ -758,26 +762,34 @@ const ReportSection = (props) => {
                           <th className="w-[75px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel => travel.type.match("Labor")).map((travel, index) => (
-                          <tr key={Object(travel)[index]} className="border-t-2 text-center border-gray-300">
-                            <td>{travel.time}</td>
-                            <td>{travel.timeEnd}</td>
-                            <td>{travel.type.replace("Labor", "")}</td>
-                            <td>
-                              <button>
-                                <FcEmptyTrash onClick={(e) => handleRemoveLabourTime(e, travel)} />
-                              </button>
-                            </td>
-                          </tr>
-
-                        ))}
+                        {travelInOut
+                          .filter((travel) => travel.type.match('Labor'))
+                          .map((travel, index) => (
+                            <tr
+                              key={Object(travel)[index]}
+                              className="border-t-2 text-center border-gray-300"
+                            >
+                              <td>{travel.time}</td>
+                              <td>{travel.timeEnd}</td>
+                              <td>{travel.type.replace('Labor', '')}</td>
+                              <td>
+                                <button>
+                                  <FcEmptyTrash
+                                    onClick={(e) =>
+                                      handleRemoveLabourTime(e, travel)
+                                    }
+                                  />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </thead>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="block border-2 mt-2 mb-2 rounded-lg	p-2 min-w-[300px] mr-10">
+            <div className="block mx-2 border-2 mt-2 mb-2 rounded-lg	p-2 w-full md:mx-0">
               <h2 className="font-bold">Travel out</h2>
               <h3>(minutes)</h3>
 
@@ -786,18 +798,24 @@ const ReportSection = (props) => {
                   onChange={handleSetTravelOut}
                   value={travelOutContent}
                   type="number"
-                  className="mb-2 border px-1 py-1 rounded-lg border-zinc-700"
+                  className="w-[40%] mb-2 h-8 border px-1 py-1 rounded-lg border-zinc-700 md:w-[30%]"
                 ></input>
                 <div>
                   <h3 className="font-bold">Type</h3>
-                  <select onChange={handleSetTravelOutType} className="mb-2 border px-2 py-1 mt-2 rounded-lg text-center border-zinc-700">
+                  <select
+                    onChange={handleSetTravelOutType}
+                    className="w-[40%] mb-2 border h-8 px-2 py-1 mt-2 rounded-lg text-center border-zinc-700 md:w-[30%]"
+                  >
                     <option>Regular</option>
                     <option>Overtime</option>
                     <option>After mid-night</option>
                   </select>
                 </div>
                 <div>
-                  <button onClick={(e) => handleInsertTravelInOut(e, "TravelOut")} className="min-w-[100px] mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white">
+                  <button
+                    onClick={(e) => handleInsertTravelInOut(e, 'TravelOut')}
+                    className="min-w-[100px] h-8 mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
+                  >
                     Add
                   </button>
                   <div className="flex justify-evenly items-center w-full h-full">
@@ -808,17 +826,26 @@ const ReportSection = (props) => {
                           <th className="w-[px]">Type</th>
                           <th></th>
                         </tr>
-                        {travelInOut.filter(travel => travel.type.match("Out")).map((travel, index) => (
-                          <tr key={Object(travel)[index]} className="border-t-2 text-center border-gray-300">
-                            <td>{travel.time}</td>
-                            <td>{travel.type.replace("Out", "")}</td>
-                            <td>
-                              <button>
-                                <FcEmptyTrash onClick={(e) => handleRemoveTravelInOut(e, travel)} />
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                        {travelInOut
+                          .filter((travel) => travel.type.match('Out'))
+                          .map((travel, index) => (
+                            <tr
+                              key={Object(travel)[index]}
+                              className="border-t-2 text-center border-gray-300"
+                            >
+                              <td>{travel.time}</td>
+                              <td>{travel.type.replace('Out', '')}</td>
+                              <td>
+                                <button>
+                                  <FcEmptyTrash
+                                    onClick={(e) =>
+                                      handleRemoveTravelInOut(e, travel)
+                                    }
+                                  />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </thead>
                     </table>
                   </div>
@@ -837,15 +864,15 @@ const ReportSection = (props) => {
         />
       )}
 
-      <div className="em:ml-5 mr-14 ml-14 h-full py-3 border-2 mt-2 rounded-lg">
+      <div className="w-[100%] ml-0 px-2 md:w-[100%] h-full py-2 border-2 mt-2 rounded-lg">
         <h2 className="font-bold text-blue-600 mb-5 ml-2">Report:</h2>
         <textarea
           onChange={(event) => setReport(event.target.value)}
-          className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-zinc-700"
+          className="w-[96%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
           placeholder=" Write your report here..."
           name="report"
           rows="12"
-          cols={width > 390 ? "150" : "49"}
+          cols={width > 390 ? '150' : '49'}
           defaultValue={report}
           disabled={enableInput}
         />
@@ -866,7 +893,7 @@ const ReportSection = (props) => {
           )}
           <button
             onClick={handleShowModalReport}
-            className="min-w-[100px] drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white"
+            className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white text-sm"
           >
             {adm ? "Send report" : "Approve report"}
           </button>

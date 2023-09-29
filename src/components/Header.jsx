@@ -1,36 +1,34 @@
-import React from "react";
-import Logo from "../assets/TCI-name-logo.jpg";
-import ProfilePic from "../assets/Profile-pic.jpg";
-import { Link, useLocation } from "react-router-dom";
-import Search from "./summary/Search";
-import Filter from "./summary/Filter";
-import { useWindowWidth } from "@react-hook/window-size";
-import { useEffect, useState } from "react";
-import { UserService } from "../service/user/UserService";
-
+import React from 'react';
+import Logo from '../assets/TCI-name-logo.jpg';
+import ProfilePic from '../assets/Profile-pic.jpg';
+import { Link, useLocation } from 'react-router-dom';
+import Search from './summary/Search';
+import Filter from './summary/Filter';
+import { useWindowWidth } from '@react-hook/window-size';
+import { useEffect, useState } from 'react';
+import { UserService } from '../service/user/UserService';
 
 const Header = () => {
   const width = useWindowWidth();
   const location = useLocation();
-  const [ user,setUser ] = useState([]);
+  const [user, setUser] = useState([]);
 
-  useEffect(() =>{
-
+  useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem('token');
       const user = await UserService.user(token);
       // console.log(user[0]['name']);
-       setUser(user[0]);
+      setUser(user[0]);
     }
     fetchData();
-  }, [])
+  }, []);
 
   return (
-    <div>
-      <div className="em:block em:ml-5 em:mr-5	flex justify-between align-center mt-8 ml-14 mr-14 ">
-        <Link to={location.pathname === "/summary" ? "/account" : "#"}>
-          <div className="em:ml-8 em:mr-8 em:justify-between flex justify-evenly align-center">
-            <div className="em:flex flex">
+    <div className="w-[100vw] md:w-[100%]">
+      <div className="flex flex-col items-start px-5 md:flex-row px-5 justify-between mt-8 items-center">
+        <Link to={location.pathname === '/summary' ? '/account' : '#'}>
+          <div className="flex justify-between w-[100%] md:ml-2 mr-8 items-center">
+            <div className="flex justify-between md:justify-start">
               <img
                 className="em:mt-0 object-scale-down h-9 w-18 rounded-full mt-1 mr-2"
                 src={ProfilePic}
@@ -52,20 +50,18 @@ const Header = () => {
             ) : null}
           </div>
         </Link>
-
-        {location.pathname === "/summary" ? <Search /> : null}
-        {location.pathname === "/summary" ? <Filter /> : null}
-
+        {location.pathname === '/summary' ? <Search /> : null}
+        {location.pathname === '/summary' ? <Filter /> : null}
         <div>
           <img
-            className="em:hidden object-scale-down h-12 w-24"
+            className="hidden md:block object-scale-down h-12 w-24"
             src={Logo}
             alt="Techni-Connection"
           ></img>
         </div>
       </div>
       <div>
-        <hr className="em:ml-8 em:mr-8 my-6 h-0.5 ml-14 mr-14 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+        <hr className="mx-5 my-2 md:mx-5 h-0.5  border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
       </div>
     </div>
   );
