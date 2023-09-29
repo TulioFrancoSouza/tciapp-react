@@ -54,7 +54,7 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
       if (newTicket.length > 0) {
         this.setState({ data: newTicket });
       }
-    }, 5000);
+    }, 40000);
     return () => clearInterval(interval);
 
   }
