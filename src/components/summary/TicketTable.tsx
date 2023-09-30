@@ -48,14 +48,14 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
           const ticket = await TicketService.ticket(token, id);
           tk = ticket[0];
           console.log(ticket[0]);
-          await this.delay(5000);
+          await this.delay(10000);
         }
         newTicket.push(tk);
       }
       if (newTicket.length > 0) {
         this.setState({ data: newTicket });
       }
-    }, 40000);
+    }, 30000);
     return () => clearInterval(interval);
 
   }
