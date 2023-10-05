@@ -95,7 +95,7 @@ const TickeInfo = (props) => {
     const data = {
       send: true,
       technician: ticketResponsible,
-      schedule: dateSchedule != null ? dateSchedule : dateFormat(new Date.now(), 'yyyy-mm-dd') ,
+      schedule: dateSchedule != null ? dateSchedule : dateFormat(Date.now(), 'yyyy-mm-dd') ,
       status: 'Accepted',
     };
 
