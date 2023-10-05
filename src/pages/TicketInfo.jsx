@@ -72,6 +72,7 @@ const TickeInfo = (props) => {
 
           let notesInline = '';
           ticket[i].note.map((row) => {
+            
             return (notesInline = notesInline + row.note + '<br>');
           });
 

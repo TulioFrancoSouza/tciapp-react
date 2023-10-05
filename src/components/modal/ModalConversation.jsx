@@ -6,17 +6,19 @@ const ModalConversation = (props) => {
   const [ticketNote, setTicketNote] = useState('');
 
   function update() {
-    const notesAndName = props.notes.technician + ' - ' + ticketNote;
-
+    const notesAndName = 
+          "<span style='color:blue'>" +props.tickets.technician + "</span>"
+          + " - <span style='color:gray'>" + new Date().toUTCString() + "</span>"
+          + '<br>' + ticketNote + '<p>';   
     const data = {
       send: true,
       note: [{ note: notesAndName }],
-      status: props.notes.status,
+      status: props.tickets.status,
     };
 
     const ticket = TicketService.ticketPatch(
       localStorage.getItem('token'),
-      props.notes.id,
+      props.tickets.id,
       data
     );
 
