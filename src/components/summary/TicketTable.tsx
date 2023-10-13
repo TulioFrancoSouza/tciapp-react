@@ -42,7 +42,7 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
         const id = tk.id;
         if (tk.status === "Pending" || tk.status === "Accepted") {
             const ticket = await TicketService.ticketMsp(token, id);
-            tk.status = ticket[0].status;
+            tk = ticket[0];
             console.log(tk);
         }
         newTicket.push(tk);
