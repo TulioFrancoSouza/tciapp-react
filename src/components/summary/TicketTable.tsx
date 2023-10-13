@@ -88,7 +88,7 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
                 String(item.assignto).toLowerCase().includes(String(this.context.query).toLowerCase()) ||
                 String(item.status).toLowerCase().includes(String(this.context.query).toLowerCase())
             ).sort((a, b) => {
-              if (a.id < b.id) {
+              if (a.id > b.id) {
                 return -1;
               }else{
                 return 0;
