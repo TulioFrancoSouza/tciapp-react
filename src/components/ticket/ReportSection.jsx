@@ -130,7 +130,8 @@ const ReportSection = (props) => {
         console.log("void");
     }
 
-    const newTravelInOut = [
+
+    let newTravelInOut = [
       ...travelInOut.filter(row => row.type !== resolveTravelInOutType),
       {
         id: String(Math.random().toFixed(2)),
@@ -140,7 +141,8 @@ const ReportSection = (props) => {
       }
     ];
 
-    console.log(newTravelInOut);
+    newTravelInOut = newTravelInOut.filter(row => row.time !== '');
+    newTravelInOut = newTravelInOut.filter(row => row.travelEnd !== '');
     let rtlTravelFrom = null;
     let otlTravelFrom = null;
     let amtlTravelFrom = null;
@@ -183,7 +185,6 @@ const ReportSection = (props) => {
         amtlDeparture =
           row.type === 'After mid-nightLabor' ? row.timeEnd : null;
       }
-
       return ""
     })
 
@@ -435,15 +436,15 @@ const ReportSection = (props) => {
 
 
 
-          if (
-            ticket[i].status === 'Review' &&
-            !ticket[ticket.length - 1].admin
-          ) {
+          if (ticket[i].status === 'Closed') {
+            setEnableInput(true);
+          } else if (
+            ticket[i].status === 'Closed' &&
+            !ticket[ticket.length - 1].admin) {
             setEnableInput(true);
           } else if (
             ticket[i].status === 'Review' &&
-            ticket[ticket.length - 1].admin
-          ) {
+            ticket[ticket.length - 1].admin) {
             setEnableInput(false);
           } else {
             setEnableInput(false);
@@ -454,7 +455,7 @@ const ReportSection = (props) => {
       }
     }
     fetchData();
-  }, [props.ticketId]);
+  }, [props.id]);
 
   function save(send) {
     let status = "";
@@ -464,8 +465,8 @@ const ReportSection = (props) => {
       status = "Closed"
     }
 
-    const schedule = props.schedule != null ? 
-        props.schedule : dateFormat(Date.now(), 'yyyy-mm-dd HH:MM:ss');
+    const schedule = props.schedule != null ?
+      props.schedule : dateFormat(Date.now(), 'yyyy-mm-dd HH:MM:ss');
 
     const data = {
       send: send,
@@ -596,7 +597,9 @@ const ReportSection = (props) => {
           <div className="em:block em:ml-1 em:mr-5 mb-2 flex justify-start flex-wrap text-xs text-left ml-2 mr-1 mt-2 py-1">
             <div className="em:flex-wrap mr-2 block w-full">
               <input
+              disabled={enableInput}
                 onChange={handleSetExtraExpenses}
+                value={extraExpensesContent}
                 className="w-full h-8 mb-2 border px-2 py-1 rounded-lg border-zinc-700"
                 type="text"
                 placeholder=" Insert an item description + Price. e.g 'Switch Cisco 12.000 + $1.250,50"
@@ -605,6 +608,7 @@ const ReportSection = (props) => {
 
             <div className="flex em:flex-wrap align-middle">
               <button
+                 disabled={enableInput}
                 className="min-w-[100px] h-8 mr-4 drop-shadow-lg align-baseline border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                 onClick={handleInsertExtraExpense}
               >
@@ -628,7 +632,7 @@ const ReportSection = (props) => {
                       </div>
                     </td>
                   </tr>
-                  ))}
+                ))}
               </thead>
             </table>
           </div>
@@ -642,6 +646,7 @@ const ReportSection = (props) => {
             <h2 className="text-center font-bold text-blue-600">Date</h2>
             <div className="text-center">
               <input
+              disabled={enableInput}
                 defaultValue={dateFormat(schedule, "yyyy-mm-dd")}
                 type="date"
                 className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
@@ -655,6 +660,7 @@ const ReportSection = (props) => {
 
               <div>
                 <input
+                disabled={enableInput}
                   onChange={handleSetTravelIn}
                   value={travelInContent}
                   type="number"
@@ -674,6 +680,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
+                  disabled={enableInput}
                     onClick={(e) => handleInsertTravelInOut(e, 'TravelIn')}
                     className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
@@ -699,6 +706,7 @@ const ReportSection = (props) => {
                               <td>
                                 <button>
                                   <FcEmptyTrash
+                                  disabled={enableInput}
                                     onClick={(e) =>
                                       handleRemoveTravelInOut(e, travel)
                                     }
@@ -720,6 +728,7 @@ const ReportSection = (props) => {
                 <div>
                   <h3>Start</h3>
                   <input
+                    disabled={enableInput}
                     onChange={handleSetLaborTimeStart}
                     type="time"
                     className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
@@ -730,6 +739,7 @@ const ReportSection = (props) => {
                   <h3>End</h3>
 
                   <input
+                    disabled={enableInput ? true : false}
                     onChange={handleSetLaborTimeEnd}
                     type="time"
                     className="mb-2 h-8 border px-5 py-1 rounded-lg border-zinc-700"
@@ -751,6 +761,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
+                    disabled={enableInput ? true : false}
                     onClick={(e) => handleInsertTravelInOut(e, 'LaborTime')}
                     className="min-w-[100px] h-8 drop-shadow-lg mt-2 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
@@ -776,7 +787,9 @@ const ReportSection = (props) => {
                               <td>{travel.timeEnd}</td>
                               <td>{travel.type.replace('Labor', '')}</td>
                               <td>
-                                <button>
+                                <button
+                                  disabled={enableInput}
+                                >
                                   <FcEmptyTrash
                                     onClick={(e) =>
                                       handleRemoveLabourTime(e, travel)
@@ -798,6 +811,7 @@ const ReportSection = (props) => {
 
               <div>
                 <input
+                disabled={enableInput}
                   onChange={handleSetTravelOut}
                   value={travelOutContent}
                   type="number"
@@ -816,6 +830,7 @@ const ReportSection = (props) => {
                 </div>
                 <div>
                   <button
+                    disabled={enableInput}
                     onClick={(e) => handleInsertTravelInOut(e, 'TravelOut')}
                     className="min-w-[100px] h-8 mt-2 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white text-sm"
                   >
@@ -841,6 +856,7 @@ const ReportSection = (props) => {
                               <td>
                                 <button>
                                   <FcEmptyTrash
+                                    disabled={enableInput}
                                     onClick={(e) =>
                                       handleRemoveTravelInOut(e, travel)
                                     }
@@ -896,6 +912,7 @@ const ReportSection = (props) => {
           )}
           <button
             onClick={handleShowModalReport}
+            disabled={enableInput ? true : false}
             className="min-w-[100px] h-8 flex items-center justify-center drop-shadow-lg mr-4 mb-10 mt-4 border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-2 text-white text-sm"
           >
             {adm ? "Approve report" : "Send report"}

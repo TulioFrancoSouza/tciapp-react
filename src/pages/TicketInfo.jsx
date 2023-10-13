@@ -16,6 +16,7 @@ import dateFormat from 'dateformat';
 import { Oval } from 'react-loader-spinner';
 
 const TickeInfo = (props) => {
+
   const navigate = useNavigate();
   const ticketData = Tickets;
   const { tId } = useParams();
@@ -29,10 +30,10 @@ const TickeInfo = (props) => {
   const [ticketSchedule, setTicketSchedule] = useState('');
   const [ticketDate, setTicketDate] = useState('');
   const [ticketTime, setTicketTime] = useState('');
-  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] =
-    useState(false);
+  const [showModalTicketRespSchedule, setShowModalTicketRespSchedule] = useState(false);
   const [showModalConversation, setShowModalConversation] = useState(false);
-  const [load, setLoad] = useState('');
+  const [load, setLoad] = useState(false);
+  const [hiddenButton, setHiddenButton] = useState(false);
 
   const [ticketValue, setTicketValue] = useState('');
   const [ticket, setTicket] = useState('');
@@ -42,7 +43,9 @@ const TickeInfo = (props) => {
   useEffect(() => {
     async function fetchData() {
       const token = localStorage.getItem('token');
+      await setLoad(true);
       const ticket = await TicketService.ticket(token, tId);
+      await setLoad(false);
       setTicket(ticket);
       for (let i = 0; i < ticket.length; i++) {
         if (ticket[i].id === tId) {
@@ -55,7 +58,6 @@ const TickeInfo = (props) => {
             ticket[i].status === 'Closed'
           ) {
             setCheckAgreement(true);
-            setEnableInput(true);
             showReportSectionTrue(true);
           } else if (
             ticket[i].status === 'Review' &&
@@ -63,16 +65,34 @@ const TickeInfo = (props) => {
             ticket[i].admin
           ) {
             showReportSectionTrue(true);
-            setEnableInput(false);
             setCheckAgreement(true);
           } else {
             setCheckAgreement(false);
             setEnableInput(false);
           }
 
+
+          if (ticket[i].status === 'Closed') {
+            setEnableInput(true);
+            setHiddenButton(true);
+          } else if (
+            ticket[i].status === 'Closed' &&
+            !ticket[ticket.length - 1].admin) {
+            setEnableInput(true);
+            setHiddenButton(true);
+          } else if (
+            ticket[i].status === 'Review' &&
+            ticket[ticket.length - 1].admin) {
+            setEnableInput(false);
+            setHiddenButton(false);
+          } else {
+            setEnableInput(false);
+            setHiddenButton(false);
+          }
+
           let notesInline = '';
           ticket[i].note.map((row) => {
-            
+
             return (notesInline = notesInline + row.note + '<br>');
           });
 
@@ -95,7 +115,7 @@ const TickeInfo = (props) => {
     const data = {
       send: true,
       technician: ticketResponsible,
-      schedule: dateSchedule != null ? dateSchedule : dateFormat(Date.now(), 'yyyy-mm-dd') ,
+      schedule: dateSchedule != null ? dateSchedule : dateFormat(Date.now(), 'yyyy-mm-dd'),
       status: 'Accepted',
     };
 
@@ -125,6 +145,20 @@ const TickeInfo = (props) => {
         window.location.reload(true);
       }
     });
+
+    if (ticket.status === 'Closed') {
+      setEnableInput(true);
+    } else if (
+      ticket.status === 'Closed' &&
+      !ticket[ticket.length - 1].admin) {
+      setEnableInput(true);
+    } else if (
+      ticket.status === 'Review' &&
+      ticket[ticket.length - 1].admin) {
+      setEnableInput(false);
+    } else {
+      setEnableInput(false);
+    }
   }
 
   const handleSetShowModalAgreement = () => setshowModalAgreement(true);
@@ -180,190 +214,206 @@ const TickeInfo = (props) => {
           </button>
         </Link>
       </div>
-      <div className="px-5 md:px-5 mt-5 text-sm">
-        <h2 className="ml-0 mr-0 md:font-bold text-xl text-blue-600">
-          Ticket Information
-        </h2>
-        <div className="flex flex-col w-full mt-4 md:flex-row w-[100%]">
-          <div className="">
-            <h2 className="font-bold">Ticket:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.id}
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Client:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[280px]">
-              {ticketValue.client}
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Address:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[300px]">
-              {ticketValue.address}
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Contact:</h2>
-            <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[200px]">
-              {ticketValue.contact} John Smith
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Phone:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[150px]">
-              {ticketValue.phone}
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col w-full md:flex-row">
-          <div className="min-w-none md:min-w-[40%]">
-            <h2 className="font-bold">Title:</h2>
-            <div className="overflow-auto max-w-[100%] md:px-2 h-8 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
-              {ticketValue.title}
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Created at:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.createdAt}
-            </div>
-          </div>
-          <div className="ml-0 md:ml-4">
-            <h2 className="font-bold">Type:</h2>
-            <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
-              {ticketValue.type}
-            </div>
-          </div>
-        </div>
-        <div className="ml-0 mr-0 md:w-[1200]">
-          <h2 className="font-bold">Description:</h2>
-          <div className="overflow-y-auto mb-2 bg-gray-100 h-20 border px-2 py-1 rounded-lg border-zinc-700">
-            {ticketValue.description}
-          </div>
-        </div>
-        <div className="flex flex-col items-center w-full md:flex-row">
-          <div className="flex flex-col w-full md:flex-row w-1/2">
-            <div className="">
-              <h3 className="font-bold">Technician:</h3>
-              <input
-                onChange={(event) => setTicketResponsible(event.target.value)}
-                className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
-                defaultValue={ticketResponsible}
-                //disabled={enableInput}
-              />
-            </div>
-            <div className="ml-0 md:ml-4">
-              <h3 className="font-bold">Date:</h3>
-              <input
-                onChange={(event) => setTicketDate(event.target.value)}
-                className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
-                type="date"
-                defaultValue={dateFormat(ticketValue.schedule, 'yyyy-mm-dd')}
-                //disabled={enableInput}
-              />
-            </div>
-            <div className="ml-0 md:ml-4">
-              <h3 className="font-bold">Time(optional):</h3>
-              <input
-                onChange={(event) => setTicketTime(event.target.value)}
-                className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
-                type="time"
-                defaultValue={
-                  ticketValue.schedule != null
-                    ? dateFormat(ticketValue.schedule, 'HH:MM:ss')
-                    : '00:00:00'
-                }
-                //disabled={enableInput}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col w-full justify-start md:flex-row w-1/2 justify-between">
-            <div className="flex flex-col md:flex-row">
-              <div className="flex items-center">
-                <input
-                  onClick={handlesetCheckAgreement}
-                  className="mr-3"
-                  type="checkbox"
-                  value="agreed"
-                  disabled={showReportSection === true ? true : false}
-                  defaultChecked={checkAgreement}
-                />
-                <span className="mr-2">
-                  I agree with the terms and conditions.
-                </span>
-              </div>
-              <div className="flex items-center">
-                <Link to="/terms">
-                  <p className="underline">Read the agreement</p>
-                </Link>
-              </div>
-            </div>
-            <div className="flex flex-row justify-start items-center my-5 md:w-1/2 justify-end">
-              {showReportSection === false ? (
-                <>
-                  <button
-                    onClick={handleAcceptTicket}
-                    className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
-                  >
-                    Accept
-                  </button>
-                  <button
-                    onClick={showRejectSectionTrue}
-                    className="min-w-[100px] mr-4 drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
-                  >
-                    Reject
-                  </button>
-                </>
-              ) : null}
-              {load && (
-                <Oval
-                  height="20"
-                  width="20"
-                  radius="10"
-                  color="black"
-                  ariaLabel="oval-loading"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                />
-              )}
-              {showReportSection === true ? (
-                <>
-                  <button
-                    className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white text-sm"
-                    onClick={update}
-                  >
-                    Update
-                  </button>
-                </>
-              ) : null}
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <hr className="md:mt-3 mb-6 h-0.5 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
-        </div>
-        <div className="py-5 ml-0 mr-0 md:h-full py-2 border-2 mt-2 rounded-lg">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
-            <button
-              onClick={handleShowModalConversation}
-              className="min-w-[100px] h-8 p-1 drop-shadow-lg  mr-3 mt-3 md:mt-0 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white text-sm"
-            >
-              Open chat
-            </button>
-          </div>
-
-          <div
-            className="w-[95%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
-            style={{width:"99%",padding:'50px'}}
-            name="report"
-            dangerouslySetInnerHTML={{ __html: notes }}
-          ></div>
-        </div>
+      <div className="flex items-center justify-center">
+        {load && <Oval height="100" width="100" color='black'
+          ariaLabel='oval-loading' strokeWidth={1}
+          strokeWidthSecondary={1} />}
       </div>
+      {!load &&
+        <div className="px-5 md:px-5 mt-5 text-sm">
+          <h2 className="ml-0 mr-0 md:font-bold text-xl text-blue-600">
+            Ticket Information
+          </h2>
+          <div className="flex flex-col w-full mt-4 md:flex-row w-[100%]">
+            <div className="">
+              <h2 className="font-bold">Ticket:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border min-w-[75px] px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.id}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Client:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border min-w-[200px] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[280px]">
+                {ticketValue.client}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Address:</h2>
+              <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border  px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[300px]">
+                {ticketValue.address}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Contact:</h2>
+              <div className="overflow-y-auto mb-2 h-8 bg-gray-100 border min-w-[100x] px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[200px]">
+                {ticketValue.contact} John Smith
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Phone:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700 w-[100%] md:w-[150px]">
+                {ticketValue.phone}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:flex-row">
+            <div className="min-w-none md:min-w-[40%]">
+              <h2 className="font-bold">Title:</h2>
+              <div className="overflow-auto max-w-[100%] md:px-2 h-8 mb-2 bg-gray-100 border py-1 rounded-lg border-zinc-700">
+                {ticketValue.title}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Created at:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.createdAt}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Type:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.type}
+              </div>
+            </div>
+            <div className="ml-0 md:ml-4">
+              <h2 className="font-bold">Status:</h2>
+              <div className="mb-2 h-8 bg-gray-100 border px-2 py-1 rounded-lg border-zinc-700">
+                {ticketValue.status}
+              </div>
+            </div>
 
+          </div>
+          <div className="ml-0 mr-0 md:w-[1200]">
+            <h2 className="font-bold">Description:</h2>
+            <div className="overflow-y-auto mb-2 bg-gray-100 h-20 border px-2 py-1 rounded-lg border-zinc-700">
+              {ticketValue.description}
+            </div>
+          </div>
+          <div className="flex flex-col items-center w-full md:flex-row">
+            <div className="flex flex-col w-full md:flex-row w-1/2">
+              <div className="">
+                <h3 className="font-bold">Technician:</h3>
+                <input
+                  disabled={enableInput ? true : false}
+                  onChange={(event) => setTicketResponsible(event.target.value)}
+                  className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
+                  defaultValue={ticketResponsible}
+                />
+              </div>
+              <div className="ml-0 md:ml-4">
+                <h3 className="font-bold">Date:</h3>
+                <input
+                  onChange={(event) => setTicketDate(event.target.value)}
+                  className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
+                  type="date"
+                  defaultValue={dateFormat(ticketValue.schedule, 'yyyy-mm-dd')}
+                //disabled={enableInput}
+                />
+              </div>
+              <div className="ml-0 md:ml-4">
+                <h3 className="font-bold">Time(optional):</h3>
+                <input
+                  onChange={(event) => setTicketTime(event.target.value)}
+                  className="mb-2 h-8 border px-2 py-1 rounded-lg border-zinc-700"
+                  type="time"
+                  defaultValue={
+                    ticketValue.schedule != null
+                      ? dateFormat(ticketValue.schedule, 'HH:MM:ss')
+                      : '00:00:00'
+                  }
+                //disabled={enableInput}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col w-full justify-start md:flex-row w-1/2 justify-between">
+              <div className="flex flex-col md:flex-row">
+                <div className="flex items-center">
+                  <input
+                    onClick={handlesetCheckAgreement}
+                    className="mr-3"
+                    type="checkbox"
+                    value="agreed"
+                    disabled={showReportSection === true ? true : false}
+                    defaultChecked={checkAgreement}
+                  />
+                  <span className="mr-2">
+                    I agree with the terms and conditions.
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <Link to="/terms">
+                    <p className="underline">Read the agreement</p>
+                  </Link>
+                </div>
+              </div>
+              <div className="flex flex-row justify-start items-center my-5 md:w-1/2 justify-end">
+                {showReportSection === false ? (
+                  <>
+                    <button
+                      onClick={handleAcceptTicket}
+                      className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={showRejectSectionTrue}
+                      className="min-w-[100px] mr-4 drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"
+                    >
+                      Reject
+                    </button>
+                  </>
+                ) : null}
+                {load && (
+                  <Oval
+                    height="20"
+                    width="20"
+                    radius="10"
+                    color="black"
+                    ariaLabel="oval-loading"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  />
+                )}
+                {showReportSection === true ? (
+                  <>
+                  {!hiddenButton &&
+                    <button
+                      className="mt-2 md:mt-0 min-w-[100px] h-8 drop-shadow-lg border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 p-1 text-white text-sm"
+                      onClick={update}
+                    >
+                      Update
+                    </button>
+                    }
+                  </>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <hr className="md:mt-3 mb-6 h-0.5 border-t-0 bg-gray-300 opacity-100 dark:opacity-50" />
+          </div>
+          <div className="py-5 ml-0 mr-0 md:h-full py-2 border-2 mt-2 rounded-lg">
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="font-bold text-blue-600 mb-5 ml-2">Chat:</h2>
+              <button
+                onClick={handleShowModalConversation}
+                className="min-w-[100px] h-8 p-1 drop-shadow-lg  mr-3 mt-3 md:mt-0 border-blue-600 rounded-lg bg-blue-600 hover:bg-blue-900 text-white text-sm"
+              >
+                Open chat
+              </button>
+            </div>
+
+            <div
+
+              className="w-[95%] md:w-[99%] mb-1 mx-2 border rounded-lg border-zinc-700"
+              style={{ width: "99%", height: "200px" ,padding: '50px',overflow: 'scroll'}}
+              name="report"
+              dangerouslySetInnerHTML={{ __html: notes }}
+            ></div>
+          </div>
+        </div>
+      }
       {showRejectSection ? (
         <TicketRejectSection event={hidenRejectSection} />
       ) : null}
@@ -398,6 +448,7 @@ const TickeInfo = (props) => {
           hideModalConversation={handleHideModalConversation}
         />
       ) : null}
+
     </div>
   );
 };

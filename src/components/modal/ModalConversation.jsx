@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { TicketService } from '../../service/ticket/TicketService';
+import { Oval } from 'react-loader-spinner'
 
 const ModalConversation = (props) => {
   const [ticket, setTicket] = useState(props.notes);
   const [ticketNote, setTicketNote] = useState('');
+  const [load, setLoad] = useState(false);
+
 
   function update() {
-    const notesAndName = 
-          "<span style='color:blue'>" +props.tickets.technician + "</span>"
-          + " - <span style='color:gray'>" + new Date().toUTCString() + "</span>"
-          + '<br>' + ticketNote + '<p>';   
+    const notesAndName =
+      "<span style='color:blue'>" + props.tickets.technician + "</span>"
+      + " - <span style='color:gray'>" + new Date().toUTCString() + "</span>"
+      + '<br>' + ticketNote + '<p>';
     const data = {
       send: true,
       note: [{ note: notesAndName }],
@@ -21,7 +24,7 @@ const ModalConversation = (props) => {
       props.tickets.id,
       data
     );
-
+    setLoad(true);
     ticket.then((response) => {
       if (response != null) {
         window.location.reload(true);
@@ -45,13 +48,14 @@ const ModalConversation = (props) => {
             <h2 className="font-bold text-blue-600 mb-1 ml-2">Chat:</h2>
             <div className="block w-full">
               <div className="mt-3 em:flex-wrap flex justify-center">
-                 <div
-                    className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-gray-300"
-                    style={{width:"99%",padding:'50px'}}
-                    name="report"
-                    dangerouslySetInnerHTML={{__html: props.notes}}
-              >
-              </div>
+                <div
+                  
+                  className="em:max-w-[100px] mb-1 mx-2 border rounded-lg border-gray-300"
+                  style={{ width: "99%", height:"200px",padding: '50px', overflow: 'scroll' }}
+                  name="report"
+                  dangerouslySetInnerHTML={{ __html: props.notes }}
+                >
+                </div>
 
 
               </div>
@@ -73,12 +77,18 @@ const ModalConversation = (props) => {
                 />
               </div>
               <div className="min-w-full mt-4 em:flex-wrap flex justify-center">
-                <button
-                  onClick={update}
-                  className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
-                >
-                  Send
-                </button>
+
+                {load && <Oval height="30" width="30" color='black'
+                  ariaLabel='oval-loading' strokeWidth={1}
+                  strokeWidthSecondary={1} />}
+                {!load &&
+                  <button
+                    onClick={update}
+                    className="min-w-[100px] mr-4 drop-shadow-lg border-lime-600 rounded-lg bg-lime-600 hover:bg-lime-900 p-1 text-white"
+                  >
+                    Send
+                  </button>
+                }
 
                 <button
                   className="min-w-[100px] drop-shadow-lg border-red-600 rounded-lg bg-red-600 hover:bg-red-900 p-1 text-white"

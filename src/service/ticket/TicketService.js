@@ -17,6 +17,24 @@ const ticket = async (token,id) => {
   }
 };
 
+
+const ticketMsp = async (token,id) => {
+  try {
+    let config = {
+      headers: {
+        Authorization: token,
+      },
+      params:{id:id}
+    };
+    const { data } = await ApiClient.get("/ticket/msp/request", config);
+    if (!data) throw new Error("Error.");
+    return await data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error.");
+  }
+};
+
 const ticketPatch = async (token, id,dataBody) => {
   try {
     let config = {
@@ -35,5 +53,6 @@ const ticketPatch = async (token, id,dataBody) => {
 
 export const TicketService = {
   ticket,
+  ticketMsp,
   ticketPatch
 };

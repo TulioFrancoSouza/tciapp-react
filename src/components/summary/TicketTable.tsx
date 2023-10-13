@@ -1,10 +1,9 @@
 import React from "react";
-import { FcAbout } from "react-icons/fc";
+import { FcAbout } from "react-icons/fc/index.esm";
 import { Link } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { TicketService } from "../../service/ticket/TicketService"
 import { Oval } from 'react-loader-spinner';
-
 
 interface SummaryComponentState {
   data: any;
@@ -14,6 +13,7 @@ interface SummaryComponentState {
 class TicketTable extends React.Component<{}, SummaryComponentState> {
   static contextType = SearchContext;
   context!: React.ContextType<typeof SearchContext>;
+  interval: any;
 
   constructor(props) {
     super(props);
@@ -23,42 +23,42 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
       load: false
     }
   }
-  
-
-  delay(delay) {
-    return new Promise(res => setTimeout(res, delay));
-  }
-
 
   async componentDidMount() {
 
-    let ticket: Array<{}> = [];
+    let ticket: Array<any> = [];
     let token = localStorage.getItem('token');
+
     this.setState({ load: true });
     ticket = await TicketService.ticket(token);
     const processTicket = ticket.filter((item: any) => item.id !== "0");
     this.setState({ data: processTicket });
-    this.setState({ load: false }); 
+    this.setState({ load: false });
 
-    const interval = setInterval(async () => {
-      const newTicket: any = []
-      for (var tk of await this.state.data) {
+
+    this.interval = await setInterval(async () => {
+      const newTicket: any = [];
+      for (var tk of processTicket) {
         const id = tk.id;
         if (tk.status === "Pending" || tk.status === "Accepted") {
-          const ticket = await TicketService.ticket(token, id);
-          tk = ticket[0];
-          console.log(ticket[0]);
-          await this.delay(20000);
+            const ticket = await TicketService.ticketMsp(token, id);
+            tk.status = ticket[0].status;
+            console.log(tk);
         }
         newTicket.push(tk);
       }
-      if (newTicket.length > 0) {
-        this.setState({ data: newTicket });
-      }
-    }, 30000);
-    return () => clearInterval(interval);
 
+      if (newTicket.length > 0) {
+        console.log("reload")
+        await this.setState({ data: newTicket });
+      }
+    }, 20000);
   }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
 
   render() {
     return (
@@ -87,7 +87,13 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
                 String(item.address).toLowerCase().includes(String(this.context.query).toLowerCase()) ||
                 String(item.assignto).toLowerCase().includes(String(this.context.query).toLowerCase()) ||
                 String(item.status).toLowerCase().includes(String(this.context.query).toLowerCase())
-            ).map((ticket: any, index) => (
+            ).sort((a, b) => {
+              if (a.id < b.id) {
+                return -1;
+              }else{
+                return 0;
+              }
+            }).map((ticket: any) => (
               <tr key={ticket.id} className="border-t-2 border-b-2 border-gray-300 text-left" hidden={ticket.id === 0 ? true : false} >
                 <td className="py-2">{ticket.id}</td>
                 <td className="py-2">{ticket.client}</td>
@@ -110,5 +116,3 @@ class TicketTable extends React.Component<{}, SummaryComponentState> {
 };
 
 export default TicketTable;
-
-
